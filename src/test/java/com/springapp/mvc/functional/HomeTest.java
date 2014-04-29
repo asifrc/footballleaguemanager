@@ -1,0 +1,36 @@
+package com.springapp.mvc.functional;
+
+import com.springapp.mvc.model.Player;
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+
+import static org.junit.Assert.assertEquals;
+
+public class HomeTest {
+    private WebDriver driver = new HtmlUnitDriver();
+
+    @Test
+    public void shouldListPlayerName() throws Exception {
+        Player bob = new Player("Bob");
+
+        driver.get("http://localhost:8080");
+        WebElement player_1 = driver.findElement(By.id("player-1"));
+
+        assertEquals("Bob", player_1.getText());
+    }
+
+    @Test
+    public void shouldListTwoPlayerNames() {
+        Player bob = new Player("Bob");
+        Player sally = new Player("Sally");
+
+        driver.get("http://localhost:8080");
+        WebElement player_list = driver.findElement(By.id("player-list"));
+
+        assertEquals("Bob", player_list.findElement(By.id("player-1")).getText());
+        assertEquals("Sally", player_list.findElement(By.id("player-2")).getText());
+    }
+}
