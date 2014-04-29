@@ -1,5 +1,6 @@
-package com.springapp.mvc.model;
+package com.springapp.mvc.unit.model;
 
+import com.springapp.mvc.model.Player;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
