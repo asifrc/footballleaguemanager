@@ -15,7 +15,7 @@ public class HomeTest {
 
     @Test
     public void shouldListPlayerName() throws Exception {
-        Player bob = new Player("Bob");
+        Player bob = new Player("Bob", "0");
 
         driver.get(BASE_URL);
         WebElement player_1 = driver.findElement(By.id("player-1"));
@@ -25,8 +25,8 @@ public class HomeTest {
 
     @Test
     public void shouldListTwoPlayerNames() {
-        Player bob = new Player("Bob");
-        Player sally = new Player("Sally");
+        Player bob = new Player("Bob", "0");
+        Player sally = new Player("Sally", "1");
 
         driver.get(BASE_URL);
         WebElement player_list = driver.findElement(By.id("player-list"));
