@@ -1,5 +1,6 @@
 package com.springapp.mvc.functional;
 
+import org.junit.After;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,12 @@ public class PlayerListTest {
             "./src/test/java/com/springapp/mvc/playerList1.txt";
     private static final String PLAYER_LIST_2 =
             "./src/test/java/com/springapp/mvc/playerList2.txt";
+
+    @After
+    public void tearDown() throws Exception {
+        driver.get(BASE_URL);
+        uploadFile(PLAYER_LIST_EMPTY);
+    }
 
     @Test
     public void shouldDisplaySorryMessageForEmptyPlayerList() {

@@ -1,8 +1,15 @@
 package com.springapp.mvc.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Player {
-    private final String name;
-    private final String number;
+    private String name;
+    private String number;
+
+
+    public Player() {
+    }
 
     public Player(String name, String number) {
         this.name = name;
@@ -13,7 +20,17 @@ public class Player {
         return number;
     }
 
+    public Player setNumber(String number) {
+        this.number = number;
+        return this;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public Player setName(String name) {
+        this.name = name;
+        return this;
     }
 }
