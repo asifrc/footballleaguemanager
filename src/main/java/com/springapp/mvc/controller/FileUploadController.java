@@ -4,7 +4,6 @@ import com.springapp.mvc.service.FileUploadService;
 import com.springapp.mvc.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +21,8 @@ public class FileUploadController {
     }
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
-    public String handleUpload(Model model, @RequestParam("file") MultipartFile file) {
-        if(!file.isEmpty()) {
-            playerService.setPlayerList(fileUploadService.createPlayerList(file));
-        }
-
+    public String handleUpload(@RequestParam("file") MultipartFile file) {
+        playerService.setPlayerList(fileUploadService.createPlayerList(file));
         return "redirect:/";
     }
 }
