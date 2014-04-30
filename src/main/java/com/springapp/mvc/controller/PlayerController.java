@@ -23,7 +23,7 @@ public class PlayerController {
 
     @RequestMapping(method = RequestMethod.GET)
 	public String listPlayers(ModelMap model) {
-		List<Player> playerList = playerService.getPlayers();
+        List<Player> playerList = playerService.getPlayerList();
         model.addAttribute("playerList", playerList);
 		return "hello";
 	}
