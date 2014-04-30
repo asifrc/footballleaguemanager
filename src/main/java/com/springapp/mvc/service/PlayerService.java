@@ -9,13 +9,13 @@ import java.util.List;
 @Component
 public class PlayerService {
 
-    private final ArrayList<Player> playerList;
+    private List<Player> playerList;
 
     public PlayerService() {
         this.playerList = new ArrayList<Player>();
     }
 
-    public PlayerService(ArrayList<Player> playerList) {
+    public PlayerService(List<Player> playerList) {
         this.playerList = playerList;
     }
 
@@ -31,5 +31,9 @@ public class PlayerService {
             }
         }
         return result;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 }
