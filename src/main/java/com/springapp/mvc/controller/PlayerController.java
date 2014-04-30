@@ -12,12 +12,12 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class PlayerController {
 
     private PlayerService playerService;
 
     @Autowired
-    public HomeController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
     }
 
