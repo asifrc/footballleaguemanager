@@ -10,9 +10,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Created by archoud on 4/29/14.
- */
 public class MenuTest {
     public static final String BASE_URL = "http://localhost:8080/";
     WebDriver driver = new HtmlUnitDriver();
