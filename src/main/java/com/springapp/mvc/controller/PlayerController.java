@@ -27,4 +27,9 @@ public class PlayerController {
         model.addAttribute("playerList", playerList);
 		return "hello";
 	}
+
+    @RequestMapping(value = "/find", method = RequestMethod.GET)
+    public String showFindPage() {
+        return "findPlayer";
+    }
 }

@@ -10,13 +10,14 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import static org.junit.Assert.assertEquals;
 
 public class HomeTest {
+    private static final String BASE_URL = "http://localhost:8080/";
     private WebDriver driver = new HtmlUnitDriver();
 
     @Test
     public void shouldListPlayerName() throws Exception {
         Player bob = new Player("Bob");
 
-        driver.get("http://localhost:8080");
+        driver.get(BASE_URL);
         WebElement player_1 = driver.findElement(By.id("player-1"));
 
         assertEquals("Bob", player_1.getText());
@@ -27,7 +28,7 @@ public class HomeTest {
         Player bob = new Player("Bob");
         Player sally = new Player("Sally");
 
-        driver.get("http://localhost:8080");
+        driver.get(BASE_URL);
         WebElement player_list = driver.findElement(By.id("player-list"));
 
         assertEquals("Bob", player_list.findElement(By.id("player-1")).getText());
