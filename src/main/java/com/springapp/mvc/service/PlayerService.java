@@ -9,10 +9,17 @@ import java.util.List;
 @Component
 public class PlayerService {
 
+    private final ArrayList<Player> playerList;
+
+    public PlayerService() {
+        this.playerList = new ArrayList<Player>();
+    }
+
+    public PlayerService(ArrayList<Player> playerList) {
+        this.playerList = playerList;
+    }
+
     public List<Player> getPlayers() {
-        List<Player> playerList = new ArrayList<Player>();
-        playerList.add(new Player("Bob", "0"));
-        playerList.add(new Player("Sally", "1"));
         return playerList;
     }
 }
