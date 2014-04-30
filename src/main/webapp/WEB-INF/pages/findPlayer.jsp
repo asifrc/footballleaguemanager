@@ -9,4 +9,5 @@
 <c:if test="${player != null}">
     <p id="playerText">#${player.number}&nbsp;${player.name}</p>
 </c:if>
+<p id="error">${error}</p>
 <%@include file="footer.jsp" %>

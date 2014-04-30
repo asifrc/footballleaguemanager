@@ -42,6 +42,9 @@ public class PlayerController {
         Player foundPlayer = playerService.findPlayer(name, number);
         ModelAndView modelAndView = new ModelAndView("findPlayer");
         modelAndView.addObject("player", foundPlayer);
+        if (foundPlayer == null) {
+            modelAndView.addObject("error", "Sorry, that name and number do not match. Please try again.");
+        }
         return modelAndView;
     }
 }
