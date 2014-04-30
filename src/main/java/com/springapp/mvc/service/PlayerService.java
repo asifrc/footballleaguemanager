@@ -19,7 +19,17 @@ public class PlayerService {
         this.playerList = playerList;
     }
 
-    public List<Player> getPlayers() {
+    public List<Player> getPlayerList() {
         return playerList;
+    }
+
+    public Player findPlayer(String name, String number) {
+        Player result = null;
+        for (Player player : playerList) {
+            if (player.getName().equals(name) && player.getNumber().equals(number)) {
+                result = player;
+            }
+        }
+        return result;
     }
 }

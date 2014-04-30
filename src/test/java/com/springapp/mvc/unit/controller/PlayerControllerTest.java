@@ -32,13 +32,13 @@ public class PlayerControllerTest {
     @Test
     public void shouldGetPlayersFromPlayerService() throws Exception {
         controller.listPlayers(mockedModelMap);
-        verify(stubbedPlayerService).getPlayers();
+        verify(stubbedPlayerService).getPlayerList();
     }
 
     @Test
     public void shouldAddAttributetoModel() throws Exception {
         List<Player> players = new ArrayList<Player>();
-        when(stubbedPlayerService.getPlayers()).thenReturn(players);
+        when(stubbedPlayerService.getPlayerList()).thenReturn(players);
 
         controller.listPlayers(mockedModelMap);
 
