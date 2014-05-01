@@ -23,10 +23,10 @@ public class PlayerService {
         return playerList;
     }
 
-    public Player findPlayer(String name, String number) {
+    public Player findPlayerByName(String name) {
         Player result = null;
         for (Player player : playerList) {
-            if (player.getName().equals(name) && player.getNumber().equals(number)) {
+            if (player.getName().equals(name)) {
                 result = player;
             }
         }

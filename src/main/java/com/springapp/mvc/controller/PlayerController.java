@@ -39,12 +39,19 @@ public class PlayerController {
     public ModelAndView findPlayer(@ModelAttribute Player player) {
         String name = player.getName();
         String number = player.getNumber();
-        Player foundPlayer = playerService.findPlayer(name, number);
+        Player foundPlayer = playerService.findPlayerByName(name);
         ModelAndView modelAndView = new ModelAndView("findPlayer");
-        modelAndView.addObject("player", foundPlayer);
-        if (foundPlayer == null) {
-            modelAndView.addObject("error", "Sorry, that name and number do not match. Please try again.");
+
+        if (foundPlayer != null) {
+            if (foundPlayer.getNumber().equals(number)) {
+                modelAndView.addObject("foundPlayer", foundPlayer);
+            } else {
+                modelAndView.addObject("error", "Sorry, that name and number do not match. Please try again.");
+            }
+        } else {
+            modelAndView.addObject("error", "Sorry, there is no player with that name and number");
         }
+
         return modelAndView;
     }
 }

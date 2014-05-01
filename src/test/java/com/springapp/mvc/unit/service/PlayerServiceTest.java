@@ -33,7 +33,7 @@ public class PlayerServiceTest {
         playerList.add(addedPlayer);
         playerList.add(new Player("Random", "50"));
 
-        Player foundPlayer = playerService.findPlayer("Ayanga", "70");
+        Player foundPlayer = playerService.findPlayerByName("Ayanga");
 
         assertEquals(addedPlayer, foundPlayer);
     }

@@ -59,6 +59,25 @@ public class FindPlayerTest {
         submitButton.click();
 
         WebElement error = driver.findElement(By.id("error"));
+        assertEquals("Sorry, there is no player with that name and number", error.getText());
+    }
+
+    @Test
+    public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() throws Exception {
+        driver.get(BASE_URL);
+        uploadFile(PLAYER_LIST_1);
+
+        driver.get(BASE_URL + "find");
+
+        WebElement nameTextBox = driver.findElement(By.id("name"));
+        WebElement numberTextBox = driver.findElement(By.id("number"));
+        WebElement submitButton = driver.findElement(By.id("submit"));
+
+        nameTextBox.sendKeys("Bob");
+        numberTextBox.sendKeys("9000");
+        submitButton.click();
+
+        WebElement error = driver.findElement(By.id("error"));
         assertEquals("Sorry, that name and number do not match. Please try again.", error.getText());
     }
 

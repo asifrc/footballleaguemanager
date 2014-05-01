@@ -55,7 +55,7 @@ public class PlayerControllerTest {
     @Test
     public void shouldPassAPlayerToTheViewWhenFindingAPlayerWithMatchingParameters() throws Exception {
         Player player = new Player("Ayanga", "70");
-        when(stubbedPlayerService.findPlayer("Ayanga", "70")).thenReturn(player);
+        when(stubbedPlayerService.findPlayerByName("Ayanga")).thenReturn(player);
 
         ModelAndView modelAndView = controller.findPlayer(player);
         Player foundPlayer = (Player) modelAndView.getModelMap().get("player");
@@ -66,7 +66,7 @@ public class PlayerControllerTest {
 
     @Test
     public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() throws Exception {
-        when(stubbedPlayerService.findPlayer(anyString(), anyString())).thenReturn(null);
+        when(stubbedPlayerService.findPlayerByName(anyString())).thenReturn(null);
 
         Player player = new Player("NonMatchingPlayer", "91239");
         ModelAndView modelAndView = controller.findPlayer(player);
