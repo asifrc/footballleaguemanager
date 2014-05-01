@@ -29,10 +29,11 @@ public class FileUploadService {
 
     private Player buildPlayerFrom(String line) {
         String[] playerFields = line.split(",");
-        String name = playerFields[0];
-        String team = playerFields[1];
-        String number = playerFields[2];
+        String name =   playerFields[0] ;
+        String team =   playerFields[1] ;
+        String number = playerFields[2] ;
         int age = Integer.parseInt(playerFields[3]);
+
         return new PlayerBuilder().withName(name)
                                   .withTeam(team)
                                   .withNumber(number)

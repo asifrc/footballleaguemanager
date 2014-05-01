@@ -4,6 +4,7 @@
 <html>
 <head>
     <title>Football League Manager</title>
+    <link rel="stylesheet" href="<c:url value="/resources/css/main.css" />" type="text/css">
 </head>
 <body>
 <a href="/" class="menuItem">List Players</a>
