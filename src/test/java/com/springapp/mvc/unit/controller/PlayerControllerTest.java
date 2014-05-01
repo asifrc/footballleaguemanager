@@ -58,7 +58,7 @@ public class PlayerControllerTest {
         when(stubbedPlayerService.findPlayerByName("Ayanga")).thenReturn(player);
 
         ModelAndView modelAndView = controller.findPlayer(player);
-        Player foundPlayer = (Player) modelAndView.getModelMap().get("player");
+        Player foundPlayer = (Player) modelAndView.getModelMap().get("foundPlayer");
 
         assertEquals(player, foundPlayer);
         assertFalse(modelAndView.getModelMap().containsKey("error"));
