@@ -1,8 +1,8 @@
 package com.springapp.mvc.unit.controller;
 
-import com.springapp.mvc.PlayerBuilder;
 import com.springapp.mvc.controller.PlayerController;
 import com.springapp.mvc.model.Player;
+import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
