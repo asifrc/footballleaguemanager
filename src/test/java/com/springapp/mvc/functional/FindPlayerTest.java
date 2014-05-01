@@ -1,5 +1,6 @@
 package com.springapp.mvc.functional;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -7,27 +8,33 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import java.io.File;
-
+import static com.springapp.mvc.functional.FileUploadHelper.BASE_URL;
+import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_1;
+import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_EMPTY;
 import static org.junit.Assert.assertEquals;
 
 public class FindPlayerTest {
-    private static final String BASE_URL = "http://localhost:8080/";
-    private static final String PLAYER_LIST_EMPTY = "./src/test/java/com/springapp/mvc/playerListEmpty.txt";
-    public static final String PLAYER_LIST_1 = "./src/test/java/com/springapp/mvc/playerList1.txt";
 
-    WebDriver driver = new HtmlUnitDriver();
+    private FileUploadHelper helper;
+    private WebDriver driver = new HtmlUnitDriver();
 
     @Before
     public void setUp() throws Exception {
+        driver = new HtmlUnitDriver();
+        helper = new FileUploadHelper(driver);
+
         driver.get(BASE_URL);
-        uploadFile(PLAYER_LIST_EMPTY);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        helper.uploadFile(PLAYER_LIST_EMPTY);
     }
 
     @Test
     public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() throws Exception {
         driver.get(BASE_URL);
-        uploadFile(PLAYER_LIST_1);
+        helper.uploadFile(PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 
@@ -46,7 +53,7 @@ public class FindPlayerTest {
     @Test
     public void shouldDisplayMessageWhenSearchReturnsNoMatchingPlayers() throws Exception {
         driver.get(BASE_URL);
-        uploadFile(PLAYER_LIST_1);
+        helper.uploadFile(PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 
@@ -65,7 +72,7 @@ public class FindPlayerTest {
     @Test
     public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() throws Exception {
         driver.get(BASE_URL);
-        uploadFile(PLAYER_LIST_1);
+        helper.uploadFile(PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 
@@ -79,18 +86,5 @@ public class FindPlayerTest {
 
         WebElement error = driver.findElement(By.id("error"));
         assertEquals("Sorry, that name and number do not match. Please try again.", error.getText());
-    }
-
-    private void uploadFile(String relativeFilePath) {
-        WebElement uploadField = driver.findElement(By.id("upload-field"));
-        uploadField.sendKeys(getAbsolutePath(relativeFilePath));
-
-        WebElement uploadButton = driver.findElement(By.id("upload-button"));
-        uploadButton.click();
-    }
-
-    private String getAbsolutePath(String filePath) {
-        File file = new File(filePath);
-        return file.getAbsolutePath();
     }
 }
