@@ -1,5 +1,6 @@
 package com.springapp.mvc.unit.controller;
 
+import com.springapp.mvc.PlayerBuilder;
 import com.springapp.mvc.controller.PlayerController;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.PlayerService;
@@ -33,8 +34,8 @@ public class PlayerControllerTest {
         controller = new PlayerController(stubbedPlayerService);
 
         players = new ArrayList<Player>();
-        players.add(new Player("Bob", "0"));
-        players.add(new Player("Sally", "1"));
+        players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
+        players.add(new PlayerBuilder().withName("Sally").withNumber("1").build());
 
         when(stubbedPlayerService.getPlayerList()).thenReturn(players);
     }
@@ -54,7 +55,7 @@ public class PlayerControllerTest {
 
     @Test
     public void shouldPassAPlayerToTheViewWhenFindingAPlayerWithMatchingParameters() throws Exception {
-        Player player = new Player("Ayanga", "70");
+        Player player = new PlayerBuilder().withName("Ayanga").withNumber("70").build();
         when(stubbedPlayerService.findPlayerByName("Ayanga")).thenReturn(player);
 
         ModelAndView modelAndView = controller.findPlayer(player);
@@ -68,7 +69,7 @@ public class PlayerControllerTest {
     public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() throws Exception {
         when(stubbedPlayerService.findPlayerByName(anyString())).thenReturn(null);
 
-        Player player = new Player("NonMatchingPlayer", "91239");
+        Player player = new PlayerBuilder().withName("NonMatchingPlayer").withNumber("91239").build();
         ModelAndView modelAndView = controller.findPlayer(player);
 
         assertTrue(modelAndView.getModelMap().containsKey("error"));

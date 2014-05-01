@@ -10,5 +10,25 @@
                 </li>
             </c:forEach>
         </ul>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Number</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="player" items="${playerList}" varStatus="playerCount">
+                <tr id="player-${playerCount.count}">
+                    <td>${player.getName()}</td>
+                    <td>${player.getTeam()}</td>
+                    <td>${player.getNumber()}</td>
+                    <td>${player.getAge()}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </c:otherwise>
 </c:choose>

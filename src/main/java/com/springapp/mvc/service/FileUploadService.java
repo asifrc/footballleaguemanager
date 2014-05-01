@@ -18,7 +18,7 @@ public class FileUploadService {
             BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
             String line;
             while ((line = fileReader.readLine()) != null) {
-                Player player = new Player(line, "0");
+                Player player = new Player(line, "0", "0", 0);
                 playerList.add(player);
             }
         } catch (IOException e) {
