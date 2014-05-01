@@ -1,6 +1,4 @@
-package com.springapp.mvc;
-
-import com.springapp.mvc.model.Player;
+package com.springapp.mvc.model;
 
 public class PlayerBuilder {
     private String name = "Default Name";
