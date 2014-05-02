@@ -24,14 +24,34 @@ public class FileUploadController {
         this.playerService = playerService;
     }
 
-    @RequestMapping(value="/upload", method= RequestMethod.POST)
+    @RequestMapping(value="/upload", method = RequestMethod.POST)
     public ModelAndView uploadFile(@RequestParam("file") MultipartFile file) {
-        List<Player> playerList = fileUploadService.createPlayerList(file);
-        playerService.setPlayerList(playerList);
+        List<Player> playerList = null;
+        try {
+            playerList = fileUploadService.createPlayerList(file);
+            playerService.setPlayerList(playerList);
+            return redirectToHome(playerList);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            e.printStackTrace();
+            return redirectToErrorPage();
+        }
+    }
 
+    @RequestMapping(value="/error", method = RequestMethod.GET)
+    public String showError() {
+        return "error";
+    }
+
+    private ModelAndView redirectToHome(List<Player> playerList) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("playerList", playerList);
         modelAndView.setViewName("redirect:/");
+        return modelAndView;
+    }
+
+    private ModelAndView redirectToErrorPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/error");
         return modelAndView;
     }
 }
