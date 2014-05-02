@@ -9,21 +9,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class FileUploadControllerTest {
@@ -31,7 +26,7 @@ public class FileUploadControllerTest {
     @Mock PlayerService mockedPlayerService;
     @Mock MultipartFile mockedFile;
     @Mock FileUploadService stubbedFileUploadService;
-    
+
     private FileUploadController fileUploadController;
 
     @Before
@@ -42,14 +37,11 @@ public class FileUploadControllerTest {
 
     @Test
     public void shouldPassNewPlayerListToModelAfterPlayerListFileIsUploaded() {
-        MultipartFile file = mock(MultipartFile.class);
-
         List<Player> expectedPlayerList = new ArrayList<Player>();
         expectedPlayerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(file)).thenReturn(expectedPlayerList);
+        when(stubbedFileUploadService.createPlayerList(mockedFile)).thenReturn(expectedPlayerList);
 
-
-        ModelAndView modelAndView = fileUploadController.uploadFile(file);
+        ModelAndView modelAndView = fileUploadController.uploadFile(mockedFile);
 
         List<Player> actualPlayerList = (List<Player>) modelAndView.getModelMap().get("playerList");
         assertThat(actualPlayerList, is(expectedPlayerList));
@@ -57,24 +49,23 @@ public class FileUploadControllerTest {
 
     @Test
     public void shouldUpdatePlayerServiceAfterPlayerListFileIsUploaded() {
-        MultipartFile file = mock(MultipartFile.class);
-
         List<Player> playerList = new ArrayList<Player>();
         playerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(file)).thenReturn(playerList);
+        when(stubbedFileUploadService.createPlayerList(mockedFile)).thenReturn(playerList);
 
-        ModelAndView modelAndView = fileUploadController.handleUpload(file);
+        fileUploadController.uploadFile(mockedFile);
 
         verify(mockedPlayerService).setPlayerList(playerList);
     }
-}
+
     @Test
     public void shouldRedirectToHomeIfGoodFileIsUploaded() throws Exception {
         when(stubbedFileUploadService
                 .createPlayerList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Player>());
 
-        String actual = fileUploadController.handleUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.uploadFile(mockedFile);
+        String actual = modelAndView.getViewName();
         assertEquals("redirect:/", actual);
     }
 
@@ -82,3 +73,4 @@ public class FileUploadControllerTest {
     public void shouldRedirectToErrorPageIfBadFileIsUploaded() throws Exception {
 
     }
+}
