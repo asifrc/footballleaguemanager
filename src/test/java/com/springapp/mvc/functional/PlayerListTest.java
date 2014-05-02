@@ -42,7 +42,7 @@ public class PlayerListTest {
 
         helper.uploadFile(PLAYER_LIST_1);
 
-        WebElement playerList = driver.findElement(By.id("player-list"));
+        WebElement playerList = driver.findElement(By.id("player-table"));
 
         assertTrue(playerList.getText().contains("Sally"));
         assertTrue(playerList.getText().contains("Bob"));
@@ -54,14 +54,17 @@ public class PlayerListTest {
 
         helper.uploadFile(PLAYER_LIST_1);
 
-        WebElement playerList = driver.findElement(By.id("player-list"));
+        WebElement playerList = driver.findElement(By.id("player-table"));
 
-        assertEquals("Sally", playerList.findElement(By.id("player-1")).getText());
-        assertEquals("Bob", playerList.findElement(By.id("player-2")).getText());
+        assertTrue((playerList.findElement(By.id("player-1")).getText()
+                .contains("Sally")));
+
+        assertTrue((playerList.findElement(By.id("player-2")).getText()
+                .contains("Bob")));
 
         helper.uploadFile(PLAYER_LIST_2);
 
-        playerList = driver.findElement(By.id("player-list"));
+        playerList = driver.findElement(By.id("player-table"));
 
         assertTrue(playerList.getText().contains("Cameron"));
         assertFalse(playerList.getText().contains("Sally"));
