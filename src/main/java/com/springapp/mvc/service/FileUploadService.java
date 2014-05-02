@@ -1,6 +1,7 @@
 package com.springapp.mvc.service;
 
 import com.springapp.mvc.model.Player;
+import com.springapp.mvc.model.PlayerBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,12 +19,25 @@ public class FileUploadService {
             BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream()));
             String line;
             while ((line = fileReader.readLine()) != null) {
-                Player player = new Player(line, "0", "0", 0);
-                playerList.add(player);
+                playerList.add(buildPlayerFrom(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return playerList;
+    }
+
+    private Player buildPlayerFrom(String line) {
+        String[] playerFields = line.split(",");
+        String name =   playerFields[0] ;
+        String team =   playerFields[1] ;
+        String number = playerFields[2] ;
+        int age = Integer.parseInt(playerFields[3]);
+
+        return new PlayerBuilder().withName(name)
+                                  .withTeam(team)
+                                  .withNumber(number)
+                                  .withAge(age)
+                                  .build();
     }
 }

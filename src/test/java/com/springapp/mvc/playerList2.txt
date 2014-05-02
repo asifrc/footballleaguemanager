@@ -1,5 +1,5 @@
-Cameron
-George
-Whitney
-Asif
-Aubrey
+Cameron,Canadian Argos,1,23
+George,Dallas Cowboys,2,28
+Whitney,Da Behrs,3,12
+Asif,Barcelona,4,23
+Aubrey,Rockets,5,15
