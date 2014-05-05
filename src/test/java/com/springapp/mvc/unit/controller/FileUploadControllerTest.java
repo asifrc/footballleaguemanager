@@ -74,11 +74,13 @@ public class FileUploadControllerTest {
     @Test
     public void shouldRedirectToErrorPageIfBadFileIsUploaded() throws Exception {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
-                .thenThrow(new ArrayIndexOutOfBoundsException());
+                .thenThrow(new RuntimeException());
 
         ModelAndView modelAndView = fileUploadController.handleUpload(mockedFile);
         String redirectPath = modelAndView.getViewName();
 
         assertEquals("redirect:/error", redirectPath);
     }
+
+
 }

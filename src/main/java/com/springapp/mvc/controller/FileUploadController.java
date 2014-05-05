@@ -31,7 +31,7 @@ public class FileUploadController {
             playerList = fileUploadService.createPlayerList(file);
             playerService.setPlayerList(playerList);
             return redirectToHome(playerList);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToErrorPage();
         }

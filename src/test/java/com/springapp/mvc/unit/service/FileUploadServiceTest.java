@@ -4,7 +4,9 @@ import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.FileUploadService;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +23,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class FileUploadServiceTest {
     private static final String TEST_ROOT = "./src/test/java/com/springapp/mvc/";
     public static final String PLAYER_LIST_1 = TEST_ROOT + "playerList1.txt";
-    public static final String PLAYER_LIST_2 = TEST_ROOT + "playerList2.txt";
+    public static final String BAD_PLAYER_LIST_1 = TEST_ROOT + "badPlayerList1.txt";
     public static final String PLAYER_LIST_EMPTY = TEST_ROOT + "playerListEmpty.txt";
 
     @Mock
@@ -59,6 +61,17 @@ public class FileUploadServiceTest {
         assertTrue(isInList(actualPlayerList, bob));
     }
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    @Test
+    public void shouldThrowRunTimeExceptionWhenAgeIsNotAnInt() throws IOException {
+        thrown.expect(RuntimeException.class);
+        when(stubbedFile.getInputStream())
+                .thenReturn(new FileInputStream(BAD_PLAYER_LIST_1));
+
+        fileUploadService.createPlayerList(stubbedFile);
+    }
+
     private Boolean isInList(List<Player> playerList, Player expectedPlayer) {
         for (Player player : playerList) {
             if (player.equals(expectedPlayer)) {
@@ -68,3 +81,4 @@ public class FileUploadServiceTest {
         return false;
     }
 }
+
