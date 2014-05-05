@@ -1,35 +1,13 @@
 package com.springapp.mvc.functional;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import static com.springapp.mvc.functional.FileUploadHelper.BASE_URL;
 import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_1;
-import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_EMPTY;
 import static org.junit.Assert.assertEquals;
 
-public class FindPlayerTest {
-
-    private FileUploadHelper helper;
-    private WebDriver driver = new HtmlUnitDriver();
-
-    @Before
-    public void setUp() throws Exception {
-        driver = new HtmlUnitDriver();
-        helper = new FileUploadHelper(driver);
-
-        driver.get(BASE_URL);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        helper.uploadFile(PLAYER_LIST_EMPTY);
-    }
+public class FindPlayerTest extends FunctionalBase {
 
     @Test
     public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() throws Exception {
