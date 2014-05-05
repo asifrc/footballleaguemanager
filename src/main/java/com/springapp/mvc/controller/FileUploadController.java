@@ -25,7 +25,7 @@ public class FileUploadController {
     }
 
     @RequestMapping(value="/upload", method = RequestMethod.POST)
-    public ModelAndView uploadFile(@RequestParam("file") MultipartFile file) {
+    public ModelAndView handleUpload(@RequestParam("file") MultipartFile file) {
         List<Player> playerList = null;
         try {
             playerList = fileUploadService.createPlayerList(file);

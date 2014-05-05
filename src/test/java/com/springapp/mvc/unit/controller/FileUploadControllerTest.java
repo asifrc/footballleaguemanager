@@ -18,11 +18,11 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class FileUploadControllerTest {
-
     @Mock PlayerService mockedPlayerService;
     @Mock MultipartFile mockedFile;
     @Mock FileUploadService stubbedFileUploadService;
@@ -39,11 +39,12 @@ public class FileUploadControllerTest {
     public void shouldPassNewPlayerListToModelAfterPlayerListFileIsUploaded() {
         List<Player> expectedPlayerList = new ArrayList<Player>();
         expectedPlayerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(mockedFile)).thenReturn(expectedPlayerList);
+        when(stubbedFileUploadService.createPlayerList(mockedFile))
+                .thenReturn(expectedPlayerList);
 
-        ModelAndView modelAndView = fileUploadController.uploadFile(mockedFile);
-
+        ModelAndView modelAndView = fileUploadController.handleUpload(mockedFile);
         List<Player> actualPlayerList = (List<Player>) modelAndView.getModelMap().get("playerList");
+
         assertThat(actualPlayerList, is(expectedPlayerList));
     }
 
@@ -51,33 +52,33 @@ public class FileUploadControllerTest {
     public void shouldUpdatePlayerServiceAfterPlayerListFileIsUploaded() {
         List<Player> playerList = new ArrayList<Player>();
         playerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(mockedFile)).thenReturn(playerList);
+        when(stubbedFileUploadService.createPlayerList(mockedFile))
+                .thenReturn(playerList);
 
-        fileUploadController.uploadFile(mockedFile);
+        fileUploadController.handleUpload(mockedFile);
 
         verify(mockedPlayerService).setPlayerList(playerList);
     }
 
     @Test
     public void shouldRedirectToHomeIfGoodFileIsUploaded() throws Exception {
-        when(stubbedFileUploadService
-                .createPlayerList(any(MultipartFile.class)))
+        when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Player>());
 
-        ModelAndView modelAndView = fileUploadController.uploadFile(mockedFile);
-        String actual = modelAndView.getViewName();
-        assertEquals("redirect:/", actual);
+        ModelAndView modelAndView = fileUploadController.handleUpload(mockedFile);
+        String redirectPath = modelAndView.getViewName();
+
+        assertEquals("redirect:/", redirectPath);
     }
 
     @Test
     public void shouldRedirectToErrorPageIfBadFileIsUploaded() throws Exception {
-        when(stubbedFileUploadService
-                .createPlayerList(any(MultipartFile.class)))
+        when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenThrow(new ArrayIndexOutOfBoundsException());
 
-        ModelAndView modelAndView = fileUploadController.uploadFile(mockedFile);
-        String actual = modelAndView.getViewName();
+        ModelAndView modelAndView = fileUploadController.handleUpload(mockedFile);
+        String redirectPath = modelAndView.getViewName();
 
-        assertEquals("redirect:/error", actual);
+        assertEquals("redirect:/error", redirectPath);
     }
 }
