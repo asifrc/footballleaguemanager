@@ -1,5 +1,6 @@
 package com.springapp.mvc.controller;
 
+import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,23 +11,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class PlayerController {
+public class HomeController {
 
     private PlayerService playerService;
 
     @Autowired
-    public PlayerController(PlayerService playerService) {
+    public HomeController(PlayerService playerService) {
         this.playerService = playerService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-	public String listPlayers(ModelMap model) {
+	public String listPlayersAndCoaches(ModelMap model) {
         List<Player> playerList = playerService.getPlayerList();
+        List<Coach> coachList = new ArrayList<Coach>();
+        coachList.add(new Coach("Jack", "Team1", "Assistant Coach"));
+        coachList.add(new Coach("Jill", "Team2", "Head Coach"));
+
         model.addAttribute("playerList", playerList);
+        model.addAttribute("coachList", coachList);
 		return "hello";
 	}
 

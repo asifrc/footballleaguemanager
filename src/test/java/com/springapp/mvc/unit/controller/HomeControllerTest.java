@@ -1,6 +1,7 @@
 package com.springapp.mvc.unit.controller;
 
-import com.springapp.mvc.controller.PlayerController;
+import com.springapp.mvc.controller.HomeController;
+import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.PlayerService;
@@ -19,36 +20,39 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class PlayerControllerTest {
-    @Mock
-    PlayerService stubbedPlayerService;
-    @Mock
-    ModelMap mockedModelMap;
+public class HomeControllerTest {
+    @Mock PlayerService stubbedPlayerService;
+    @Mock ModelMap mockedModelMap;
 
-    private PlayerController controller;
+    private HomeController controller;
     private List<Player> players;
+    private List<Coach> coaches;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        controller = new PlayerController(stubbedPlayerService);
+        controller = new HomeController(stubbedPlayerService);
 
         players = new ArrayList<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
         players.add(new PlayerBuilder().withName("Sally").withNumber("1").build());
+
+//        coaches = new ArrayList<Coach>();
+//        coaches.add(new CoachBuilder().withName("Jack").build());
+//        coaches.add(new CoachBuilder().withName("Jill").build());
 
         when(stubbedPlayerService.getPlayerList()).thenReturn(players);
     }
 
     @Test
     public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() throws Exception {
-        controller.listPlayers(mockedModelMap);
+        controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedPlayerService).getPlayerList();
     }
 
     @Test
     public void shouldAddAttributeToModelWhenListingPlayers() throws Exception {
-        controller.listPlayers(mockedModelMap);
+        controller.listPlayersAndCoaches(mockedModelMap);
 
         verify(mockedModelMap).addAttribute("playerList", players);
     }
