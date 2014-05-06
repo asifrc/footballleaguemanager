@@ -11,6 +11,7 @@ public class FileUploadHelper {
     public static final String PLAYER_LIST_1 = TEST_ROOT + "playerList1.txt";
     public static final String PLAYER_LIST_2 = TEST_ROOT + "playerList2.txt";
     public static final String PLAYER_LIST_EMPTY = TEST_ROOT + "playerListEmpty.txt";
+    public static final String COACH_LIST = TEST_ROOT + "coachList1.txt";
     WebDriver driver;
 
     public FileUploadHelper(WebDriver webDriver) {

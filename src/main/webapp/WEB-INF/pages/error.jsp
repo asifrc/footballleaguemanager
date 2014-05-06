@@ -1,3 +1,5 @@
+<%@include file="libraryHeader.jsp" %>
+<c:set var="pageTitle" scope="request" value="Error!"/>
 <%@include file="header.jsp" %>
 
 <div id="error">

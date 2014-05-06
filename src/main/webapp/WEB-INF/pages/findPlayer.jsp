@@ -1,4 +1,7 @@
+<%@include file="libraryHeader.jsp" %>
+<c:set var="pageTitle" scope="request" value="Find Player"/>
 <%@include file="header.jsp" %>
+
 <h1>Find Player</h1>
 
 <form action="/find" method="get">
