@@ -32,6 +32,6 @@ public class FunctionalBase {
     @After
     public void resetPlayerList() throws Exception {
         driver.get(BASE_URL);
-        helper.uploadFile(PLAYER_LIST_EMPTY);
+        helper.uploadFileFor("players", PLAYER_LIST_EMPTY);
     }
 }

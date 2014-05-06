@@ -2,8 +2,10 @@ package com.springapp.mvc.unit.controller;
 
 import com.springapp.mvc.controller.HomeController;
 import com.springapp.mvc.model.Coach;
+import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
+import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +24,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class HomeControllerTest {
     @Mock PlayerService stubbedPlayerService;
+    @Mock CoachService stubbedCoachService;
     @Mock ModelMap mockedModelMap;
 
     private HomeController controller;
@@ -31,23 +34,30 @@ public class HomeControllerTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        controller = new HomeController(stubbedPlayerService);
+        controller = new HomeController(stubbedPlayerService, stubbedCoachService);
 
         players = new ArrayList<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
         players.add(new PlayerBuilder().withName("Sally").withNumber("1").build());
 
-//        coaches = new ArrayList<Coach>();
-//        coaches.add(new CoachBuilder().withName("Jack").build());
-//        coaches.add(new CoachBuilder().withName("Jill").build());
+        coaches = new ArrayList<Coach>();
+        coaches.add(new CoachBuilder().withName("Jack").build());
+        coaches.add(new CoachBuilder().withName("Jill").build());
 
         when(stubbedPlayerService.getPlayerList()).thenReturn(players);
+        when(stubbedCoachService.getCoachList()).thenReturn(coaches);
     }
 
     @Test
     public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() throws Exception {
         controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedPlayerService).getPlayerList();
+    }
+
+    @Test
+    public void shouldGetCoachesFromCoachServiceWhenListingCoaches() throws Exception {
+        controller.listPlayersAndCoaches(mockedModelMap);
+        verify(stubbedCoachService).getCoachList();
     }
 
     @Test

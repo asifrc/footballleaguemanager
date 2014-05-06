@@ -12,7 +12,7 @@ public class FindPlayerTest extends FunctionalBase {
     @Test
     public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() throws Exception {
         driver.get(BASE_URL);
-        helper.uploadFile(PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 
@@ -31,7 +31,7 @@ public class FindPlayerTest extends FunctionalBase {
     @Test
     public void shouldDisplayMessageWhenSearchReturnsNoMatchingPlayers() throws Exception {
         driver.get(BASE_URL);
-        helper.uploadFile(PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 
@@ -50,7 +50,7 @@ public class FindPlayerTest extends FunctionalBase {
     @Test
     public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() throws Exception {
         driver.get(BASE_URL);
-        helper.uploadFile(PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_LIST_1);
 
         driver.get(BASE_URL + "find");
 

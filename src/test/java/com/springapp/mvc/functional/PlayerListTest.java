@@ -4,6 +4,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 import static com.springapp.mvc.functional.FileUploadHelper.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
@@ -11,19 +13,21 @@ import static org.junit.Assert.*;
 public class PlayerListTest extends FunctionalBase {
 
     @Test
-    public void uploadButtonShouldBeDisabledWhenNoFileIsSelectedToUpload() {
+    public void uploadButtonsShouldBeDisabledWhenNoFilesAreSelectedToUpload() {
         driver.get(BASE_URL);
 
-        WebElement uploadButton = driver.findElement(By.id("upload-button"));
+        List<WebElement> uploadButtons = driver.findElements(By.className("upload-button"));
 
-        assertThat(uploadButton.getAttribute("disabled"), is("true"));
+        for (WebElement uploadButton : uploadButtons) {
+            assertThat(uploadButton.getAttribute("disabled"), is("true"));
+        }
     }
 
     @Test
     public void shouldDisplaySorryMessageForEmptyPlayerList() {
         driver.get(BASE_URL);
 
-        helper.uploadFile(PLAYER_LIST_EMPTY);
+        helper.uploadFileFor("players", PLAYER_LIST_EMPTY);
         WebElement emptyMessage = driver.findElement(By.id("empty-list-message"));
 
         assertEquals("Sorry, there are no players.", emptyMessage.getText());
@@ -33,7 +37,7 @@ public class PlayerListTest extends FunctionalBase {
     public void shouldListPlayerNames() {
         driver.get(BASE_URL);
 
-        helper.uploadFile(PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_LIST_1);
 
         WebElement playerList = driver.findElement(By.id("player-table"));
 
@@ -45,7 +49,7 @@ public class PlayerListTest extends FunctionalBase {
     public void shouldReplacePlayerListAfterSecondUpload() {
         driver.get(BASE_URL);
 
-        helper.uploadFile(PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_LIST_1);
 
         WebElement playerList = driver.findElement(By.id("player-table"));
 
@@ -55,7 +59,7 @@ public class PlayerListTest extends FunctionalBase {
         assertTrue((playerList.findElement(By.id("player-2")).getText()
                 .contains("Bob")));
 
-        helper.uploadFile(PLAYER_LIST_2);
+        helper.uploadFileFor("players", PLAYER_LIST_2);
 
         playerList = driver.findElement(By.id("player-table"));
 

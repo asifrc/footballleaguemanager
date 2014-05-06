@@ -28,7 +28,8 @@ public class PlayerServiceTest {
                 .withNumber("1")
                 .build());
 
-        playerService = new PlayerService(playerList);
+        playerService = new PlayerService();
+        playerService.setPlayerList(playerList);
     }
 
     @Test

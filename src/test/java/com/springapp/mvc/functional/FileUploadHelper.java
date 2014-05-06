@@ -17,12 +17,21 @@ public class FileUploadHelper {
         this.driver = webDriver;
     }
 
-    public void uploadFile(String relativeFilePath) {
-        WebElement uploadField = driver.findElement(By.id("upload-field"));
+    public void uploadFileFor(String personType, String relativeFilePath) {
+        WebElement uploadField = findUploadFieldFor(personType);
+        WebElement uploadButton = findUploadButtonFor(personType);
+
         uploadField.sendKeys(getAbsolutePath(relativeFilePath));
 
-        WebElement uploadButton = driver.findElement(By.id("upload-button"));
         uploadButton.click();
+    }
+
+    private WebElement findUploadFieldFor(String personType) {
+        return driver.findElement(By.id(personType)).findElement(By.className("upload-field"));
+    }
+
+    private WebElement findUploadButtonFor(String personType) {
+        return driver.findElement(By.id(personType)).findElement(By.className("upload-button"));
     }
 
     private String getAbsolutePath(String filePath) {

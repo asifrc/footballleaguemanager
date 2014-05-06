@@ -15,10 +15,6 @@ public class PlayerService {
         this.playerList = new ArrayList<Player>();
     }
 
-    public PlayerService(List<Player> playerList) {
-        this.playerList = playerList;
-    }
-
     public List<Player> getPlayerList() {
         return playerList;
     }

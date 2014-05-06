@@ -1,5 +1,6 @@
 package com.springapp.mvc.functional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -8,9 +9,11 @@ import static org.junit.Assert.assertTrue;
 
 public class CoachListTest extends FunctionalBase {
 
+    @Ignore
     @Test
     public void shouldShowCoachesWhenCoachListIsNotEmpty() {
         driver.get(BASE_URL);
+
 
         WebElement coachList = driver.findElement(By.id("coach-table"));
 
