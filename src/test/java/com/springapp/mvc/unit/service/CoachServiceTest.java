@@ -4,7 +4,6 @@ import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.service.CoachService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -35,10 +34,8 @@ public class CoachServiceTest {
         coachService.setCoachList(coachList);
     }
 
-    @Ignore
     @Test
     public void shouldReturnListOfCoaches() throws Exception {
         assertEquals(coachList, coachService.getCoachList());
     }
-
 }

@@ -1,5 +1,7 @@
 package com.springapp.mvc.service;
 
+import com.springapp.mvc.model.Coach;
+import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
 import org.springframework.stereotype.Component;
@@ -13,10 +15,11 @@ import java.util.List;
 
 @Component
 public class FileUploadService {
-    public List<Player> createPlayerList(MultipartFile file) {
+    private BufferedReader fileReader;
 
+    public List<Player> createPlayerList(MultipartFile file) {
         List<Player> playerList = new ArrayList<Player>();
-        BufferedReader fileReader;
+
         try {
             fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
             String line;
@@ -27,7 +30,25 @@ public class FileUploadService {
             System.out.println("ERROR: Error reading file");
             e.printStackTrace();
         }
+
         return playerList;
+    }
+
+    public List<Coach> createCoachList(MultipartFile file) {
+        List<Coach> coachList = new ArrayList<Coach>();
+
+        try {
+            fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
+            String line;
+            while((line = fileReader.readLine()) != null) {
+                coachList.add(buildCoachFrom(line));
+            }
+        } catch (IOException e) {
+            System.out.println("ERROR: Error reading file");
+            e.printStackTrace();
+        }
+
+        return coachList;
     }
 
     private Player buildPlayerFrom(String line) {
@@ -44,4 +65,15 @@ public class FileUploadService {
                                   .build();
     }
 
+    private Coach buildCoachFrom(String line) {
+        String[] playerFields = line.split(",");
+        String name =   playerFields[0];
+        String team =   playerFields[1];
+        String position = playerFields[2];
+
+        return new CoachBuilder().withName(name)
+                .withTeam(team)
+                .withPosition(position)
+                .build();
+    }
 }

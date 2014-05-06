@@ -10,7 +10,7 @@ public class FileUploadHelper {
     private static final String TEST_ROOT = "./src/test/java/com/springapp/mvc/";
     public static final String PLAYER_LIST_1 = TEST_ROOT + "playerList1.txt";
     public static final String PLAYER_LIST_2 = TEST_ROOT + "playerList2.txt";
-    public static final String PLAYER_LIST_EMPTY = TEST_ROOT + "playerListEmpty.txt";
+    public static final String PLAYER_LIST_EMPTY = TEST_ROOT + "empty.txt";
     public static final String COACH_LIST = TEST_ROOT + "coachList1.txt";
     WebDriver driver;
 

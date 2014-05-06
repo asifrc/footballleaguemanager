@@ -22,7 +22,9 @@ public class FileUploadController {
     CoachService coachService;
 
     @Autowired
-    public FileUploadController(FileUploadService fileUploadService, PlayerService playerService) {
+    public FileUploadController(FileUploadService fileUploadService,
+                                PlayerService playerService,
+                                CoachService coachService) {
         this.fileUploadService = fileUploadService;
         this.playerService = playerService;
         this.coachService = coachService;
@@ -34,7 +36,7 @@ public class FileUploadController {
         try {
             playerList = fileUploadService.createPlayerList(file);
             playerService.setPlayerList(playerList);
-            return redirectToHome(playerList);
+            return redirectToHome(playerList, coachService.getCoachList());
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToErrorPage();
@@ -45,7 +47,9 @@ public class FileUploadController {
     public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file) {
         List<Coach> coachList = null;
         try {
-            return new ModelAndView("redirect:/");
+            coachList = fileUploadService.createCoachList(file);
+            coachService.setCoachList(coachList);
+            return redirectToHome(playerService.getPlayerList(), coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToErrorPage();
@@ -56,9 +60,10 @@ public class FileUploadController {
         return "error";
     }
 
-    private ModelAndView redirectToHome(List<Player> playerList) {
+    private ModelAndView redirectToHome(List<Player> playerList, List<Coach> coachList) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("playerList", playerList);
+        modelAndView.addObject("coachList", coachList);
         modelAndView.setViewName("redirect:/");
         return modelAndView;
     }

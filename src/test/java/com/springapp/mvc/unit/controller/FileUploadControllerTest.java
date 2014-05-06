@@ -1,8 +1,11 @@
 package com.springapp.mvc.unit.controller;
 
 import com.springapp.mvc.controller.FileUploadController;
+import com.springapp.mvc.model.Coach;
+import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
+import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.FileUploadService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
@@ -24,6 +27,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class FileUploadControllerTest {
     @Mock PlayerService mockedPlayerService;
+    @Mock CoachService mockedCoachService;
     @Mock MultipartFile mockedFile;
     @Mock FileUploadService stubbedFileUploadService;
 
@@ -32,7 +36,8 @@ public class FileUploadControllerTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        fileUploadController = new FileUploadController(stubbedFileUploadService, mockedPlayerService);
+        fileUploadController = new FileUploadController(
+                stubbedFileUploadService, mockedPlayerService, mockedCoachService);
     }
 
     @Test
@@ -49,6 +54,19 @@ public class FileUploadControllerTest {
     }
 
     @Test
+    public void shouldPassNewCoachListToModelAfterCoachListFileIsUploaded() {
+        List<Coach> expectedCoachList = new ArrayList<Coach>();
+        expectedCoachList.add(new CoachBuilder().withName("Jack").build());
+        when(stubbedFileUploadService.createCoachList(mockedFile))
+                .thenReturn(expectedCoachList);
+
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        List<Coach> actualCoachList = (List<Coach>) modelAndView.getModelMap().get("coachList");
+
+        assertThat(actualCoachList, is(expectedCoachList));
+    }
+
+    @Test
     public void shouldUpdatePlayerServiceAfterPlayerListFileIsUploaded() {
         List<Player> playerList = new ArrayList<Player>();
         playerList.add(new PlayerBuilder().withName("Bob").build());
@@ -61,7 +79,19 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeIfGoodFileIsUploaded() throws Exception {
+    public void shouldUpdateCoachServiceAfterCoachListFileIsUploaded() {
+        List<Coach> coachList = new ArrayList<Coach>();
+        coachList.add(new CoachBuilder().withName("Bob").build());
+        when(stubbedFileUploadService.createCoachList(mockedFile))
+                .thenReturn(coachList);
+
+        fileUploadController.handleCoachUpload(mockedFile);
+
+        verify(mockedCoachService).setCoachList(coachList);
+    }
+
+    @Test
+    public void shouldRedirectToHomeIfGoodPlayerListIsUploaded() throws Exception {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Player>());
 
@@ -72,7 +102,18 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToErrorPageIfBadFileIsUploaded() throws Exception {
+    public void shouldRedirectToHomeIfGoodCoachListIsUploaded() throws Exception {
+        when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
+                .thenReturn(new ArrayList<Coach>());
+
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        String redirectPath = modelAndView.getViewName();
+
+        assertEquals("redirect:/", redirectPath);
+    }
+
+    @Test
+    public void shouldRedirectToErrorPageIfBadPlayerListIsUploaded() throws Exception {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
@@ -82,5 +123,15 @@ public class FileUploadControllerTest {
         assertEquals("redirect:/error", redirectPath);
     }
 
+    @Test
+    public void shouldRedirectToErrorPageIfBadCoachListIsUploaded() throws Exception {
+        when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
+                .thenThrow(new RuntimeException());
+
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        String redirectPath = modelAndView.getViewName();
+
+        assertEquals("redirect:/error", redirectPath);
+    }
 
 }

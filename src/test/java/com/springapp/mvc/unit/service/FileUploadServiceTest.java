@@ -1,7 +1,6 @@
 package com.springapp.mvc.unit.service;
 
-import com.springapp.mvc.model.Player;
-import com.springapp.mvc.model.PlayerBuilder;
+import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.FileUploadService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -24,10 +23,10 @@ public class FileUploadServiceTest {
     private static final String TEST_ROOT = "./src/test/java/com/springapp/mvc/";
     public static final String PLAYER_LIST_1 = TEST_ROOT + "playerList1.txt";
     public static final String BAD_PLAYER_LIST_1 = TEST_ROOT + "badPlayerList1.txt";
-    public static final String PLAYER_LIST_EMPTY = TEST_ROOT + "playerListEmpty.txt";
+    public static final String COACH_LIST_1 = TEST_ROOT + "coachList1.txt";
+    public static final String EMPTY_TEXT_FILE = TEST_ROOT + "empty.txt";
 
-    @Mock
-    MultipartFile stubbedFile;
+    @Mock MultipartFile stubbedFile;
     FileUploadService fileUploadService;
 
     @Before
@@ -37,9 +36,9 @@ public class FileUploadServiceTest {
     }
 
     @Test
-    public void shouldReturnEmptyListWhenEmptyFileUploaded() throws IOException {
+    public void shouldReturnEmptyListWhenEmptyPlayerFileUploaded() throws IOException {
         when(stubbedFile.getInputStream())
-                .thenReturn(new FileInputStream(PLAYER_LIST_EMPTY));
+                .thenReturn(new FileInputStream(EMPTY_TEXT_FILE));
 
         List<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
 
@@ -47,12 +46,22 @@ public class FileUploadServiceTest {
     }
 
     @Test
-    public void shouldReturnListWithBobWhenFileWithBobUploaded() throws Exception {
+    public void shouldReturnEmptyListWhenEmptyCoachFileUploaded() throws IOException {
+        when(stubbedFile.getInputStream())
+                .thenReturn(new FileInputStream(EMPTY_TEXT_FILE));
+
+        List<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
+
+        assertThat(actualCoachList.isEmpty(), is(true));
+    }
+
+    @Test
+    public void shouldReturnListWithBobWhenPlayerFileWithBobUploaded() throws Exception {
         Player bob = new PlayerBuilder().withName("Bob")
-                                        .withTeam("Team2")
-                                        .withNumber("1")
-                                        .withAge(22)
-                                        .build();
+                .withTeam("Team2")
+                .withNumber("1")
+                .withAge(22)
+                .build();
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(PLAYER_LIST_1));
 
@@ -61,8 +70,23 @@ public class FileUploadServiceTest {
         assertTrue(isInList(actualPlayerList, bob));
     }
 
+    @Test
+    public void shouldReturnListWithJackWhenCoachFileWithJackUploaded() throws Exception {
+        Coach jack = new CoachBuilder().withName("Jack")
+                .withTeam("Team1")
+                .withPosition("Assistant Coach")
+                .build();
+        when(stubbedFile.getInputStream())
+                .thenReturn(new FileInputStream(COACH_LIST_1));
+
+        List<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
+
+        assertTrue(isInList(actualCoachList, jack));
+    }
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void shouldThrowRunTimeExceptionWhenAgeIsNotAnInt() throws IOException {
         thrown.expect(RuntimeException.class);
@@ -72,13 +96,12 @@ public class FileUploadServiceTest {
         fileUploadService.createPlayerList(stubbedFile);
     }
 
-    private Boolean isInList(List<Player> playerList, Player expectedPlayer) {
-        for (Player player : playerList) {
-            if (player.equals(expectedPlayer)) {
+    private Boolean isInList(List<? extends TeamMember> teamMemberList, TeamMember expectedTeamMember) {
+        for (TeamMember teamMember : teamMemberList) {
+            if (teamMember.equals(expectedTeamMember)) {
                 return true;
             }
         }
         return false;
     }
 }
-

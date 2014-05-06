@@ -3,7 +3,7 @@ package com.springapp.mvc.model;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Player {
+public class Player extends TeamMember {
     private String name;
     private String team;
     private String number;
