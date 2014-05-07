@@ -20,15 +20,9 @@ public class FileUploadService {
     public List<Player> createPlayerList(MultipartFile file) {
         List<Player> playerList = new ArrayList<Player>();
 
-        try {
-            fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
-            String line;
-            while((line = fileReader.readLine()) != null) {
-                playerList.add(buildPlayerFrom(line));
-            }
-        } catch (IOException e) {
-            System.out.println("ERROR: Error reading file");
-            e.printStackTrace();
+        List<String> fileLines = getFileLines(file);
+        for (String line : fileLines) {
+            playerList.add(buildPlayerFrom(line));
         }
 
         return playerList;
@@ -37,22 +31,35 @@ public class FileUploadService {
     public List<Coach> createCoachList(MultipartFile file) {
         List<Coach> coachList = new ArrayList<Coach>();
 
-        try {
-            fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
-            String line;
-            while((line = fileReader.readLine()) != null) {
-                coachList.add(buildCoachFrom(line));
-            }
-        } catch (IOException e) {
-            System.out.println("ERROR: Error reading file");
-            e.printStackTrace();
+        List<String> fileLines = getFileLines(file);
+        for (String line : fileLines) {
+            coachList.add(buildCoachFrom(line));
         }
 
         return coachList;
     }
 
+    private List<String> getFileLines(MultipartFile file) {
+        List<String> fileLines = new ArrayList<String>();
+
+        try {
+            fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
+            String line;
+            while((line = fileReader.readLine()) != null) {
+                fileLines.add(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file");
+            e.printStackTrace();
+        }
+        return fileLines;
+    }
+
     private Player buildPlayerFrom(String line) {
         String[] playerFields = line.split(",");
+        if (playerFields.length > 4) {
+            throw new RuntimeException("Too many fields");
+        }
         String name =   playerFields[0];
         String team =   playerFields[1];
         String number = playerFields[2];
@@ -66,10 +73,14 @@ public class FileUploadService {
     }
 
     private Coach buildCoachFrom(String line) {
-        String[] playerFields = line.split(",");
-        String name =   playerFields[0];
-        String team =   playerFields[1];
-        String position = playerFields[2];
+        String[] coachFields = line.split(",");
+        if (coachFields.length > 3) {
+            throw new RuntimeException("Too many fields");
+        }
+
+        String name =   coachFields[0];
+        String team =   coachFields[1];
+        String position = coachFields[2];
 
         return new CoachBuilder().withName(name)
                 .withTeam(team)

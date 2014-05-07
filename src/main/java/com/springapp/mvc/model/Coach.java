@@ -1,6 +1,6 @@
 package com.springapp.mvc.model;
 
-public class Coach extends TeamMember {
+public class Coach {
 
     private final String name;
     private final String team;

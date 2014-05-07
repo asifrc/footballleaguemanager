@@ -67,7 +67,7 @@ public class FileUploadServiceTest {
 
         List<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
 
-        assertTrue(isInList(actualPlayerList, bob));
+        assertTrue(actualPlayerList.contains(bob));
     }
 
     @Test
@@ -81,12 +81,11 @@ public class FileUploadServiceTest {
 
         List<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
 
-        assertTrue(isInList(actualCoachList, jack));
+        assertTrue(actualCoachList.contains(jack));
     }
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void shouldThrowRunTimeExceptionWhenAgeIsNotAnInt() throws IOException {
         thrown.expect(RuntimeException.class);
@@ -94,14 +93,5 @@ public class FileUploadServiceTest {
                 .thenReturn(new FileInputStream(BAD_PLAYER_LIST_1));
 
         fileUploadService.createPlayerList(stubbedFile);
-    }
-
-    private Boolean isInList(List<? extends TeamMember> teamMemberList, TeamMember expectedTeamMember) {
-        for (TeamMember teamMember : teamMemberList) {
-            if (teamMember.equals(expectedTeamMember)) {
-                return true;
-            }
-        }
-        return false;
     }
 }

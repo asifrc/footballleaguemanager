@@ -3,7 +3,7 @@ package com.springapp.mvc.model;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Player extends TeamMember {
+public class Player {
     private String name;
     private String team;
     private String number;
@@ -19,6 +19,7 @@ public class Player extends TeamMember {
         this.age = age;
     }
 
+    // Investigate Project Lombok
     //IntelliJ generated
     @Override
     public boolean equals(Object o) {
