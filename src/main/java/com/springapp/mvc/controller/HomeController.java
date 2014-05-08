@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -28,15 +29,31 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-	public String listPlayersAndCoaches(ModelMap model) {
-        List<Player> playerList = playerService.getPlayerList();
+    public String listPlayersAndCoaches(ModelMap model, HttpServletRequest request) {
+        List<Player> playerList = (List<Player>)request.getSession().getAttribute("playerList");
+        request.getSession().removeAttribute("playerList");
+
+        if(playerList == null) {
+            playerList = playerService.getPlayerList();
+        }
 
         List<Coach> coachList = coachService.getCoachList();
 
         model.addAttribute("playerList", playerList);
         model.addAttribute("coachList", coachList);
-		return "home";
-	}
+        return "home";
+    }
+
+    @RequestMapping(value = "/filterPlayers", method = RequestMethod.POST)
+    public ModelAndView filterPlayers(ModelMap model, HttpServletRequest request) {
+        List<Player> playerList = playerService.getPlayersWithMinimumAge(18);
+        List<Coach> coachList = coachService.getCoachList();
+
+        request.getSession().setAttribute("playerList", playerList);
+        request.getSession().setAttribute("coachList", coachList);
+
+        return new ModelAndView("redirect:/", model);
+    }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
     public String showFindPage() {

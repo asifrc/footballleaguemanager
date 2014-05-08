@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class HomeControllerTest {
     @Mock PlayerService stubbedPlayerService;
     @Mock CoachService stubbedCoachService;
     @Mock ModelMap mockedModelMap;
+    @Mock HttpServletRequest mockedRequest;
+    @Mock HttpSession mockedSession;
+
 
     private HomeController controller;
     private List<Player> players;
@@ -46,25 +51,33 @@ public class HomeControllerTest {
 
         when(stubbedPlayerService.getPlayerList()).thenReturn(players);
         when(stubbedCoachService.getCoachList()).thenReturn(coaches);
+        when(mockedRequest.getSession()).thenReturn(mockedSession);
     }
 
     @Test
     public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap);
+        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
         verify(stubbedPlayerService).getPlayerList();
     }
 
     @Test
     public void shouldGetCoachesFromCoachServiceWhenListingCoaches() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap);
+        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
         verify(stubbedCoachService).getCoachList();
     }
 
     @Test
     public void shouldAddAttributeToModelWhenListingPlayers() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap);
+        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
 
         verify(mockedModelMap).addAttribute("playerList", players);
+    }
+
+    @Test
+    public void shouldRedirectToHomeAfterFilteringPlayers() {
+        ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, mockedRequest);
+
+        assertTrue(modelAndView.getViewName().equals("redirect:/"));
     }
 
     @Test

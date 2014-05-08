@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class PlayerServiceTest {
     private PlayerService playerService;
@@ -52,6 +53,21 @@ public class PlayerServiceTest {
         Player foundPlayer = playerService.findPlayerByName("Ayanga");
 
         assertEquals(addedPlayer, foundPlayer);
+    }
+
+    @Test
+    public void shouldFilterPlayersByMinimumAge() {
+        Player underAge = new Player("Daniel", "Team1", "1", 17);
+        Player oldEnough = new Player("Jane", "Team2", "2", 18);
+        playerList.add(underAge);
+        playerList.add(oldEnough);
+        playerService.setPlayerList(playerList);
+
+        List<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(18);
+        playerList.remove(underAge);
+
+        assertFalse(playerList.contains(underAge));
+        assertEquals(playerList, filteredPlayerList);
     }
 
     @Test
