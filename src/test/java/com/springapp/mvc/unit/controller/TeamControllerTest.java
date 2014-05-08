@@ -46,6 +46,24 @@ public class TeamControllerTest {
     }
 
     @Test
+    public void shouldGetFilteredPlayerListFromPlayerService() throws Exception {
+        PlayerService mockedPlayerService = stubbedPlayerService;
+
+        teamController.showTeam(mockedModelMap, "Rockets");
+
+        verify(mockedPlayerService).getPlayersFrom("Rockets");
+    }
+
+    @Test
+    public void shouldGetFilteredCoachListFromPlayerService() throws Exception {
+        CoachService mockedCoachService = stubbedCoachService;
+
+        teamController.showTeam(mockedModelMap, "Rockets");
+
+        verify(mockedCoachService).getCoachesFrom("Rockets");
+    }
+
+    @Test
     public void shouldPassPlayerListToView() {
         List<Player> playerList = new ArrayList<Player>();
         when(stubbedPlayerService.getPlayerList()).thenReturn(playerList);

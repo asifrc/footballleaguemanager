@@ -29,7 +29,7 @@ public class TeamTest extends FunctionalBase {
         WebElement coachDiv = driver.findElement(By.id("coaches"));
 
         assertTrue(playerDiv.getText().contains("Aubrey"));
-        assertTrue(coachDiv.getText().contains("Jack"));
+        assertTrue(coachDiv.getText().contains("Hakim"));
     }
 
 
@@ -37,11 +37,17 @@ public class TeamTest extends FunctionalBase {
     public void shouldNotDisplayPlayersNotOnTheTeam() throws Exception {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_2);
+        helper.uploadFileFor("coaches", COACH_LIST);
         driver.get(BASE_URL + "team/?name=Rockets");
 
         WebElement playerDiv = driver.findElement(By.id("players"));
+        WebElement coachDiv = driver.findElement(By.id("coaches"));
 
         assertTrue(playerDiv.getText().contains("Aubrey"));
         assertFalse(playerDiv.getText().contains("Whitney"));
+
+        assertTrue(coachDiv.getText().contains("Hakim"));
+        assertFalse(coachDiv.getText().contains("Jack"));
+
     }
 }

@@ -7,22 +7,25 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class CoachServiceTest {
     private CoachService coachService;
     private ArrayList<Coach> coachList;
+    private Coach jack;
 
     @Before
     public void setUp() throws Exception {
         coachList = new ArrayList<Coach>();
 
-        coachList.add(new CoachBuilder()
+        jack = new CoachBuilder()
                 .withName("Jack")
-                .withTeam("Team1")
+                .withTeam("Cubs")
                 .withPosition("Assistant Coach")
-                .build());
+                .build();
+        coachList.add(jack);
 
         coachList.add(new CoachBuilder()
                 .withName("Jill")
@@ -37,5 +40,14 @@ public class CoachServiceTest {
     @Test
     public void shouldReturnListOfCoaches() throws Exception {
         assertEquals(coachList, coachService.getCoachList());
+    }
+
+    @Test
+    public void shouldReturnCoachesFromASpecificTeam() throws Exception {
+        List<Coach> expectedCoaches = new ArrayList<Coach>();
+        expectedCoaches.add(jack);
+        List<Coach> actualCoaches = coachService.getCoachesFrom("Cubs");
+
+        assertEquals(expectedCoaches, actualCoaches);
     }
 }
