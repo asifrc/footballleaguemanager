@@ -32,4 +32,14 @@ public class PlayerService {
     public void setPlayerList(List<Player> playerList) {
         this.playerList = playerList;
     }
+
+    public List<Player> getPlayersFrom(String teamName) {
+        ArrayList<Player> filterPlayers = new ArrayList<Player>();
+        for (Player player : playerList) {
+            if (player.getTeam().equals(teamName)) {
+                filterPlayers.add(player);
+            }
+        }
+        return filterPlayers;
+    }
 }

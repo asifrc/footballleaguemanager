@@ -24,7 +24,7 @@ public class TeamController {
     @RequestMapping(method = RequestMethod.GET)
     public String showTeam(ModelMap modelMap, @RequestParam("name") String teamName) {
         modelMap.addAttribute("teamName", teamName);
-        modelMap.addAttribute("playerList", playerService.getPlayerList());
+        modelMap.addAttribute("playerList", playerService.getPlayersFrom(teamName));
         modelMap.addAttribute("coachList", coachService.getCoachList());
         return "team";
     }

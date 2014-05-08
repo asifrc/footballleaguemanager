@@ -6,8 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.springapp.mvc.functional.FileUploadHelper.COACH_LIST;
 import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_2;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TeamTest extends FunctionalBase {
     @Test
@@ -31,5 +30,18 @@ public class TeamTest extends FunctionalBase {
 
         assertTrue(playerDiv.getText().contains("Aubrey"));
         assertTrue(coachDiv.getText().contains("Jack"));
+    }
+
+
+    @Test
+    public void shouldNotDisplayPlayersNotOnTheTeam() throws Exception {
+        driver.get(BASE_URL);
+        helper.uploadFileFor("players", PLAYER_LIST_2);
+        driver.get(BASE_URL + "team/?name=Rockets");
+
+        WebElement playerDiv = driver.findElement(By.id("players"));
+
+        assertTrue(playerDiv.getText().contains("Aubrey"));
+        assertFalse(playerDiv.getText().contains("Whitney"));
     }
 }

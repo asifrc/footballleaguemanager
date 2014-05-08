@@ -7,26 +7,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class PlayerServiceTest {
     private PlayerService playerService;
     private ArrayList<Player> playerList;
+    private Player playerCubs;
+    private Player playerYankees;
 
     @Before
     public void setUp() throws Exception {
         playerList = new ArrayList<Player>();
 
-        playerList.add(new PlayerBuilder()
+        playerCubs = new PlayerBuilder()
                 .withName("Bob")
                 .withNumber("0")
-                .build());
+                .withTeam("Cubs")
+                .build();
+        playerList.add(playerCubs);
 
-        playerList.add(new PlayerBuilder()
+        playerYankees = new PlayerBuilder()
                 .withName("Sally")
                 .withNumber("1")
-                .build());
+                .build();
+        playerList.add(playerYankees);
 
         playerService = new PlayerService();
         playerService.setPlayerList(playerList);
@@ -48,4 +54,12 @@ public class PlayerServiceTest {
         assertEquals(addedPlayer, foundPlayer);
     }
 
+    @Test
+    public void shouldReturnPlayersFromASpecifiedTeam() {
+        List<Player> expectedPlayers = new ArrayList<Player>();
+        expectedPlayers.add(playerCubs);
+        List<Player> actualPlayers = playerService.getPlayersFrom("Cubs");
+
+        assertEquals(expectedPlayers, actualPlayers);
+    }
 }

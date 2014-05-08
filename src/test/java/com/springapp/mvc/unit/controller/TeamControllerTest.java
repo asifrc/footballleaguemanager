@@ -65,5 +65,4 @@ public class TeamControllerTest {
         verify(mockedModelMap).addAttribute("coachList", coachList);
 
     }
-
 }
