@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_1;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FindPlayerTest extends FunctionalBase {
 
@@ -24,8 +25,11 @@ public class FindPlayerTest extends FunctionalBase {
         numberTextBox.sendKeys("0");
         submitButton.click();
 
-        WebElement player = driver.findElement(By.id("playerText"));
-        assertEquals("#0 Sally", player.getText());
+        WebElement player = driver.findElement(By.id("player-table"));
+        assertTrue(player.getText().contains("Sally"));
+        assertTrue(player.getText().contains("0"));
+        assertTrue(player.getText().contains("Team1"));
+        assertTrue(player.getText().contains("21"));
     }
 
     @Test

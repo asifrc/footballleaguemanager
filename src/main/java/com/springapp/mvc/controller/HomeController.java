@@ -52,7 +52,8 @@ public class HomeController {
 
         if (foundPlayer != null) {
             if (foundPlayer.getNumber().equals(number)) {
-                modelAndView.addObject("foundPlayer", foundPlayer);
+                modelAndView.getModel().put("playerFound", true);
+                modelAndView.addObject("player", foundPlayer);
             } else {
                 modelAndView.addObject("error", "Sorry, that name and number do not match. Please try again.");
             }

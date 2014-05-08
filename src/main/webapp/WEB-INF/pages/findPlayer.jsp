@@ -9,8 +9,15 @@
     <label for="number">Number:</label> <input type="text" id="number" name="number" maxlength="3">
     <input type="submit" name="Find" value="find" id="submit">
 </form>
-<c:if test="${foundPlayer != null}">
-    <p id="playerText">#${foundPlayer.number}&nbsp;${foundPlayer.name}</p>
+<c:if test="${playerFound == true}">
+    <table id="player-table">
+        <thead>
+            <%@include file="playerTableHeaderBuilder.jsp" %>
+        </thead>
+        <tbody>
+            <%@include file="playerRowDetail.jsp" %>
+        </tbody>
+    </table>
 </c:if>
 <p id="error">${error}</p>
 <%@include file="footer.jsp" %>
