@@ -35,7 +35,7 @@ public class HomeController {
 
         model.addAttribute("playerList", playerList);
         model.addAttribute("coachList", coachList);
-		return "hello";
+		return "home";
 	}
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)
