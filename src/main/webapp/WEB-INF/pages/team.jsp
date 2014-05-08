@@ -9,4 +9,9 @@
     <%@include file="playerList.jsp" %>
 </div>
 
+<div id="coaches">
+    <h1>Coaches</h1>
+    <%@include file="coachList.jsp" %>
+</div>
+
 <%@include file="footer.jsp" %>

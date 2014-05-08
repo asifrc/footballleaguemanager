@@ -1,7 +1,9 @@
 package com.springapp.mvc.unit.controller;
 
 import com.springapp.mvc.controller.TeamController;
+import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.Player;
+import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,39 +20,50 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class TeamControllerTest {
 
     @Mock
-    private ModelMap mockModelMap;
+    private ModelMap mockedModelMap;
     @Mock
     private PlayerService stubbedPlayerService;
+    @Mock
+    private CoachService stubbedCoachService;
     private TeamController teamController;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        teamController = new TeamController(stubbedPlayerService);
+        teamController = new TeamController(stubbedPlayerService, stubbedCoachService);
     }
 
     @Test
-    public void shouldDisplayTeamView() throws Exception {
-        ModelMap mockModelMap = mock(ModelMap.class);
-        assertEquals("team", teamController.showTeam(mockModelMap, "Giants"));
+    public void shouldDisplayTeamView() {
+        assertEquals("team", teamController.showTeam(mockedModelMap, "Giants"));
     }
 
     @Test
-    public void shouldPassTeamNameToView() throws Exception {
-        mockModelMap = mock(ModelMap.class);
-        teamController.showTeam(mockModelMap, "Giants");
-        verify(mockModelMap).addAttribute("teamName", "Giants");
+    public void shouldPassTeamNameToView() {
+        mockedModelMap = mock(ModelMap.class);
+        teamController.showTeam(mockedModelMap, "Giants");
+        verify(mockedModelMap).addAttribute("teamName", "Giants");
     }
 
     @Test
-    public void shouldPassPlayerListToView() throws Exception {
+    public void shouldPassPlayerListToView() {
         List<Player> playerList = new ArrayList<Player>();
         when(stubbedPlayerService.getPlayerList()).thenReturn(playerList);
 
-        teamController.showTeam(mockModelMap, "Giants");
+        teamController.showTeam(mockedModelMap, "Giants");
 
-        verify(mockModelMap).addAttribute("playerList", playerList);
+        verify(mockedModelMap).addAttribute("playerList", playerList);
     }
 
+    @Test
+    public void shouldPassCoachListToView() {
+        List<Coach> coachList = new ArrayList<Coach>();
+        when(stubbedCoachService.getCoachList()).thenReturn(coachList);
+
+        teamController.showTeam(mockedModelMap, "Team Name from Params");
+
+        verify(mockedModelMap).addAttribute("coachList", coachList);
+
+    }
 
 }
