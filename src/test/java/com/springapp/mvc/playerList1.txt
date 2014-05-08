@@ -1,2 +1,2 @@
 Sally,Team1,0,21
-Bob,Team2,1,22
+Bob,Team2,1,17

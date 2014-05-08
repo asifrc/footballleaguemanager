@@ -19,6 +19,16 @@ public class PlayerService {
         return playerList;
     }
 
+    public List<Player> getPlayersWithMinimumAge(int age) {
+        List<Player> filteredPlayerList = new ArrayList<Player>();
+        for (Player player : playerList) {
+            if (player.getAge() >= age) {
+                filteredPlayerList.add(player);
+            }
+        }
+        return filteredPlayerList;
+    }
+
     public Player findPlayerByName(String name) {
         Player result = null;
         for (Player player : playerList) {

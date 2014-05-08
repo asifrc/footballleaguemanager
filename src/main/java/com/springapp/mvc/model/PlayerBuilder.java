@@ -4,7 +4,7 @@ public class PlayerBuilder {
     private String name = "Default Name";
     private String team = "Default Team";
     private String number = "Default Number";
-    private int age = 0;
+    private int age = 20;
 
     public PlayerBuilder withName(String name) {
         this.name = name;

@@ -60,7 +60,7 @@ public class FileUploadServiceTest {
         Player bob = new PlayerBuilder().withName("Bob")
                 .withTeam("Team2")
                 .withNumber("1")
-                .withAge(22)
+                .withAge(17)
                 .build();
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(PLAYER_LIST_1));
