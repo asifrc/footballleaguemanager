@@ -7,8 +7,6 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_EMPTY;
-
 public class FunctionalBase {
     protected static final String BASE_URL = "http://localhost:8080/";
     protected static WebDriver driver;
@@ -31,7 +29,7 @@ public class FunctionalBase {
 
     @After
     public void resetPlayerList() throws Exception {
-        driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_EMPTY);
+//        driver.get(BASE_URL);
+//        helper.uploadFileFor("players", PLAYER_LIST_EMPTY);
     }
 }
