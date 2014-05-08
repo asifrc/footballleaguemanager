@@ -11,6 +11,10 @@ public class CoachService {
 
     private List<Coach> coachList;
 
+    public CoachService() {
+        this.coachList = new ArrayList<Coach>();
+    }
+
     public List<Coach> getCoachList() {
         return coachList;
     }

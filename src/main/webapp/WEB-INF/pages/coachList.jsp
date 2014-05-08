@@ -14,9 +14,11 @@
             <tbody>
             <c:forEach var="coach" items="${coachList}" varStatus="coachCount">
                 <tr id="player-${coachCount.count}">
-                    <td>${coach.getName()}</td>
-                    <td>${coach.getTeam()}</td>
-                    <td>${coach.getTitle()}</td>
+                    <td>${coach.name()}</td>
+                    <td>
+                        <a href="/team?name=${coach.team}">${coach.team}</a>
+                    </td>
+                    <td>${coach.title()}</td>
                 </tr>
             </c:forEach>
             </tbody>
