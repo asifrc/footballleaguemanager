@@ -1,6 +1,6 @@
 <c:choose>
     <c:when test="${empty coachList}">
-        <p id="empty-list-message">Please upload a list of coaches.</p>
+        <p id="empty-list-message">Sorry, there are no coaches.</p>
     </c:when>
     <c:otherwise>
         <table id="coach-table">
