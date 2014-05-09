@@ -14,4 +14,6 @@
     <%@include file="coachList.jsp" %>
 </div>
 
+<a href="/" class="menuItem">Return Home</a>
+
 <%@include file="footer.jsp" %>
