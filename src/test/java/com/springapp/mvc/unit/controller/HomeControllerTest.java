@@ -56,19 +56,19 @@ public class HomeControllerTest {
 
     @Test
     public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
+        controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedPlayerService).getPlayerList();
     }
 
     @Test
     public void shouldGetCoachesFromCoachServiceWhenListingCoaches() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
+        controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedCoachService).getCoachList();
     }
 
     @Test
     public void shouldAddAttributeToModelWhenListingPlayers() throws Exception {
-        controller.listPlayersAndCoaches(mockedModelMap, mockedRequest);
+        controller.listPlayersAndCoaches(mockedModelMap);
 
         verify(mockedModelMap).addAttribute("playerList", players);
     }

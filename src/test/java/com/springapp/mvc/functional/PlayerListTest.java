@@ -67,20 +67,5 @@ public class PlayerListTest extends FunctionalBase {
         assertFalse(playerList.getText().contains("Sally"));
     }
 
-    @Test
-    public void shouldFilterPlayersOver18YearsOldWhenFilterButtonClicked() {
-        driver.get(BASE_URL);
 
-        helper.uploadFileFor("players", PLAYER_LIST_1);
-
-        WebElement playerList = driver.findElement(By.id("player-table"));
-        assertTrue((playerList.findElement(By.id("player-2")).getText()
-                .contains("Bob")));
-
-        WebElement filterButton = driver.findElement(By.id("player-filter-button"));
-        filterButton.click();
-        playerList = driver.findElement(By.id("player-table"));
-
-        assertFalse(playerList.getText().contains("Bob"));
-    }
 }
