@@ -27,7 +27,7 @@ public class PlayerListTest extends FunctionalBase {
     public void shouldDisplaySorryMessageForEmptyPlayerList() {
         driver.get(BASE_URL);
 
-        helper.uploadFileFor("players", PLAYER_LIST_EMPTY);
+        helper.uploadFileFor("players", EMPTY_TEXT_FILE);
         WebElement emptyMessage = driver.findElement(By.id("empty-list-message"));
 
         assertEquals("Sorry, there are no players.", emptyMessage.getText());
