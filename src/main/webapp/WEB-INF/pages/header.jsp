@@ -8,4 +8,5 @@
 <body>
 <a href="/" class="menuItem">List Players</a>
 <a href="/find" class="menuItem">Find Players</a>
+<a href="/trade" class="menuItem">Trade Players</a>
 
