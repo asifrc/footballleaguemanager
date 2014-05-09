@@ -4,7 +4,7 @@
 
 <h1>Find Player</h1>
 
-<form action="/find" method="get">
+<form action="/find" method="GET">
     <label for="name">Name:</label> <input type="text" id="name" name="name">
     <label for="number">Number:</label> <input type="text" id="number" name="number" maxlength="3">
     <input type="submit" name="Find" value="find" id="submit">

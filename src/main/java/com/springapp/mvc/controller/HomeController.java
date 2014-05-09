@@ -30,13 +30,7 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String listPlayersAndCoaches(ModelMap model, HttpServletRequest request) {
-        List<Player> playerList = (List<Player>)request.getSession().getAttribute("playerList");
-        request.getSession().removeAttribute("playerList");
-
-        if(playerList == null) {
-            playerList = playerService.getPlayerList();
-        }
-
+        List<Player> playerList = playerService.getPlayerList();
         List<Coach> coachList = coachService.getCoachList();
 
         model.addAttribute("playerList", playerList);
@@ -44,15 +38,17 @@ public class HomeController {
         return "home";
     }
 
-    @RequestMapping(value = "/filterPlayers", method = RequestMethod.POST)
+    @RequestMapping(value = "/filterPlayers", method = RequestMethod.GET)
     public ModelAndView filterPlayers(ModelMap model, HttpServletRequest request) {
-        List<Player> playerList = playerService.getPlayersWithMinimumAge(18);
+        int minAge = Integer.parseInt(request.getParameter("minimum-age"));
+        List<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(minAge);
         List<Coach> coachList = coachService.getCoachList();
 
-        request.getSession().setAttribute("playerList", playerList);
-        request.getSession().setAttribute("coachList", coachList);
+        model.addAttribute("playerList", filteredPlayerList);
+        model.addAttribute("coachList", coachList);
+        model.addAttribute("minAge", minAge);
 
-        return new ModelAndView("redirect:/", model);
+        return new ModelAndView("filteredPlayerList", model);
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

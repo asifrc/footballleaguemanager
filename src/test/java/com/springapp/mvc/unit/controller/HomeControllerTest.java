@@ -74,10 +74,11 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeAfterFilteringPlayers() {
+    public void shouldRenderFilteredPlayerListAfterFilteringPlayers() {
+        when(mockedRequest.getParameter("minimum-age")).thenReturn("18");
         ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, mockedRequest);
 
-        assertTrue(modelAndView.getViewName().equals("redirect:/"));
+        assertTrue(modelAndView.getViewName().equals("filteredPlayerList"));
     }
 
     @Test
