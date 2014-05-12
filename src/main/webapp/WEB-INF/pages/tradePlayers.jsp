@@ -1,8 +1,9 @@
-<%@include file="libraryHeader.jsp" %>
+<%@include file="partials/libraryHeader.jsp" %>
 <c:set var="pageTitle" scope="request" value="Trade Players"/>
-<%@include file="header.jsp" %>
+<%@include file="partials/header.jsp" %>
 
 <h1>Trade Players</h1>
 
-<%@include file="playerList.jsp" %>
-<%@include file="footer.jsp" %>
+<%@include file="partials/playerList.jsp" %>
+
+<%@include file="partials/footer.jsp" %>

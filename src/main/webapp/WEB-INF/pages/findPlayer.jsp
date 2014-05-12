@@ -1,6 +1,6 @@
-<%@include file="libraryHeader.jsp" %>
+<%@include file="partials/libraryHeader.jsp" %>
 <c:set var="pageTitle" scope="request" value="Find Player"/>
-<%@include file="header.jsp" %>
+<%@include file="partials/header.jsp" %>
 
 <h1>Find Player</h1>
 
@@ -12,12 +12,13 @@
 <c:if test="${playerFound == true}">
     <table id="player-table">
         <thead>
-            <%@include file="playerTableHeaderBuilder.jsp" %>
+            <%@include file="partials/playerTableHeaderBuilder.jsp" %>
         </thead>
         <tbody>
-            <%@include file="playerRowDetail.jsp" %>
+            <%@include file="partials/playerRowDetail.jsp" %>
         </tbody>
     </table>
 </c:if>
 <p id="error">${error}</p>
-<%@include file="footer.jsp" %>
+
+<%@include file="partials/footer.jsp" %>

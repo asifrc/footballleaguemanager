@@ -1,6 +1,6 @@
-<%@include file="libraryHeader.jsp" %>
+<%@include file="partials/libraryHeader.jsp" %>
 <c:set var="pageTitle" scope="request" value="Error!"/>
-<%@include file="header.jsp" %>
+<%@include file="partials/header.jsp" %>
 
 <div id="error">
     <p>Sorry, there was a problem with your request.</p>
@@ -15,4 +15,4 @@
 <br>
 <a href="/" class="menuItem">Return Home</a>
 
-<%@include file="footer.jsp" %>
+<%@include file="partials/footer.jsp" %>
