@@ -6,3 +6,12 @@ $(document).ready(function(){
             .prop('disabled', hasNoFiles); /* Disable the button. */
     });
 });
+
+$(document).ready(function(){
+    $('#age-filter-dropdown').change(function(){
+        var defaultSelected = this.value == 0;
+        $(this).closest('form')
+            .find('input[type=submit]')
+            .prop('disabled', defaultSelected);
+    });
+});

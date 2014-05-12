@@ -29,12 +29,13 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String listPlayersAndCoaches(ModelMap model, HttpServletRequest request) {
+    public String listPlayersAndCoaches(ModelMap model) {
         List<Player> playerList = playerService.getPlayerList();
         List<Coach> coachList = coachService.getCoachList();
 
         model.addAttribute("playerList", playerList);
         model.addAttribute("coachList", coachList);
+
         return "home";
     }
 
