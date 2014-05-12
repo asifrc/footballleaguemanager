@@ -28,14 +28,14 @@ public class TeamControllerTest {
     private TeamController teamController;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
         teamController = new TeamController(stubbedPlayerService, stubbedCoachService);
     }
 
     @Test
     public void shouldDisplayTeamView() {
-        assertEquals("team", teamController.showTeam(mockedModelMap, "Giants"));
+        assertEquals("team", teamController.showTeam(mockedModelMap, "Giants").getViewName());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldGetFilteredPlayerListFromPlayerService() throws Exception {
+    public void shouldGetFilteredPlayerListFromPlayerService() {
         PlayerService mockedPlayerService = stubbedPlayerService;
 
         teamController.showTeam(mockedModelMap, "Rockets");
@@ -55,7 +55,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldGetFilteredCoachListFromPlayerService() throws Exception {
+    public void shouldGetFilteredCoachListFromPlayerService() {
         CoachService mockedCoachService = stubbedCoachService;
 
         teamController.showTeam(mockedModelMap, "Rockets");

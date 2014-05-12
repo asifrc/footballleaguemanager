@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/team")
@@ -22,10 +23,10 @@ public class TeamController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showTeam(ModelMap modelMap, @RequestParam("name") String teamName) {
-        modelMap.addAttribute("teamName", teamName);
-        modelMap.addAttribute("playerList", playerService.getPlayersFrom(teamName));
-        modelMap.addAttribute("coachList", coachService.getCoachesFrom(teamName));
-        return "team";
+    public ModelAndView showTeam(ModelMap model, @RequestParam("name") String teamName) {
+        model.addAttribute("teamName", teamName);
+        model.addAttribute("playerList", playerService.getPlayersFrom(teamName));
+        model.addAttribute("coachList", coachService.getCoachesFrom(teamName));
+        return new ModelAndView("team", model);
     }
 }

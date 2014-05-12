@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TradeControllerTest {
     @Test
-    public void shouldDisplayTradePlayerView() throws Exception {
-        assertEquals("tradePlayers", new TradeController().showTradePlayers().getViewName());
+    public void shouldDisplayTradePlayerView() {
+        assertEquals("tradePlayers", new TradeController().showTradePlayers());
     }
 }

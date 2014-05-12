@@ -37,7 +37,7 @@ public class HomeControllerTest {
     private List<Coach> coaches;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
         controller = new HomeController(stubbedPlayerService, stubbedCoachService);
 
@@ -55,19 +55,19 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() throws Exception {
+    public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() {
         controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedPlayerService).getPlayerList();
     }
 
     @Test
-    public void shouldGetCoachesFromCoachServiceWhenListingCoaches() throws Exception {
+    public void shouldGetCoachesFromCoachServiceWhenListingCoaches() {
         controller.listPlayersAndCoaches(mockedModelMap);
         verify(stubbedCoachService).getCoachList();
     }
 
     @Test
-    public void shouldAddAttributeToModelWhenListingPlayers() throws Exception {
+    public void shouldAddAttributeToModelWhenListingPlayers() {
         controller.listPlayersAndCoaches(mockedModelMap);
 
         verify(mockedModelMap).addAttribute("playerList", players);
@@ -82,7 +82,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldPassAPlayerToTheViewWhenFindingAPlayerWithMatchingParameters() throws Exception {
+    public void shouldPassAPlayerToTheViewWhenFindingAPlayerWithMatchingParameters() {
         Player player = new PlayerBuilder().withName("Ayanga").withNumber("70").build();
         when(stubbedPlayerService.findPlayerByName("Ayanga")).thenReturn(player);
 
@@ -94,7 +94,7 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() throws Exception {
+    public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() {
         when(stubbedPlayerService.findPlayerByName(anyString())).thenReturn(null);
 
         Player player = new PlayerBuilder().withName("NonMatchingPlayer").withNumber("91239").build();

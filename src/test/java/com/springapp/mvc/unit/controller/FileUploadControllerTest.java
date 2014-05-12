@@ -34,7 +34,7 @@ public class FileUploadControllerTest {
     private FileUploadController fileUploadController;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
         fileUploadController = new FileUploadController(
                 stubbedFileUploadService, mockedPlayerService, mockedCoachService);
@@ -91,7 +91,7 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeIfGoodPlayerListIsUploaded() throws Exception {
+    public void shouldRedirectToHomeIfGoodPlayerListIsUploaded() {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Player>());
 
@@ -102,7 +102,7 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeIfGoodCoachListIsUploaded() throws Exception {
+    public void shouldRedirectToHomeIfGoodCoachListIsUploaded() {
         when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Coach>());
 
@@ -113,7 +113,7 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToErrorPageIfBadPlayerListIsUploaded() throws Exception {
+    public void shouldRedirectToErrorPageIfBadPlayerListIsUploaded() {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
@@ -124,7 +124,7 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToErrorPageIfBadCoachListIsUploaded() throws Exception {
+    public void shouldRedirectToErrorPageIfBadCoachListIsUploaded() {
         when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 

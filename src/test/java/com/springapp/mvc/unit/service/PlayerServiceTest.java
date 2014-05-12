@@ -19,7 +19,7 @@ public class PlayerServiceTest {
     private Player playerYankees;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         playerList = new ArrayList<Player>();
 
         playerCubs = new PlayerBuilder()
@@ -40,12 +40,12 @@ public class PlayerServiceTest {
     }
 
     @Test
-    public void shouldReturnListOfPlayers() throws Exception {
+    public void shouldReturnListOfPlayers() {
         assertEquals(playerList, playerService.getPlayerList());
     }
 
     @Test
-    public void shouldFindAPlayerByNameAndNumberWhenThereIsAMatch() throws Exception {
+    public void shouldFindAPlayerByNameAndNumberWhenThereIsAMatch() {
         Player addedPlayer = new PlayerBuilder().withName("Ayanga").withNumber("70").build();
         playerList.add(addedPlayer);
         playerList.add(new PlayerBuilder().withName("Random").withNumber("50").build());

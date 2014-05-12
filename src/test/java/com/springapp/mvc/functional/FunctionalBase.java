@@ -25,12 +25,12 @@ public class FunctionalBase {
     }
 
     @Before
-    public void startHelper() throws Exception {
+    public void startHelper() {
         helper = new FileUploadHelper(driver);
     }
 
     @After
-    public void resetPlayerAndCoachList() throws Exception {
+    public void resetPlayerAndCoachList() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", EMPTY_TEXT_FILE);
         helper.uploadFileFor("coaches", EMPTY_TEXT_FILE);

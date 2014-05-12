@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class TeamTest extends FunctionalBase {
     @Test
-    public void shouldDisplayTeamNameInHeaderOnTeamPage() throws Exception {
+    public void shouldDisplayTeamNameInHeaderOnTeamPage() {
         driver.get(BASE_URL + "team/?name=Rockets");
 
         WebElement teamNameHeader = driver.findElement(By.id("team-name"));
@@ -19,7 +19,7 @@ public class TeamTest extends FunctionalBase {
     }
 
     @Test
-    public void shouldDisplayPlayerListAndCoachListOnPage() throws Exception {
+    public void shouldDisplayPlayerListAndCoachListOnPage() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_2);
         helper.uploadFileFor("coaches", COACH_LIST);
@@ -34,7 +34,7 @@ public class TeamTest extends FunctionalBase {
 
 
     @Test
-    public void shouldNotDisplayPlayersNotOnTheTeam() throws Exception {
+    public void shouldNotDisplayPlayersNotOnTheTeam() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_2);
         helper.uploadFileFor("coaches", COACH_LIST);
@@ -48,6 +48,5 @@ public class TeamTest extends FunctionalBase {
 
         assertTrue(coachDiv.getText().contains("Hakim"));
         assertFalse(coachDiv.getText().contains("Jack"));
-
     }
 }

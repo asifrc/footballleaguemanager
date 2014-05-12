@@ -14,7 +14,7 @@ public class FilterPlayersTest extends FunctionalBase {
     // http://docs.seleniumhq.org/docs/03_webdriver.jsp#user-input-filling-in-forms
 
     @Test
-    public void filterPlayersButtonShouldBeDisabledUntilANumberIsChosen() throws Exception {
+    public void filterPlayersButtonShouldBeDisabledUntilANumberIsChosen() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_1);
         WebElement filterButton = driver.findElement(By.id("player-filter-button"));

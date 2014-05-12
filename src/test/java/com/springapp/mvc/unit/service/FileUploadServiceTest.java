@@ -1,6 +1,9 @@
 package com.springapp.mvc.unit.service;
 
-import com.springapp.mvc.model.*;
+import com.springapp.mvc.model.Coach;
+import com.springapp.mvc.model.CoachBuilder;
+import com.springapp.mvc.model.Player;
+import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.FileUploadService;
 import org.junit.Before;
 import org.junit.Rule;
@@ -30,7 +33,7 @@ public class FileUploadServiceTest {
     FileUploadService fileUploadService;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
         fileUploadService = new FileUploadService();
     }
@@ -56,7 +59,7 @@ public class FileUploadServiceTest {
     }
 
     @Test
-    public void shouldReturnListWithBobWhenPlayerFileWithBobUploaded() throws Exception {
+    public void shouldReturnListWithBobWhenPlayerFileWithBobUploaded() throws IOException {
         Player bob = new PlayerBuilder().withName("Bob")
                 .withTeam("Team2")
                 .withNumber("1")
@@ -71,7 +74,7 @@ public class FileUploadServiceTest {
     }
 
     @Test
-    public void shouldReturnListWithJackWhenCoachFileWithJackUploaded() throws Exception {
+    public void shouldReturnListWithJackWhenCoachFileWithJackUploaded() throws IOException {
         Coach jack = new CoachBuilder().withName("Jack")
                 .withTeam("Team1")
                 .withPosition("Assistant Coach")

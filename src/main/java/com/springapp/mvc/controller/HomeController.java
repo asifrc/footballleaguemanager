@@ -54,21 +54,19 @@ public class HomeController {
     @RequestMapping(value = {"/find"}, method = RequestMethod.GET, params = "Find=find")
     public ModelAndView findPlayer(@ModelAttribute Player player) {
         ModelMap model = new ModelMap();
-        String number = player.getNumber();
         Player foundPlayer = playerService.findPlayerByName(player.getName());
-        ModelAndView modelAndView = new ModelAndView("findPlayer");
 
         if (foundPlayer != null) {
-            if (foundPlayer.getNumber().equals(number)) {
-                modelAndView.getModel().put("playerFound", true);
-                modelAndView.addObject("player", foundPlayer);
+            if (foundPlayer.getNumber().equals(player.getNumber())) {
+                model.addAttribute("playerFound", true);
+                model.addAttribute("player", foundPlayer);
             } else {
-                modelAndView.addObject("error", "Sorry, that name and number do not match. Please try again.");
+                model.addAttribute("error", "Sorry, that name and number do not match. Please try again.");
             }
         } else {
-            modelAndView.addObject("error", "Sorry, there is no player with that name and number");
+            model.addAttribute("error", "Sorry, there is no player with that name and number");
         }
 
-        return modelAndView;
+        return new ModelAndView("findPlayer", model);
     }
 }

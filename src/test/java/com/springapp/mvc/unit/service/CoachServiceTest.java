@@ -17,7 +17,7 @@ public class CoachServiceTest {
     private Coach jack;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         coachList = new ArrayList<Coach>();
 
         jack = new CoachBuilder()
@@ -38,12 +38,12 @@ public class CoachServiceTest {
     }
 
     @Test
-    public void shouldReturnListOfCoaches() throws Exception {
+    public void shouldReturnListOfCoaches() {
         assertEquals(coachList, coachService.getCoachList());
     }
 
     @Test
-    public void shouldReturnCoachesFromASpecificTeam() throws Exception {
+    public void shouldReturnCoachesFromASpecificTeam() {
         List<Coach> expectedCoaches = new ArrayList<Coach>();
         expectedCoaches.add(jack);
         List<Coach> actualCoaches = coachService.getCoachesFrom("Cubs");

@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TradeTest extends FunctionalBase {
     @Test
-    public void shouldBeAbleToGoToTradePlayersPageFromHomePage() throws Exception {
+    public void shouldBeAbleToGoToTradePlayersPageFromHomePage() {
         driver.get(BASE_URL);
         List<WebElement> menuItem = driver.findElements(By.className("menuItem"));
         WebElement link = menuItem.get(2);

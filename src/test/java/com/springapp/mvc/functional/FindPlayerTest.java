@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class FindPlayerTest extends FunctionalBase {
 
     @Test
-    public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() throws Exception {
+    public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_1);
 
@@ -33,7 +33,7 @@ public class FindPlayerTest extends FunctionalBase {
     }
 
     @Test
-    public void shouldDisplayMessageWhenSearchReturnsNoMatchingPlayers() throws Exception {
+    public void shouldDisplayMessageWhenSearchReturnsNoMatchingPlayers() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_1);
 
@@ -52,7 +52,7 @@ public class FindPlayerTest extends FunctionalBase {
     }
 
     @Test
-    public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() throws Exception {
+    public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_LIST_1);
 

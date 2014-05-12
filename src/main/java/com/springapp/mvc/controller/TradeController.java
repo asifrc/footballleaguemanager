@@ -2,13 +2,11 @@ package com.springapp.mvc.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TradeController {
-
     @RequestMapping("/trade")
-    public ModelAndView showTradePlayers() {
-        return new ModelAndView("tradePlayers");
+    public String showTradePlayers() {
+        return "tradePlayers";
     }
 }

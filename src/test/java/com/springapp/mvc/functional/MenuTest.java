@@ -15,7 +15,7 @@ public class MenuTest {
     WebDriver driver = new HtmlUnitDriver();
 
     @Test
-    public void shouldHaveAListPlayersLink() throws Exception {
+    public void shouldHaveAListPlayersLink() {
         driver.get(BASE_URL);
         List<WebElement> menuItems = driver.findElements(By.className("menuItem"));
 
@@ -29,7 +29,7 @@ public class MenuTest {
     }
 
     @Test
-    public void shouldHaveAFindPlayersLink() throws Exception {
+    public void shouldHaveAFindPlayersLink() {
         driver.get(BASE_URL);
         List<WebElement> menuItems = driver.findElements(By.className("menuItem"));
 

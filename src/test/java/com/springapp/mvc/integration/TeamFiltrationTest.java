@@ -24,7 +24,7 @@ public class TeamFiltrationTest {
     private ModelMap mockModelMap;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         coachService = new CoachService();
         playerService = new PlayerService();
         teamController = new TeamController(playerService, coachService);
