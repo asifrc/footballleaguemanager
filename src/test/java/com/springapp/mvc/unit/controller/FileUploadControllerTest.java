@@ -120,7 +120,7 @@ public class FileUploadControllerTest {
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
         String redirectPath = modelAndView.getViewName();
 
-        assertEquals("error", redirectPath);
+        assertEquals("redirect:/error?personType=player", redirectPath);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class FileUploadControllerTest {
         ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
         String redirectPath = modelAndView.getViewName();
 
-        assertEquals("error", redirectPath);
+        assertEquals("redirect:/error?personType=coach", redirectPath);
     }
 
 }

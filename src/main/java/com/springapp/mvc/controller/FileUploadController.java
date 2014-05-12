@@ -41,7 +41,7 @@ public class FileUploadController {
             return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return showError(personType);
+            return redirectToError(personType);
         }
     }
 
@@ -55,14 +55,19 @@ public class FileUploadController {
             return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return showError(personType);
+            return redirectToError(personType);
         }
     }
+
     @RequestMapping(value="/error", method = RequestMethod.GET)
-    public ModelAndView showError(String personType) {
+    public ModelAndView showError(@RequestParam("personType") String personType) {
         ModelMap model = new ModelMap();
         model.addAttribute("exampleText", exampleTextFor(personType));
         return new ModelAndView("error", model);
+    }
+
+    private ModelAndView redirectToError(String personType) {
+        return new ModelAndView("redirect:/error?personType="+personType);
     }
 
     private String exampleTextFor(String personType) {
