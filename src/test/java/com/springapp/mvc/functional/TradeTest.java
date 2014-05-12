@@ -5,13 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_2;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TradeTest extends FunctionalBase {
     @Test
@@ -46,18 +44,15 @@ public class TradeTest extends FunctionalBase {
 
         List<WebElement> dropDowns = driver.findElements(By.className("team-dropdown"));
 
-        Select dropDown = new Select(dropDowns.get(0));
-
-        List<WebElement> teamOptions = dropDown.getOptions();
-
-        ArrayList<String> teamNames = new ArrayList<String>();
-        for (WebElement teamOption : teamOptions) {
-            teamNames.add(teamOption.getText());
+        List<String> teamList = Arrays.asList("Canadian Argos", "Dallas Cowboys", "Da Behrs", "Barcelona", "Rockets", " -- Trade -- ");
+        for (int i = 0; i < dropDowns.size(); i++) {
+            Select select = new Select(dropDowns.get(i));
+            for (int j = 0; j < teamList.size(); j++) {
+                if (i != j) {
+                    assertFalse(select.getOptions().contains(teamList.get(j)));
+                }
+            }
+            assertFalse(select.getOptions().contains(teamList.get(i)));
         }
-
-        List<String> teamList = Arrays.asList("Canadian Argos", "Dallas Cowboys", "Da Behrs", "Barcelona", "Rockets");
-
-        assertTrue(teamNames.containsAll(teamList));
-
     }
 }
