@@ -6,8 +6,8 @@
     <p>Sorry, there was a problem with your request.</p>
     <p>Please ensure your file is a .txt in the following format: </p>
     <div class="text-box">
-        Name,Team,Number,Age<br>
-        Name,Team,Number,Age<br>
+        ${exampleText}<br>
+        ${exampleText}<br>
         etc.
     </div>
 </div>

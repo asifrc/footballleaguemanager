@@ -32,7 +32,7 @@ public class FileUploadController {
     }
 
     @RequestMapping(value="/upload-playerlist", method = RequestMethod.POST)
-    public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file) {
+    public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
         List<Player> playerList = null;
         List<Coach> coachList = coachService.getCoachList();
         try {
@@ -41,12 +41,12 @@ public class FileUploadController {
             return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return redirectToErrorPage();
+            return showError(personType);
         }
     }
 
     @RequestMapping(value="/upload-coachlist", method = RequestMethod.POST)
-    public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file) {
+    public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
         List<Coach> coachList = null;
         List<Player> playerList = playerService.getPlayerList();
         try {
@@ -55,12 +55,24 @@ public class FileUploadController {
             return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
-            return redirectToErrorPage();
+            return showError(personType);
         }
     }
     @RequestMapping(value="/error", method = RequestMethod.GET)
-    public String showError() {
-        return "error";
+    public ModelAndView showError(String personType) {
+        ModelMap model = new ModelMap();
+        model.addAttribute("exampleText", exampleTextFor(personType));
+        return new ModelAndView("error", model);
+    }
+
+    private String exampleTextFor(String personType) {
+        String exampleText = null;
+        if (personType.equals("player")){
+            exampleText = "Name,Team,Number,Age";
+        } else if (personType.equals("coach")) {
+            exampleText = "Name,Team,Title";
+        }
+        return exampleText;
     }
 
     private ModelAndView redirectToHome(List<Player> playerList, List<Coach> coachList) {
@@ -70,7 +82,4 @@ public class FileUploadController {
         return new ModelAndView("redirect:/", model);
     }
 
-    private ModelAndView redirectToErrorPage() {
-        return new ModelAndView("redirect:/error");
-    }
 }

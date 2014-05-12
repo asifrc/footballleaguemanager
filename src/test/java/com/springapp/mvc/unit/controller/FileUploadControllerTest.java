@@ -47,7 +47,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createPlayerList(mockedFile))
                 .thenReturn(expectedPlayerList);
 
-        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
         List<Player> actualPlayerList = (List<Player>) modelAndView.getModelMap().get("playerList");
 
         assertThat(actualPlayerList, is(expectedPlayerList));
@@ -60,7 +60,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createCoachList(mockedFile))
                 .thenReturn(expectedCoachList);
 
-        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
         List<Coach> actualCoachList = (List<Coach>) modelAndView.getModelMap().get("coachList");
 
         assertThat(actualCoachList, is(expectedCoachList));
@@ -73,7 +73,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createPlayerList(mockedFile))
                 .thenReturn(playerList);
 
-        fileUploadController.handlePlayerUpload(mockedFile);
+        fileUploadController.handlePlayerUpload(mockedFile, "player");
 
         verify(mockedPlayerService).setPlayerList(playerList);
     }
@@ -85,7 +85,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createCoachList(mockedFile))
                 .thenReturn(coachList);
 
-        fileUploadController.handleCoachUpload(mockedFile);
+        fileUploadController.handleCoachUpload(mockedFile, "coach");
 
         verify(mockedCoachService).setCoachList(coachList);
     }
@@ -95,7 +95,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Player>());
 
-        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
         String redirectPath = modelAndView.getViewName();
 
         assertEquals("redirect:/", redirectPath);
@@ -106,7 +106,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
                 .thenReturn(new ArrayList<Coach>());
 
-        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
         String redirectPath = modelAndView.getViewName();
 
         assertEquals("redirect:/", redirectPath);
@@ -117,7 +117,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
-        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
         String redirectPath = modelAndView.getViewName();
 
         assertEquals("redirect:/error", redirectPath);
@@ -128,7 +128,7 @@ public class FileUploadControllerTest {
         when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
-        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile);
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
         String redirectPath = modelAndView.getViewName();
 
         assertEquals("redirect:/error", redirectPath);
