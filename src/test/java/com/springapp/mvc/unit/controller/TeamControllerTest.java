@@ -10,8 +10,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -65,7 +65,7 @@ public class TeamControllerTest {
 
     @Test
     public void shouldPassPlayerListToView() {
-        List<Player> playerList = new ArrayList<Player>();
+        Set<Player> playerList = new HashSet<Player>();
         when(stubbedPlayerService.getPlayerList()).thenReturn(playerList);
 
         teamController.showTeam(mockedModelMap, "Giants");
@@ -75,7 +75,7 @@ public class TeamControllerTest {
 
     @Test
     public void shouldPassCoachListToView() {
-        List<Coach> coachList = new ArrayList<Coach>();
+        Set<Coach> coachList = new HashSet<Coach>();
         when(stubbedCoachService.getCoachList()).thenReturn(coachList);
 
         teamController.showTeam(mockedModelMap, "Team Name from Params");

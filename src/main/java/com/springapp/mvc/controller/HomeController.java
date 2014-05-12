@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/")
@@ -37,7 +37,7 @@ public class HomeController {
     @RequestMapping(value = "/filterPlayers", method = RequestMethod.GET)
     public ModelAndView filterPlayers(ModelMap model, HttpServletRequest request) {
         int minAge = Integer.parseInt(request.getParameter("minimum-age"));
-        List<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(minAge);
+        Set<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(minAge);
 
         model.addAttribute("minAge", minAge);
         model.addAttribute("playerList", filteredPlayerList);

@@ -14,8 +14,8 @@ import org.mockito.Mock;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -42,33 +42,33 @@ public class FileUploadControllerTest {
 
     @Test
     public void shouldPassNewPlayerListToModelAfterPlayerListFileIsUploaded() {
-        List<Player> expectedPlayerList = new ArrayList<Player>();
+        Set<Player> expectedPlayerList = new HashSet<Player>();
         expectedPlayerList.add(new PlayerBuilder().withName("Bob").build());
         when(stubbedFileUploadService.createPlayerList(mockedFile))
                 .thenReturn(expectedPlayerList);
 
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
-        List<Player> actualPlayerList = (List<Player>) modelAndView.getModelMap().get("playerList");
+        Set<Player> actualPlayerList = (Set<Player>) modelAndView.getModelMap().get("playerList");
 
         assertThat(actualPlayerList, is(expectedPlayerList));
     }
 
     @Test
     public void shouldPassNewCoachListToModelAfterCoachListFileIsUploaded() {
-        List<Coach> expectedCoachList = new ArrayList<Coach>();
+        Set<Coach> expectedCoachList = new HashSet<Coach>();
         expectedCoachList.add(new CoachBuilder().withName("Jack").build());
         when(stubbedFileUploadService.createCoachList(mockedFile))
                 .thenReturn(expectedCoachList);
 
         ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
-        List<Coach> actualCoachList = (List<Coach>) modelAndView.getModelMap().get("coachList");
+        Set<Coach> actualCoachList = (Set<Coach>) modelAndView.getModelMap().get("coachList");
 
         assertThat(actualCoachList, is(expectedCoachList));
     }
 
     @Test
     public void shouldUpdatePlayerServiceAfterPlayerListFileIsUploaded() {
-        List<Player> playerList = new ArrayList<Player>();
+        Set<Player> playerList = new HashSet<Player>();
         playerList.add(new PlayerBuilder().withName("Bob").build());
         when(stubbedFileUploadService.createPlayerList(mockedFile))
                 .thenReturn(playerList);
@@ -80,7 +80,7 @@ public class FileUploadControllerTest {
 
     @Test
     public void shouldUpdateCoachServiceAfterCoachListFileIsUploaded() {
-        List<Coach> coachList = new ArrayList<Coach>();
+        Set<Coach> coachList = new HashSet<Coach>();
         coachList.add(new CoachBuilder().withName("Bob").build());
         when(stubbedFileUploadService.createCoachList(mockedFile))
                 .thenReturn(coachList);
@@ -93,7 +93,7 @@ public class FileUploadControllerTest {
     @Test
     public void shouldRedirectToHomeIfGoodPlayerListIsUploaded() {
         when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
-                .thenReturn(new ArrayList<Player>());
+                .thenReturn(new HashSet<Player>());
 
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
         String redirectPath = modelAndView.getViewName();
@@ -104,7 +104,7 @@ public class FileUploadControllerTest {
     @Test
     public void shouldRedirectToHomeIfGoodCoachListIsUploaded() {
         when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
-                .thenReturn(new ArrayList<Coach>());
+                .thenReturn(new HashSet<Coach>());
 
         ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
         String redirectPath = modelAndView.getViewName();

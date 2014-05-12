@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Set;
 
 @Controller
 public class FileUploadController {
@@ -31,10 +31,10 @@ public class FileUploadController {
         this.coachService = coachService;
     }
 
-    @RequestMapping(value="/upload-playerlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload-playerlist", method = RequestMethod.POST)
     public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        List<Player> playerList = null;
-        List<Coach> coachList = coachService.getCoachList();
+        Set<Player> playerList = null;
+        Set<Coach> coachList = coachService.getCoachList();
         try {
             playerList = fileUploadService.createPlayerList(file);
             playerService.setPlayerList(playerList);
@@ -45,10 +45,10 @@ public class FileUploadController {
         }
     }
 
-    @RequestMapping(value="/upload-coachlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload-coachlist", method = RequestMethod.POST)
     public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        List<Coach> coachList = null;
-        List<Player> playerList = playerService.getPlayerList();
+        Set<Coach> coachList = null;
+        Set<Player> playerList = playerService.getPlayerList();
         try {
             coachList = fileUploadService.createCoachList(file);
             coachService.setCoachList(coachList);
@@ -59,7 +59,7 @@ public class FileUploadController {
         }
     }
 
-    @RequestMapping(value="/error", method = RequestMethod.GET)
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
     public ModelAndView showError(@RequestParam("personType") String personType) {
         ModelMap model = new ModelMap();
         model.addAttribute("exampleText", exampleTextFor(personType));
@@ -67,12 +67,12 @@ public class FileUploadController {
     }
 
     private ModelAndView redirectToError(String personType) {
-        return new ModelAndView("redirect:/error?personType="+personType);
+        return new ModelAndView("redirect:/error?personType=" + personType);
     }
 
     private String exampleTextFor(String personType) {
         String exampleText = null;
-        if (personType.equals("player")){
+        if (personType.equals("player")) {
             exampleText = "Name,Team,Number,Age";
         } else if (personType.equals("coach")) {
             exampleText = "Name,Team,Title";
@@ -80,7 +80,7 @@ public class FileUploadController {
         return exampleText;
     }
 
-    private ModelAndView redirectToHome(List<Player> playerList, List<Coach> coachList) {
+    private ModelAndView redirectToHome(Set<Player> playerList, Set<Coach> coachList) {
         ModelMap model = new ModelMap();
         model.addAttribute("playerList", playerList);
         model.addAttribute("coachList", coachList);

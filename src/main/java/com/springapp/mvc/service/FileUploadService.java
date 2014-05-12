@@ -10,17 +10,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class FileUploadService {
     private BufferedReader fileReader;
 
-    public List<Player> createPlayerList(MultipartFile file) {
-        List<Player> playerList = new ArrayList<Player>();
+    public Set<Player> createPlayerList(MultipartFile file) {
+        Set<Player> playerList = new HashSet<Player>();
 
-        List<String> fileLines = getFileLines(file);
+        Set<String> fileLines = getFileLines(file);
         for (String line : fileLines) {
             playerList.add(buildPlayerFrom(line));
         }
@@ -28,10 +28,10 @@ public class FileUploadService {
         return playerList;
     }
 
-    public List<Coach> createCoachList(MultipartFile file) {
-        List<Coach> coachList = new ArrayList<Coach>();
+    public Set<Coach> createCoachList(MultipartFile file) {
+        Set<Coach> coachList = new HashSet<Coach>();
 
-        List<String> fileLines = getFileLines(file);
+        Set<String> fileLines = getFileLines(file);
         for (String line : fileLines) {
             coachList.add(buildCoachFrom(line));
         }
@@ -39,13 +39,13 @@ public class FileUploadService {
         return coachList;
     }
 
-    private List<String> getFileLines(MultipartFile file) {
-        List<String> fileLines = new ArrayList<String>();
+    private Set<String> getFileLines(MultipartFile file) {
+        Set<String> fileLines = new HashSet<String>();
 
         try {
             fileReader = new BufferedReader((new InputStreamReader(file.getInputStream())));
             String line;
-            while((line = fileReader.readLine()) != null) {
+            while ((line = fileReader.readLine()) != null) {
                 fileLines.add(line);
             }
         } catch (IOException e) {
@@ -60,16 +60,16 @@ public class FileUploadService {
         if (playerFields.length > 4) {
             throw new RuntimeException("Too many fields");
         }
-        String name =   playerFields[0];
-        String team =   playerFields[1];
+        String name = playerFields[0];
+        String team = playerFields[1];
         String number = playerFields[2];
-        int age =       Integer.parseInt(playerFields[3]);
+        int age = Integer.parseInt(playerFields[3]);
 
         return new PlayerBuilder().withName(name)
-                                  .withTeam(team)
-                                  .withNumber(number)
-                                  .withAge(age)
-                                  .build();
+                .withTeam(team)
+                .withNumber(number)
+                .withAge(age)
+                .build();
     }
 
     private Coach buildCoachFrom(String line) {
@@ -78,8 +78,8 @@ public class FileUploadService {
             throw new RuntimeException("Too many fields");
         }
 
-        String name =   coachFields[0];
-        String team =   coachFields[1];
+        String name = coachFields[0];
+        String team = coachFields[1];
         String position = coachFields[2];
 
         return new CoachBuilder().withName(name)

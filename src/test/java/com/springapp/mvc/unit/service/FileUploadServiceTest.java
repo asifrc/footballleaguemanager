@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -43,7 +43,7 @@ public class FileUploadServiceTest {
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(EMPTY_TEXT_FILE));
 
-        List<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
+        Set<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
 
         assertThat(actualPlayerList.isEmpty(), is(true));
     }
@@ -53,7 +53,7 @@ public class FileUploadServiceTest {
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(EMPTY_TEXT_FILE));
 
-        List<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
+        Set<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
 
         assertThat(actualCoachList.isEmpty(), is(true));
     }
@@ -68,7 +68,7 @@ public class FileUploadServiceTest {
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(PLAYER_LIST_1));
 
-        List<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
+        Set<Player> actualPlayerList = fileUploadService.createPlayerList(stubbedFile);
 
         assertTrue(actualPlayerList.contains(bob));
     }
@@ -82,7 +82,7 @@ public class FileUploadServiceTest {
         when(stubbedFile.getInputStream())
                 .thenReturn(new FileInputStream(COACH_LIST_1));
 
-        List<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
+        Set<Coach> actualCoachList = fileUploadService.createCoachList(stubbedFile);
 
         assertTrue(actualCoachList.contains(jack));
     }

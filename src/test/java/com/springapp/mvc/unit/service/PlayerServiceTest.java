@@ -6,21 +6,21 @@ import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class PlayerServiceTest {
     private PlayerService playerService;
-    private ArrayList<Player> playerList;
+    private HashSet<Player> playerList;
     private Player playerCubs;
     private Player playerYankees;
 
     @Before
     public void setUp() {
-        playerList = new ArrayList<Player>();
+        playerList = new HashSet<Player>();
 
         playerCubs = new PlayerBuilder()
                 .withName("Bob")
@@ -63,7 +63,7 @@ public class PlayerServiceTest {
         playerList.add(oldEnough);
         playerService.setPlayerList(playerList);
 
-        List<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(18);
+        Set<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(18);
         playerList.remove(underAge);
 
         assertFalse(playerList.contains(underAge));
@@ -72,9 +72,9 @@ public class PlayerServiceTest {
 
     @Test
     public void shouldReturnPlayersFromASpecifiedTeam() {
-        List<Player> expectedPlayers = new ArrayList<Player>();
+        Set<Player> expectedPlayers = new HashSet<Player>();
         expectedPlayers.add(playerCubs);
-        List<Player> actualPlayers = playerService.getPlayersFrom("Cubs");
+        Set<Player> actualPlayers = playerService.getPlayersFrom("Cubs");
 
         assertEquals(expectedPlayers, actualPlayers);
     }

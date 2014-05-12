@@ -12,10 +12,9 @@ import org.junit.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -27,14 +26,14 @@ public class TradePlayerTest {
         CoachService coachService = new CoachService();
         TeamService teamService = new TeamService(playerService, coachService);
         TradeController tradeController = new TradeController(playerService, teamService);
-        List<Player> playerList = new ArrayList<Player>();
+        Set<Player> playerList = new HashSet<Player>();
         playerList.add(new PlayerBuilder().build());
 
         playerService.setPlayerList(playerList);
 
         ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
 
-        assertEquals(playerList, (List<Player>) modelAndView.getModelMap().get("playerList"));
+        assertEquals(playerList, (Set<Player>) modelAndView.getModelMap().get("playerList"));
     }
 
     @Test
@@ -46,29 +45,34 @@ public class TradePlayerTest {
         playerService.setPlayerList(createListOfPlayers());
         coachService.setCoachList(createListOfCoaches());
 
-        List<String> expectedTeamList = createListOfTeams();
+        Set<String> expectedTeamList = createListOfTeams();
 
         TradeController tradeController = new TradeController(playerService, teamService);
         ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
 
-        Collection<String> actualTeamList = (Collection<String>) modelAndView.getModelMap().get("teamList");
+        Collection<String> actualTeamList = (Set<String>) modelAndView.getModelMap().get("teamList");
         assertTrue(actualTeamList.containsAll(expectedTeamList));
     }
 
-    private List<String> createListOfTeams() {
-        return Arrays.asList("Team A", "Team B", "Team C", "Team D");
+    private Set<String> createListOfTeams() {
+        HashSet<String> teams = new HashSet<String>();
+        teams.add("Team A");
+        teams.add("Team B");
+        teams.add("Team C");
+        teams.add("Team D");
+        return teams;
     }
 
-    private ArrayList<Coach> createListOfCoaches() {
-        ArrayList<Coach> coachList = new ArrayList<Coach>();
+    private HashSet<Coach> createListOfCoaches() {
+        HashSet<Coach> coachList = new HashSet<Coach>();
         coachList.add(new CoachBuilder().withName("A").withTeam("Team B").build());
         coachList.add(new CoachBuilder().withName("B").withTeam("Team C").build());
         coachList.add(new CoachBuilder().withName("C").withTeam("Team D").build());
         return coachList;
     }
 
-    private ArrayList<Player> createListOfPlayers() {
-        ArrayList<Player> playerList = new ArrayList<Player>();
+    private HashSet<Player> createListOfPlayers() {
+        HashSet<Player> playerList = new HashSet<Player>();
         playerList.add(new PlayerBuilder().withName("A").withTeam("Team A").build());
         playerList.add(new PlayerBuilder().withName("B").withTeam("Team B").build());
         playerList.add(new PlayerBuilder().withName("C").withTeam("Team C").build());

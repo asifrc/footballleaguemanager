@@ -15,8 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyString;
@@ -33,19 +33,19 @@ public class HomeControllerTest {
 
 
     private HomeController controller;
-    private List<Player> players;
-    private List<Coach> coaches;
+    private Set<Player> players;
+    private Set<Coach> coaches;
 
     @Before
     public void setUp() {
         initMocks(this);
         controller = new HomeController(stubbedPlayerService, stubbedCoachService);
 
-        players = new ArrayList<Player>();
+        players = new HashSet<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
         players.add(new PlayerBuilder().withName("Sally").withNumber("1").build());
 
-        coaches = new ArrayList<Coach>();
+        coaches = new HashSet<Coach>();
         coaches.add(new CoachBuilder().withName("Jack").build());
         coaches.add(new CoachBuilder().withName("Jill").build());
 

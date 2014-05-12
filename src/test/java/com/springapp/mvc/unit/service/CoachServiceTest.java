@@ -6,19 +6,19 @@ import com.springapp.mvc.service.CoachService;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
 public class CoachServiceTest {
     private CoachService coachService;
-    private ArrayList<Coach> coachList;
+    private HashSet<Coach> coachList;
     private Coach jack;
 
     @Before
     public void setUp() {
-        coachList = new ArrayList<Coach>();
+        coachList = new HashSet<Coach>();
 
         jack = new CoachBuilder()
                 .withName("Jack")
@@ -44,9 +44,9 @@ public class CoachServiceTest {
 
     @Test
     public void shouldReturnCoachesFromASpecificTeam() {
-        List<Coach> expectedCoaches = new ArrayList<Coach>();
+        Set<Coach> expectedCoaches = new HashSet<Coach>();
         expectedCoaches.add(jack);
-        List<Coach> actualCoaches = coachService.getCoachesFrom("Cubs");
+        Set<Coach> actualCoaches = coachService.getCoachesFrom("Cubs");
 
         assertEquals(expectedCoaches, actualCoaches);
     }

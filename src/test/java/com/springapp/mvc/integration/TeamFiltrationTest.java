@@ -11,8 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -39,13 +39,13 @@ public class TeamFiltrationTest {
         Player playerWhitney = new PlayerBuilder().withName("Whitney")
                 .withTeam("Mockets")
                 .build();
-        ArrayList<Player> playerList = new ArrayList<Player>();
+        HashSet<Player> playerList = new HashSet<Player>();
         playerList.add(playerAubrey);
         playerList.add(playerWhitney);
         playerService.setPlayerList(playerList);
-        coachService.setCoachList(new ArrayList<Coach>());
+        coachService.setCoachList(new HashSet<Coach>());
 
-        ArrayList<Player> filteredPlayerList = new ArrayList<Player>();
+        HashSet<Player> filteredPlayerList = new HashSet<Player>();
         filteredPlayerList.add(playerAubrey);
 
         teamController.showTeam(mockModelMap, "Rockets");
@@ -60,18 +60,18 @@ public class TeamFiltrationTest {
                 .withTeam("Cubs").build();
         Coach coachYankees = new CoachBuilder().withName("Yankees Coach")
                 .withTeam("Yankees").build();
-        List<Coach> coachList = new ArrayList<Coach>();
+        Set<Coach> coachList = new HashSet<Coach>();
         coachList.add(coachCubs);
         coachList.add(coachYankees);
         coachService.setCoachList(coachList);
 
-        List<Coach> filteredCoachList = new ArrayList<Coach>();
+        Set<Coach> filteredCoachList = new HashSet<Coach>();
         filteredCoachList.add(coachCubs);
 
         teamController.showTeam(mockModelMap, "Cubs");
 
         verify(mockModelMap).addAttribute("teamName", "Cubs");
-        verify(mockModelMap).addAttribute("playerList", new ArrayList<Player>());
+        verify(mockModelMap).addAttribute("playerList", new HashSet<Player>());
         verify(mockModelMap).addAttribute("coachList", filteredCoachList);
     }
 }

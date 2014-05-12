@@ -5,9 +5,8 @@ import com.springapp.mvc.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 @Component
 public class TeamService {
@@ -16,15 +15,14 @@ public class TeamService {
 
     @Autowired
     public TeamService(PlayerService playerService, CoachService coachService) {
-
         this.playerService = playerService;
         this.coachService = coachService;
     }
 
-    public Collection<String> getTeamList() {
-        List<Player> playerList = playerService.getPlayerList();
-        List<Coach> coachList = coachService.getCoachList();
-        Collection<String> teams = new HashSet<String>();
+    public Set<String> getTeamList() {
+        Set<Player> playerList = playerService.getPlayerList();
+        Set<Coach> coachList = coachService.getCoachList();
+        Set<String> teams = new HashSet<String>();
         for (Player player : playerList) {
             teams.add(player.getTeam());
         }

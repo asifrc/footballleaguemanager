@@ -3,24 +3,24 @@ package com.springapp.mvc.service;
 import com.springapp.mvc.model.Player;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class PlayerService {
 
-    private List<Player> playerList;
+    private Set<Player> playerList;
 
     public PlayerService() {
-        this.playerList = new ArrayList<Player>();
+        this.playerList = new HashSet<Player>();
     }
 
-    public List<Player> getPlayerList() {
+    public Set<Player> getPlayerList() {
         return playerList;
     }
 
-    public List<Player> getPlayersWithMinimumAge(int age) {
-        List<Player> filteredPlayerList = new ArrayList<Player>();
+    public Set<Player> getPlayersWithMinimumAge(int age) {
+        Set<Player> filteredPlayerList = new HashSet<Player>();
         for (Player player : playerList) {
             if (player.getAge() >= age) {
                 filteredPlayerList.add(player);
@@ -39,12 +39,12 @@ public class PlayerService {
         return result;
     }
 
-    public void setPlayerList(List<Player> playerList) {
+    public void setPlayerList(Set<Player> playerList) {
         this.playerList = playerList;
     }
 
-    public List<Player> getPlayersFrom(String teamName) {
-        ArrayList<Player> filterPlayers = new ArrayList<Player>();
+    public Set<Player> getPlayersFrom(String teamName) {
+        Set<Player> filterPlayers = new HashSet<Player>();
         for (Player player : playerList) {
             if (player.getTeam().equals(teamName)) {
                 filterPlayers.add(player);
