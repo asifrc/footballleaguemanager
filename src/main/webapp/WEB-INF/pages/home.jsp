@@ -5,17 +5,7 @@
 <div id="players">
     <c:set var="personType" scope="request" value="player"/>
     <h1>Players</h1>
-    <div id="player-filter-options">
-        <form method="GET" action="/filterPlayers">
-            <select id="age-filter-dropdown" name="minimum-age">
-                <option value="0">Please select a minimum age</option>
-                <c:forEach begin="15" end="30" varStatus="loop">
-                    <option value="${loop.index}">${loop.index}</option>
-                </c:forEach>
-            </select>
-            <input id="player-filter-button" value="Filter Players" type="submit" disabled="true"/>
-        </form>
-    </div>
+    <%@include file="ageFilter.jsp" %>
     <%@include file="playerList.jsp" %>
     <%@include file="uploadField.jsp" %>
 </div>

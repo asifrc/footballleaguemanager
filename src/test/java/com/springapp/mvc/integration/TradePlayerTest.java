@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TradePlayerTest {
     @Test
-    public void shouldPassPlayerListToView() throws Exception {
+    public void shouldPassPlayerListToView() {
         PlayerService playerService = new PlayerService();
         TradeController tradeController = new TradeController(playerService);
         List<Player> playerList = new ArrayList<Player>();

@@ -10,7 +10,7 @@ import static org.mockito.Mockito.mock;
 
 public class TradeControllerTest {
     @Test
-    public void shouldDisplayTradePlayerView() throws Exception {
+    public void shouldDisplayTradePlayerView() {
         assertEquals("tradePlayers", new TradeController(mock(PlayerService.class)).showTradePlayers(new ModelMap()).getViewName());
     }
 }
