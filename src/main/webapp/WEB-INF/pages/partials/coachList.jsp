@@ -7,7 +7,9 @@
             <thead>
             <tr>
                 <th>Name</th>
-                <th>Team</th>
+                <c:if test="${! hideteam}">
+                    <th>Team</th>
+                </c:if>
                 <th>Title</th>
             </tr>
             </thead>
@@ -15,9 +17,11 @@
             <c:forEach var="coach" items="${coachList}" varStatus="coachCount">
                 <tr id="player-${coachCount.count}">
                     <td>${coach.name}</td>
+                    <c:if test="${! hideteam}">
                     <td>
                         <a href="/team?name=${coach.team}">${coach.team}</a>
                     </td>
+                    </c:if>
                     <td>${coach.title}</td>
                 </tr>
             </c:forEach>
