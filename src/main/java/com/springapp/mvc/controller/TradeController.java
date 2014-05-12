@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.service.PlayerService;
+import com.springapp.mvc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,15 +12,19 @@ import org.springframework.web.servlet.ModelAndView;
 public class TradeController {
 
     private final PlayerService playerService;
+    private final TeamService teamService;
 
     @Autowired
-    public TradeController(PlayerService playerService) {
+    public TradeController(PlayerService playerService, TeamService teamService) {
         this.playerService = playerService;
+        this.teamService = teamService;
     }
 
     @RequestMapping("/trade")
     public ModelAndView showTradePlayers(ModelMap modelMap) {
         modelMap.addAttribute("playerList", playerService.getPlayerList());
+        modelMap.addAttribute("teamList", teamService.getTeamList());
+
         return new ModelAndView("tradePlayers", modelMap);
     }
 }
