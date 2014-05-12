@@ -1,6 +1,5 @@
 package com.springapp.mvc.controller;
 
-import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
@@ -29,25 +28,20 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String listPlayersAndCoaches(ModelMap model) {
-        List<Player> playerList = playerService.getPlayerList();
-        List<Coach> coachList = coachService.getCoachList();
-
-        model.addAttribute("playerList", playerList);
-        model.addAttribute("coachList", coachList);
-
-        return "home";
+    public ModelAndView listPlayersAndCoaches(ModelMap model) {
+        model.addAttribute("playerList", playerService.getPlayerList());
+        model.addAttribute("coachList", coachService.getCoachList());
+        return new ModelAndView("home", model);
     }
 
     @RequestMapping(value = "/filterPlayers", method = RequestMethod.GET)
     public ModelAndView filterPlayers(ModelMap model, HttpServletRequest request) {
         int minAge = Integer.parseInt(request.getParameter("minimum-age"));
         List<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(minAge);
-        List<Coach> coachList = coachService.getCoachList();
 
-        model.addAttribute("playerList", filteredPlayerList);
-        model.addAttribute("coachList", coachList);
         model.addAttribute("minAge", minAge);
+        model.addAttribute("playerList", filteredPlayerList);
+        model.addAttribute("coachList", coachService.getCoachList());
 
         return new ModelAndView("filteredPlayerList", model);
     }
@@ -59,9 +53,9 @@ public class HomeController {
 
     @RequestMapping(value = {"/find"}, method = RequestMethod.GET, params = "Find=find")
     public ModelAndView findPlayer(@ModelAttribute Player player) {
-        String name = player.getName();
+        ModelMap model = new ModelMap();
         String number = player.getNumber();
-        Player foundPlayer = playerService.findPlayerByName(name);
+        Player foundPlayer = playerService.findPlayerByName(player.getName());
         ModelAndView modelAndView = new ModelAndView("findPlayer");
 
         if (foundPlayer != null) {
@@ -77,5 +71,4 @@ public class HomeController {
 
         return modelAndView;
     }
-
 }

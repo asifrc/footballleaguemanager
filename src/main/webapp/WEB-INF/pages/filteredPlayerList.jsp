@@ -8,4 +8,6 @@
     <%@include file="playerList.jsp" %>
 </div>
 
+<a href="/" class="menuItem">Clear Filter</a>
+
 <%@include file="footer.jsp" %>

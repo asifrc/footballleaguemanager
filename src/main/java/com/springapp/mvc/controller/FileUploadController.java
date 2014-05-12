@@ -7,6 +7,7 @@ import com.springapp.mvc.service.FileUploadService;
 import com.springapp.mvc.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,10 +34,11 @@ public class FileUploadController {
     @RequestMapping(value="/upload-playerlist", method = RequestMethod.POST)
     public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file) {
         List<Player> playerList = null;
+        List<Coach> coachList = coachService.getCoachList();
         try {
             playerList = fileUploadService.createPlayerList(file);
             playerService.setPlayerList(playerList);
-            return redirectToHome(playerList, coachService.getCoachList());
+            return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToErrorPage();
@@ -46,10 +48,11 @@ public class FileUploadController {
     @RequestMapping(value="/upload-coachlist", method = RequestMethod.POST)
     public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file) {
         List<Coach> coachList = null;
+        List<Player> playerList = playerService.getPlayerList();
         try {
             coachList = fileUploadService.createCoachList(file);
             coachService.setCoachList(coachList);
-            return redirectToHome(playerService.getPlayerList(), coachList);
+            return redirectToHome(playerList, coachList);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToErrorPage();
@@ -61,16 +64,13 @@ public class FileUploadController {
     }
 
     private ModelAndView redirectToHome(List<Player> playerList, List<Coach> coachList) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("playerList", playerList);
-        modelAndView.addObject("coachList", coachList);
-        modelAndView.setViewName("redirect:/");
-        return modelAndView;
+        ModelMap model = new ModelMap();
+        model.addAttribute("playerList", playerList);
+        model.addAttribute("coachList", coachList);
+        return new ModelAndView("redirect:/", model);
     }
 
     private ModelAndView redirectToErrorPage() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("redirect:/error");
-        return modelAndView;
+        return new ModelAndView("redirect:/error");
     }
 }
