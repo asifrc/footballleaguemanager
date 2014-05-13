@@ -1,0 +1,12 @@
+.score-form {
+    width: 343px;
+}
+
+.score-team {
+    float: left;
+    clear: left;
+}
+
+.score-submit {
+    float: right;
+}
