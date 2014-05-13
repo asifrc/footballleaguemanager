@@ -33,7 +33,7 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload-playerlist", method = RequestMethod.POST)
     public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        Set<Player> playerList = null;
+        Set<Player> playerList;
         Set<Coach> coachList = coachService.getCoachList();
         try {
             playerList = fileUploadService.createPlayerList(file);
@@ -47,7 +47,7 @@ public class FileUploadController {
 
     @RequestMapping(value = "/upload-coachlist", method = RequestMethod.POST)
     public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        Set<Coach> coachList = null;
+        Set<Coach> coachList;
         Set<Player> playerList = playerService.getPlayerList();
         try {
             coachList = fileUploadService.createCoachList(file);
