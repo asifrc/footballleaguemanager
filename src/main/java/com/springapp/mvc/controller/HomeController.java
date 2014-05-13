@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Set;
 
 @Controller
@@ -29,21 +30,21 @@ public class HomeController {
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listPlayersAndCoaches(ModelMap model) {
-        model.addAttribute("playerList", playerService.getPlayerList());
-        model.addAttribute("coachList", coachService.getCoachList());
+        model.addAttribute("players", playerService.getPlayers());
+        model.addAttribute("coaches", coachService.getCoaches());
         return new ModelAndView("home", model);
     }
 
     @RequestMapping(value = "/filterPlayers", method = RequestMethod.GET)
     public ModelAndView filterPlayers(ModelMap model, @RequestParam("minimum-age") String minimumAge) {
         int minAge = Integer.parseInt(minimumAge);
-        Set<Player> filteredPlayerList = playerService.getPlayersWithMinimumAge(minAge);
+        Set<Player> filteredPlayers = playerService.getPlayersWithMinimumAge(minAge);
 
         model.addAttribute("minAge", minAge);
-        model.addAttribute("playerList", filteredPlayerList);
-        model.addAttribute("coachList", coachService.getCoachList());
+        model.addAttribute("players", filteredPlayers);
+        model.addAttribute("coaches", coachService.getCoaches());
 
-        return new ModelAndView("filteredPlayerList", model);
+        return new ModelAndView("filteredPlayers", model);
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

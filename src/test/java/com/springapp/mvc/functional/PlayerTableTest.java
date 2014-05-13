@@ -10,7 +10,7 @@ import static com.springapp.mvc.functional.FileUploadHelper.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
-public class PlayerListTest extends FunctionalBase {
+public class PlayerTableTest extends FunctionalBase {
 
     @Test
     public void uploadButtonsShouldBeDisabledWhenNoFilesAreSelectedToUpload() {
@@ -24,7 +24,7 @@ public class PlayerListTest extends FunctionalBase {
     }
 
     @Test
-    public void shouldDisplaySorryMessageForEmptyPlayerList() {
+    public void shouldDisplaySorryMessageWhenNoPlayersInTable() {
         driver.get(BASE_URL);
 
         helper.uploadFileFor("players", EMPTY_TEXT_FILE);
@@ -37,34 +37,34 @@ public class PlayerListTest extends FunctionalBase {
     public void shouldListPlayerNames() {
         driver.get(BASE_URL);
 
-        helper.uploadFileFor("players", PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
-        WebElement playerList = driver.findElement(By.id("player-table"));
+        WebElement playerTable = driver.findElement(By.id("player-table"));
 
-        assertTrue(playerList.getText().contains("Sally"));
-        assertTrue(playerList.getText().contains("Bob"));
+        assertTrue(playerTable.getText().contains("Sally"));
+        assertTrue(playerTable.getText().contains("Bob"));
     }
 
     @Test
-    public void shouldReplacePlayerListAfterSecondUpload() {
+    public void shouldReplacePlayersAfterSecondUpload() {
         driver.get(BASE_URL);
 
-        helper.uploadFileFor("players", PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
-        WebElement playerList = driver.findElement(By.id("player-table"));
+        WebElement playerTable = driver.findElement(By.id("player-table"));
 
-        assertTrue((playerList.findElement(By.id("player-1")).getText()
+        assertTrue((playerTable.findElement(By.id("player-1")).getText()
                 .contains("Sally")));
 
-        assertTrue((playerList.findElement(By.id("player-2")).getText()
+        assertTrue((playerTable.findElement(By.id("player-2")).getText()
                 .contains("Bob")));
 
-        helper.uploadFileFor("players", PLAYER_LIST_2);
+        helper.uploadFileFor("players", PLAYER_FILE_2);
 
-        playerList = driver.findElement(By.id("player-table"));
+        playerTable = driver.findElement(By.id("player-table"));
 
-        assertTrue(playerList.getText().contains("Cameron"));
-        assertFalse(playerList.getText().contains("Sally"));
+        assertTrue(playerTable.getText().contains("Cameron"));
+        assertFalse(playerTable.getText().contains("Sally"));
     }
 
 

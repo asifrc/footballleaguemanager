@@ -46,7 +46,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldGetFilteredPlayerListFromPlayerService() {
+    public void shouldGetFilteredPlayersFromPlayerService() {
         PlayerService mockedPlayerService = stubbedPlayerService;
 
         teamController.showTeam(mockedModelMap, "Rockets");
@@ -55,7 +55,7 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldGetFilteredCoachListFromPlayerService() {
+    public void shouldGetFilteredCoachesFromCoachService() {
         CoachService mockedCoachService = stubbedCoachService;
 
         teamController.showTeam(mockedModelMap, "Rockets");
@@ -64,23 +64,23 @@ public class TeamControllerTest {
     }
 
     @Test
-    public void shouldPassPlayerListToView() {
-        Set<Player> playerList = new HashSet<Player>();
-        when(stubbedPlayerService.getPlayerList()).thenReturn(playerList);
+    public void shouldPassPlayersToView() {
+        Set<Player> players = new HashSet<Player>();
+        when(stubbedPlayerService.getPlayers()).thenReturn(players);
 
         teamController.showTeam(mockedModelMap, "Giants");
 
-        verify(mockedModelMap).addAttribute("playerList", playerList);
+        verify(mockedModelMap).addAttribute("players", players);
     }
 
     @Test
-    public void shouldPassCoachListToView() {
-        Set<Coach> coachList = new HashSet<Coach>();
-        when(stubbedCoachService.getCoachList()).thenReturn(coachList);
+    public void shouldPassCoachesToView() {
+        Set<Coach> coaches = new HashSet<Coach>();
+        when(stubbedCoachService.getCoaches()).thenReturn(coaches);
 
         teamController.showTeam(mockedModelMap, "Team Name from Params");
 
-        verify(mockedModelMap).addAttribute("coachList", coachList);
+        verify(mockedModelMap).addAttribute("coaches", coaches);
 
     }
 }

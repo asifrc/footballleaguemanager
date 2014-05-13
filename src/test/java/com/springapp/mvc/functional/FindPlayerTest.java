@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_1;
+import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_FILE_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -13,7 +13,7 @@ public class FindPlayerTest extends FunctionalBase {
     @Test
     public void shouldFindAPlayerWhenMatchingNameAndNumberIsSearchedFor() {
         driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
         driver.get(BASE_URL + "find");
 
@@ -25,17 +25,17 @@ public class FindPlayerTest extends FunctionalBase {
         numberTextBox.sendKeys("0");
         submitButton.click();
 
-        WebElement player = driver.findElement(By.id("player-table"));
-        assertTrue(player.getText().contains("Sally"));
-        assertTrue(player.getText().contains("0"));
-        assertTrue(player.getText().contains("Team1"));
-        assertTrue(player.getText().contains("21"));
+        WebElement playerTable = driver.findElement(By.id("player-table"));
+        assertTrue(playerTable.getText().contains("Sally"));
+        assertTrue(playerTable.getText().contains("0"));
+        assertTrue(playerTable.getText().contains("Team1"));
+        assertTrue(playerTable.getText().contains("21"));
     }
 
     @Test
     public void shouldDisplayMessageWhenSearchReturnsNoMatchingPlayers() {
         driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
         driver.get(BASE_URL + "find");
 
@@ -54,7 +54,7 @@ public class FindPlayerTest extends FunctionalBase {
     @Test
     public void shouldDisplayMessageWhenSearchMatchesNameButNotNumber() {
         driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_1);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
         driver.get(BASE_URL + "find");
 

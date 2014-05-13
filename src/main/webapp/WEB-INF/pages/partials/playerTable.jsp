@@ -1,5 +1,5 @@
 <c:choose>
-    <c:when test="${empty playerList}">
+    <c:when test="${empty players}">
         <p id="empty-list-message">Sorry, there are no players.</p>
     </c:when>
     <c:otherwise>

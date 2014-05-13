@@ -9,23 +9,23 @@ import java.util.Set;
 @Component
 public class CoachService {
 
-    private Set<Coach> coachList;
+    private Set<Coach> coaches;
 
     public CoachService() {
-        this.coachList = new HashSet<Coach>();
+        this.coaches = new HashSet<Coach>();
     }
 
-    public Set<Coach> getCoachList() {
-        return coachList;
+    public Set<Coach> getCoaches() {
+        return coaches;
     }
 
-    public void setCoachList(Set<Coach> coachList) {
-        this.coachList = coachList;
+    public void setCoaches(Set<Coach> coaches) {
+        this.coaches = coaches;
     }
 
     public Set<Coach> getCoachesFrom(String teamName) {
         Set<Coach> filteredCoaches = new HashSet<Coach>();
-        for (Coach coach : coachList) {
+        for (Coach coach : coaches) {
             if (coach.getTeam().equals(teamName)) {
                 filteredCoaches.add(coach);
             }

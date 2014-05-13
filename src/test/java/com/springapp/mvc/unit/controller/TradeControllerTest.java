@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyListOf;
+import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -35,26 +35,26 @@ public class TradeControllerTest {
     }
 
     @Test
-    public void shouldGetListOfPlayersFromPlayerService() throws Exception {
+    public void shouldGetPlayersFromPlayerService() throws Exception {
         tradeController.showTradePlayers(new ModelMap());
-        verify(mockedPlayerService).getPlayerList();
+        verify(mockedPlayerService).getPlayers();
     }
 
     @Test
-    public void shouldPassPlayerListToView() throws Exception {
+    public void shouldPassPlayersToView() throws Exception {
         tradeController.showTradePlayers(mockedModelMap);
-        verify(mockedModelMap).addAttribute(eq("playerList"), anyListOf(Player.class));
+        verify(mockedModelMap).addAttribute(eq("players"), anySetOf(Player.class));
     }
 
     @Test
-    public void shouldGetListOfTeamsFromTeamService() throws Exception {
+    public void shouldGetTeamsFromTeamService() throws Exception {
         tradeController.showTradePlayers(new ModelMap());
-        verify(mockedTeamService).getTeamList();
+        verify(mockedTeamService).getTeams();
     }
 
     @Test
-    public void shouldPassListOfTeamsToView() throws Exception {
+    public void shouldPassTeamsToView() throws Exception {
         tradeController.showTradePlayers(mockedModelMap);
-        verify(mockedModelMap).addAttribute(eq("teamList"), anyListOf(String.class));
+        verify(mockedModelMap).addAttribute(eq("teams"), anySetOf(String.class));
     }
 }

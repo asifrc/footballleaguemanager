@@ -9,29 +9,29 @@ import java.util.Set;
 @Component
 public class PlayerService {
 
-    private Set<Player> playerList;
+    private Set<Player> players;
 
     public PlayerService() {
-        this.playerList = new HashSet<Player>();
+        this.players = new HashSet<Player>();
     }
 
-    public Set<Player> getPlayerList() {
-        return playerList;
+    public Set<Player> getPlayers() {
+        return players;
     }
 
     public Set<Player> getPlayersWithMinimumAge(int age) {
-        Set<Player> filteredPlayerList = new HashSet<Player>();
-        for (Player player : playerList) {
+        Set<Player> filteredPlayers = new HashSet<Player>();
+        for (Player player : players) {
             if (player.getAge() >= age) {
-                filteredPlayerList.add(player);
+                filteredPlayers.add(player);
             }
         }
-        return filteredPlayerList;
+        return filteredPlayers;
     }
 
     public Player findPlayerByName(String name) {
         Player result = null;
-        for (Player player : playerList) {
+        for (Player player : players) {
             if (player.getName().equals(name)) {
                 result = player;
             }
@@ -39,17 +39,17 @@ public class PlayerService {
         return result;
     }
 
-    public void setPlayerList(Set<Player> playerList) {
-        this.playerList = playerList;
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 
     public Set<Player> getPlayersFrom(String teamName) {
-        Set<Player> filterPlayers = new HashSet<Player>();
-        for (Player player : playerList) {
+        Set<Player> filteredPlayers = new HashSet<Player>();
+        for (Player player : players) {
             if (player.getTeam().equals(teamName)) {
-                filterPlayers.add(player);
+                filteredPlayers.add(player);
             }
         }
-        return filterPlayers;
+        return filteredPlayers;
     }
 }

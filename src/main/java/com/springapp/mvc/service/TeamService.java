@@ -19,14 +19,14 @@ public class TeamService {
         this.coachService = coachService;
     }
 
-    public Set<String> getTeamList() {
-        Set<Player> playerList = playerService.getPlayerList();
-        Set<Coach> coachList = coachService.getCoachList();
+    public Set<String> getTeams() {
+        Set<Player> players = playerService.getPlayers();
+        Set<Coach> coaches = coachService.getCoaches();
         Set<String> teams = new HashSet<String>();
-        for (Player player : playerList) {
+        for (Player player : players) {
             teams.add(player.getTeam());
         }
-        for (Coach coach : coachList) {
+        for (Coach coach : coaches) {
             teams.add(coach.getTeam());
         }
         return teams;

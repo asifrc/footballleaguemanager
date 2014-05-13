@@ -17,26 +17,26 @@ import java.util.Set;
 public class FileUploadService {
     private BufferedReader fileReader;
 
-    public Set<Player> createPlayerList(MultipartFile file) {
-        Set<Player> playerList = new HashSet<Player>();
+    public Set<Player> createPlayersFrom(MultipartFile file) {
+        Set<Player> players = new HashSet<Player>();
 
         Set<String> fileLines = getFileLines(file);
         for (String line : fileLines) {
-            playerList.add(buildPlayerFrom(line));
+            players.add(buildPlayerFrom(line));
         }
 
-        return playerList;
+        return players;
     }
 
-    public Set<Coach> createCoachList(MultipartFile file) {
-        Set<Coach> coachList = new HashSet<Coach>();
+    public Set<Coach> createCoachesFrom(MultipartFile file) {
+        Set<Coach> coaches = new HashSet<Coach>();
 
         Set<String> fileLines = getFileLines(file);
         for (String line : fileLines) {
-            coachList.add(buildCoachFrom(line));
+            coaches.add(buildCoachFrom(line));
         }
 
-        return coachList;
+        return coaches;
     }
 
     private Set<String> getFileLines(MultipartFile file) {

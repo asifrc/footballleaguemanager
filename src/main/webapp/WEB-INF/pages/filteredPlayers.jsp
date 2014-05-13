@@ -4,8 +4,8 @@
 
 <div id="players">
     <c:set var="personType" scope="request" value="player"/>
-    <h1>Players Over ${minAge}</h1>
-    <%@include file="partials/playerList.jsp" %>
+    <h1>Players ${minAge} or Older</h1>
+    <%@include file="partials/playerTable.jsp" %>
 </div>
 
 <br/>

@@ -7,13 +7,13 @@
 <div id="players">
     <h1>Players</h1>
     <c:set var="hideteam" scope="request" value="true"/>
-    <%@include file="partials/playerList.jsp" %>
+    <%@include file="partials/playerTable.jsp" %>
 </div>
 
 <div id="coaches">
     <h1>Coaches</h1>
     <c:set var="hideteam" scope="request" value="true"/>
-    <%@include file="partials/coachList.jsp" %>
+    <%@include file="partials/coachTable.jsp" %>
 </div>
 
 <br/>

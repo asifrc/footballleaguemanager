@@ -4,6 +4,6 @@
 
 <h1>Trade Players</h1>
 
-<%@include file="partials/playerList.jsp" %>
+<%@include file="partials/playerTable.jsp" %>
 
 <%@include file="partials/footer.jsp" %>

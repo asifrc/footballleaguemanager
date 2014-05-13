@@ -32,46 +32,46 @@ public class TeamFiltrationTest {
     }
 
     @Test
-    public void shouldPassFilteredPlayerListToView() {
+    public void shouldPassFilteredPlayersToView() {
         Player playerAubrey = new PlayerBuilder().withName("Aubrey")
                 .withTeam("Rockets")
                 .build();
         Player playerWhitney = new PlayerBuilder().withName("Whitney")
                 .withTeam("Mockets")
                 .build();
-        HashSet<Player> playerList = new HashSet<Player>();
-        playerList.add(playerAubrey);
-        playerList.add(playerWhitney);
-        playerService.setPlayerList(playerList);
-        coachService.setCoachList(new HashSet<Coach>());
+        HashSet<Player> players = new HashSet<Player>();
+        players.add(playerAubrey);
+        players.add(playerWhitney);
+        playerService.setPlayers(players);
+        coachService.setCoaches(new HashSet<Coach>());
 
-        HashSet<Player> filteredPlayerList = new HashSet<Player>();
-        filteredPlayerList.add(playerAubrey);
+        HashSet<Player> filteredPlayers = new HashSet<Player>();
+        filteredPlayers.add(playerAubrey);
 
         teamController.showTeam(mockModelMap, "Rockets");
 
         verify(mockModelMap).addAttribute("teamName", "Rockets");
-        verify(mockModelMap).addAttribute("playerList", filteredPlayerList);
+        verify(mockModelMap).addAttribute("players", filteredPlayers);
     }
 
     @Test
-    public void shouldPassFilteredCoachListToView() {
+    public void shouldPassFilteredCoachesToView() {
         Coach coachCubs = new CoachBuilder().withName("Cubs Coach")
                 .withTeam("Cubs").build();
         Coach coachYankees = new CoachBuilder().withName("Yankees Coach")
                 .withTeam("Yankees").build();
-        Set<Coach> coachList = new HashSet<Coach>();
-        coachList.add(coachCubs);
-        coachList.add(coachYankees);
-        coachService.setCoachList(coachList);
+        Set<Coach> coaches = new HashSet<Coach>();
+        coaches.add(coachCubs);
+        coaches.add(coachYankees);
+        coachService.setCoaches(coaches);
 
-        Set<Coach> filteredCoachList = new HashSet<Coach>();
-        filteredCoachList.add(coachCubs);
+        Set<Coach> filteredCoaches = new HashSet<Coach>();
+        filteredCoaches.add(coachCubs);
 
         teamController.showTeam(mockModelMap, "Cubs");
 
         verify(mockModelMap).addAttribute("teamName", "Cubs");
-        verify(mockModelMap).addAttribute("playerList", new HashSet<Player>());
-        verify(mockModelMap).addAttribute("coachList", filteredCoachList);
+        verify(mockModelMap).addAttribute("players", new HashSet<Player>());
+        verify(mockModelMap).addAttribute("coaches", filteredCoaches);
     }
 }

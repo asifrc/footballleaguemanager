@@ -1,5 +1,5 @@
 <c:choose>
-    <c:when test="${empty coachList}">
+    <c:when test="${empty coaches}">
         <p id="empty-list-message">Sorry, there are no coaches.</p>
     </c:when>
     <c:otherwise>
@@ -14,8 +14,8 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="coach" items="${coachList}" varStatus="coachCount">
-                <tr id="player-${coachCount.count}">
+            <c:forEach var="coach" items="${coaches}" varStatus="coachLoop">
+                <tr id="player-${coachLoop.count}">
                     <td>${coach.name}</td>
                     <c:if test="${! hideteam}">
                     <td>

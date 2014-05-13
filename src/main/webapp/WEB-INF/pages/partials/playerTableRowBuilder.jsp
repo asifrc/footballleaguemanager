@@ -1,11 +1,11 @@
-<c:forEach var="player" items="${playerList}" varStatus="playerCount">
-    <tr id="player-${playerCount.count}">
+<c:forEach var="player" items="${players}" varStatus="playerLoop">
+    <tr id="player-${playerLoop.count}">
         <%@include file="playerRowDetail.jsp" %>
-        <c:if test="${ not empty teamList}">
+        <c:if test="${ not empty teams}">
             <td>
                 <select class="team-dropdown">
                     <option> -- Trade --</option>
-                    <c:forEach var="team" items="${teamList}" varStatus="teamCount">
+                    <c:forEach var="team" items="${teams}" varStatus="teamCount">
                         <c:if test="${team ne player.team}">
                             <option>${team}</option>
                         </c:if>

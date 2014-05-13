@@ -31,45 +31,45 @@ public class TeamServiceTest {
     }
 
     @Test
-    public void shouldGetTeamsFromPlayerList() throws Exception {
-        Set<String> expectedTeamList = createListOfTeams();
-        when(stubbedPlayerService.getPlayerList()).thenReturn(createListOfPlayers());
+    public void shouldGetTeamsFromPlayers() throws Exception {
+        Set<String> expectedTeams = createSomeTeams();
+        when(stubbedPlayerService.getPlayers()).thenReturn(createSomePlayers());
 
-        Set<String> actualTeamList = new TeamService(stubbedPlayerService, stubbedCoachService).getTeamList();
+        Set<String> actualTeams = new TeamService(stubbedPlayerService, stubbedCoachService).getTeams();
 
-        assertSame(actualTeamList.size(), expectedTeamList.size());
-        assertTrue(actualTeamList.containsAll(expectedTeamList));
+        assertSame(actualTeams.size(), expectedTeams.size());
+        assertTrue(actualTeams.containsAll(expectedTeams));
     }
 
     @Test
     public void shouldNotContainDuplicateTeamsWhenThereAreMultiplePlayersFromTheSameTeam() throws Exception {
-        HashSet<Player> listOfPlayers = createListOfPlayers();
-        listOfPlayers.add(new PlayerBuilder().withName("D").withTeam("Team B").build());
+        HashSet<Player> players = createSomePlayers();
+        players.add(new PlayerBuilder().withName("D").withTeam("Team B").build());
 
-        Set<String> expectedTeamList = createListOfTeams();
-        when(stubbedPlayerService.getPlayerList()).thenReturn(listOfPlayers);
+        Set<String> expectedTeams = createSomeTeams();
+        when(stubbedPlayerService.getPlayers()).thenReturn(players);
 
-        Set<String> actualTeamList = new TeamService(stubbedPlayerService, stubbedCoachService).getTeamList();
+        Set<String> actualTeams = new TeamService(stubbedPlayerService, stubbedCoachService).getTeams();
 
-        assertSame(actualTeamList.size(), expectedTeamList.size());
-        assertTrue(actualTeamList.containsAll(expectedTeamList));
+        assertSame(actualTeams.size(), expectedTeams.size());
+        assertTrue(actualTeams.containsAll(expectedTeams));
     }
 
     @Test
     public void shouldContainTeamsFromCoachesAndPlayers() throws Exception {
-        Set<String> expectedTeamList = createListOfTeams();
-        expectedTeamList.add("Team D");
+        Set<String> expectedTeams = createSomeTeams();
+        expectedTeams.add("Team D");
 
-        when(stubbedPlayerService.getPlayerList()).thenReturn(createListOfPlayers());
-        when(stubbedCoachService.getCoachList()).thenReturn(createListOfCoaches());
+        when(stubbedPlayerService.getPlayers()).thenReturn(createSomePlayers());
+        when(stubbedCoachService.getCoaches()).thenReturn(createSomeCoaches());
 
-        Set<String> actualTeamList = new TeamService(stubbedPlayerService, stubbedCoachService).getTeamList();
+        Set<String> actualTeams = new TeamService(stubbedPlayerService, stubbedCoachService).getTeams();
 
-        assertSame(actualTeamList.size(), expectedTeamList.size());
-        assertTrue(actualTeamList.containsAll(expectedTeamList));
+        assertSame(actualTeams.size(), expectedTeams.size());
+        assertTrue(actualTeams.containsAll(expectedTeams));
     }
 
-    private Set<String> createListOfTeams() {
+    private Set<String> createSomeTeams() {
         HashSet<String> teams = new HashSet<String>();
         teams.add("Team A");
         teams.add("Team B");
@@ -77,19 +77,19 @@ public class TeamServiceTest {
         return teams;
     }
 
-    private HashSet<Coach> createListOfCoaches() {
-        HashSet<Coach> coachList = new HashSet<Coach>();
-        coachList.add(new CoachBuilder().withName("A").withTeam("Team B").build());
-        coachList.add(new CoachBuilder().withName("B").withTeam("Team C").build());
-        coachList.add(new CoachBuilder().withName("C").withTeam("Team D").build());
-        return coachList;
+    private HashSet<Coach> createSomeCoaches() {
+        HashSet<Coach> coaches = new HashSet<Coach>();
+        coaches.add(new CoachBuilder().withName("A").withTeam("Team B").build());
+        coaches.add(new CoachBuilder().withName("B").withTeam("Team C").build());
+        coaches.add(new CoachBuilder().withName("C").withTeam("Team D").build());
+        return coaches;
     }
 
-    private HashSet<Player> createListOfPlayers() {
-        HashSet<Player> playerList = new HashSet<Player>();
-        playerList.add(new PlayerBuilder().withName("A").withTeam("Team A").build());
-        playerList.add(new PlayerBuilder().withName("B").withTeam("Team B").build());
-        playerList.add(new PlayerBuilder().withName("C").withTeam("Team C").build());
-        return playerList;
+    private HashSet<Player> createSomePlayers() {
+        HashSet<Player> players = new HashSet<Player>();
+        players.add(new PlayerBuilder().withName("A").withTeam("Team A").build());
+        players.add(new PlayerBuilder().withName("B").withTeam("Team B").build());
+        players.add(new PlayerBuilder().withName("C").withTeam("Team C").build());
+        return players;
     }
 }

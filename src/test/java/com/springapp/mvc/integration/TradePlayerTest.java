@@ -21,40 +21,40 @@ import static org.junit.Assert.assertTrue;
 
 public class TradePlayerTest {
     @Test
-    public void shouldPassPlayerListToView() {
+    public void shouldPassPlayersToView() {
         PlayerService playerService = new PlayerService();
         CoachService coachService = new CoachService();
         TeamService teamService = new TeamService(playerService, coachService);
         TradeController tradeController = new TradeController(playerService, teamService);
-        Set<Player> playerList = new HashSet<Player>();
-        playerList.add(new PlayerBuilder().build());
+        Set<Player> players = new HashSet<Player>();
+        players.add(new PlayerBuilder().build());
 
-        playerService.setPlayerList(playerList);
+        playerService.setPlayers(players);
 
         ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
 
-        assertEquals(playerList, (Set<Player>) modelAndView.getModelMap().get("playerList"));
+        assertEquals(players, (Set<Player>) modelAndView.getModelMap().get("players"));
     }
 
     @Test
-    public void shouldPassTeamListToTradeTeamView() throws Exception {
+    public void shouldPassTeamsToTradeTeamView() throws Exception {
         PlayerService playerService = new PlayerService();
         CoachService coachService = new CoachService();
         TeamService teamService = new TeamService(playerService, coachService);
 
-        playerService.setPlayerList(createListOfPlayers());
-        coachService.setCoachList(createListOfCoaches());
+        playerService.setPlayers(createSomePlayers());
+        coachService.setCoaches(createSomeCoaches());
 
-        Set<String> expectedTeamList = createListOfTeams();
+        Set<String> expectedTeams = createSomeTeams();
 
         TradeController tradeController = new TradeController(playerService, teamService);
         ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
 
-        Collection<String> actualTeamList = (Set<String>) modelAndView.getModelMap().get("teamList");
-        assertTrue(actualTeamList.containsAll(expectedTeamList));
+        Collection<String> actualTeams = (Set<String>) modelAndView.getModelMap().get("teams");
+        assertTrue(actualTeams.containsAll(expectedTeams));
     }
 
-    private Set<String> createListOfTeams() {
+    private Set<String> createSomeTeams() {
         HashSet<String> teams = new HashSet<String>();
         teams.add("Team A");
         teams.add("Team B");
@@ -63,19 +63,19 @@ public class TradePlayerTest {
         return teams;
     }
 
-    private HashSet<Coach> createListOfCoaches() {
-        HashSet<Coach> coachList = new HashSet<Coach>();
-        coachList.add(new CoachBuilder().withName("A").withTeam("Team B").build());
-        coachList.add(new CoachBuilder().withName("B").withTeam("Team C").build());
-        coachList.add(new CoachBuilder().withName("C").withTeam("Team D").build());
-        return coachList;
+    private HashSet<Coach> createSomeCoaches() {
+        HashSet<Coach> coaches = new HashSet<Coach>();
+        coaches.add(new CoachBuilder().withName("A").withTeam("Team B").build());
+        coaches.add(new CoachBuilder().withName("B").withTeam("Team C").build());
+        coaches.add(new CoachBuilder().withName("C").withTeam("Team D").build());
+        return coaches;
     }
 
-    private HashSet<Player> createListOfPlayers() {
-        HashSet<Player> playerList = new HashSet<Player>();
-        playerList.add(new PlayerBuilder().withName("A").withTeam("Team A").build());
-        playerList.add(new PlayerBuilder().withName("B").withTeam("Team B").build());
-        playerList.add(new PlayerBuilder().withName("C").withTeam("Team C").build());
-        return playerList;
+    private HashSet<Player> createSomePlayers() {
+        HashSet<Player> players = new HashSet<Player>();
+        players.add(new PlayerBuilder().withName("A").withTeam("Team A").build());
+        players.add(new PlayerBuilder().withName("B").withTeam("Team B").build());
+        players.add(new PlayerBuilder().withName("C").withTeam("Team C").build());
+        return players;
     }
 }

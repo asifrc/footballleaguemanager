@@ -44,34 +44,34 @@ public class HomeControllerTest {
         coaches.add(new CoachBuilder().withName("Jack").build());
         coaches.add(new CoachBuilder().withName("Jill").build());
 
-        when(stubbedPlayerService.getPlayerList()).thenReturn(players);
-        when(stubbedCoachService.getCoachList()).thenReturn(coaches);
+        when(stubbedPlayerService.getPlayers()).thenReturn(players);
+        when(stubbedCoachService.getCoaches()).thenReturn(coaches);
     }
 
     @Test
     public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() {
         controller.listPlayersAndCoaches(mockedModelMap);
-        verify(stubbedPlayerService).getPlayerList();
+        verify(stubbedPlayerService).getPlayers();
     }
 
     @Test
     public void shouldGetCoachesFromCoachServiceWhenListingCoaches() {
         controller.listPlayersAndCoaches(mockedModelMap);
-        verify(stubbedCoachService).getCoachList();
+        verify(stubbedCoachService).getCoaches();
     }
 
     @Test
     public void shouldAddAttributeToModelWhenListingPlayers() {
         controller.listPlayersAndCoaches(mockedModelMap);
 
-        verify(mockedModelMap).addAttribute("playerList", players);
+        verify(mockedModelMap).addAttribute("players", players);
     }
 
     @Test
     public void shouldRenderFilteredPlayerListAfterFilteringPlayers() {
         ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, "18");
 
-        assertTrue(modelAndView.getViewName().equals("filteredPlayerList"));
+        assertTrue(modelAndView.getViewName().equals("filteredPlayers"));
     }
 
     @Test

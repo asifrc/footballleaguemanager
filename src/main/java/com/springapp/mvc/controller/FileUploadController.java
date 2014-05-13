@@ -31,28 +31,28 @@ public class FileUploadController {
         this.coachService = coachService;
     }
 
-    @RequestMapping(value = "/upload-playerlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload-players", method = RequestMethod.POST)
     public ModelAndView handlePlayerUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        Set<Player> playerList;
-        Set<Coach> coachList = coachService.getCoachList();
+        Set<Player> players = null;
+        Set<Coach> coaches = coachService.getCoaches();
         try {
-            playerList = fileUploadService.createPlayerList(file);
-            playerService.setPlayerList(playerList);
-            return redirectToHome(playerList, coachList);
+            players = fileUploadService.createPlayersFrom(file);
+            playerService.setPlayers(players);
+            return redirectToHome(players, coaches);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToError(personType);
         }
     }
 
-    @RequestMapping(value = "/upload-coachlist", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload-coaches", method = RequestMethod.POST)
     public ModelAndView handleCoachUpload(@RequestParam("file") MultipartFile file, @RequestParam("person-type") String personType) {
-        Set<Coach> coachList;
-        Set<Player> playerList = playerService.getPlayerList();
+        Set<Coach> coaches = null;
+        Set<Player> players = playerService.getPlayers();
         try {
-            coachList = fileUploadService.createCoachList(file);
-            coachService.setCoachList(coachList);
-            return redirectToHome(playerList, coachList);
+            coaches = fileUploadService.createCoachesFrom(file);
+            coachService.setCoaches(coaches);
+            return redirectToHome(players, coaches);
         } catch (RuntimeException e) {
             e.printStackTrace();
             return redirectToError(personType);
@@ -80,10 +80,10 @@ public class FileUploadController {
         return exampleText;
     }
 
-    private ModelAndView redirectToHome(Set<Player> playerList, Set<Coach> coachList) {
+    private ModelAndView redirectToHome(Set<Player> players, Set<Coach> coaches) {
         ModelMap model = new ModelMap();
-        model.addAttribute("playerList", playerList);
-        model.addAttribute("coachList", coachList);
+        model.addAttribute("players", players);
+        model.addAttribute("coaches", coaches);
         return new ModelAndView("redirect:/", model);
     }
 

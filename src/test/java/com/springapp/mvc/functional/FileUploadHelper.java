@@ -8,10 +8,10 @@ import java.io.File;
 
 public class FileUploadHelper {
     private static final String TEST_ROOT = "./src/test/java/com/springapp/mvc/";
-    public static final String PLAYER_LIST_1 = TEST_ROOT + "playerList1.txt";
-    public static final String PLAYER_LIST_2 = TEST_ROOT + "playerList2.txt";
+    public static final String PLAYER_FILE_1 = TEST_ROOT + "playerFile1.txt";
+    public static final String PLAYER_FILE_2 = TEST_ROOT + "playerFile2.txt";
     public static final String EMPTY_TEXT_FILE = TEST_ROOT + "empty.txt";
-    public static final String COACH_LIST = TEST_ROOT + "coachList1.txt";
+    public static final String COACH_FILE = TEST_ROOT + "coachFile.txt";
     WebDriver driver;
 
     public FileUploadHelper(WebDriver webDriver) {

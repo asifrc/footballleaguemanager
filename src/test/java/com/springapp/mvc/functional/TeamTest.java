@@ -4,8 +4,8 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static com.springapp.mvc.functional.FileUploadHelper.COACH_LIST;
-import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_LIST_2;
+import static com.springapp.mvc.functional.FileUploadHelper.COACH_FILE;
+import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_FILE_2;
 import static org.junit.Assert.*;
 
 public class TeamTest extends FunctionalBase {
@@ -19,10 +19,10 @@ public class TeamTest extends FunctionalBase {
     }
 
     @Test
-    public void shouldDisplayPlayerListAndCoachListOnPage() {
+    public void shouldDisplayPlayerAndCoachTablesOnPage() {
         driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_2);
-        helper.uploadFileFor("coaches", COACH_LIST);
+        helper.uploadFileFor("players", PLAYER_FILE_2);
+        helper.uploadFileFor("coaches", COACH_FILE);
         driver.get(BASE_URL + "team/?name=Rockets");
 
         WebElement playerDiv = driver.findElement(By.id("players"));
@@ -36,8 +36,8 @@ public class TeamTest extends FunctionalBase {
     @Test
     public void shouldNotDisplayPlayersNotOnTheTeam() {
         driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_LIST_2);
-        helper.uploadFileFor("coaches", COACH_LIST);
+        helper.uploadFileFor("players", PLAYER_FILE_2);
+        helper.uploadFileFor("coaches", COACH_FILE);
         driver.get(BASE_URL + "team/?name=Rockets");
 
         WebElement playerDiv = driver.findElement(By.id("players"));

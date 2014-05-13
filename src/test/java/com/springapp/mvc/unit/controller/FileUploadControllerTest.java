@@ -41,58 +41,58 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldPassNewPlayerListToModelAfterPlayerListFileIsUploaded() {
-        Set<Player> expectedPlayerList = new HashSet<Player>();
-        expectedPlayerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(mockedFile))
-                .thenReturn(expectedPlayerList);
+    public void shouldPassNewPlayersToModelAfterPlayerFileIsUploaded() {
+        Set<Player> expectedPlayers = new HashSet<Player>();
+        expectedPlayers.add(new PlayerBuilder().withName("Bob").build());
+        when(stubbedFileUploadService.createPlayersFrom(mockedFile))
+                .thenReturn(expectedPlayers);
 
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
-        Set<Player> actualPlayerList = (Set<Player>) modelAndView.getModelMap().get("playerList");
+        Set<Player> actualPlayers = (Set<Player>) modelAndView.getModelMap().get("players");
 
-        assertThat(actualPlayerList, is(expectedPlayerList));
+        assertThat(actualPlayers, is(expectedPlayers));
     }
 
     @Test
-    public void shouldPassNewCoachListToModelAfterCoachListFileIsUploaded() {
-        Set<Coach> expectedCoachList = new HashSet<Coach>();
-        expectedCoachList.add(new CoachBuilder().withName("Jack").build());
-        when(stubbedFileUploadService.createCoachList(mockedFile))
-                .thenReturn(expectedCoachList);
+    public void shouldPassNewCoachesToModelAfterCoachFileIsUploaded() {
+        Set<Coach> expectedCoaches = new HashSet<Coach>();
+        expectedCoaches.add(new CoachBuilder().withName("Jack").build());
+        when(stubbedFileUploadService.createCoachesFrom(mockedFile))
+                .thenReturn(expectedCoaches);
 
-        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
-        Set<Coach> actualCoachList = (Set<Coach>) modelAndView.getModelMap().get("coachList");
+        ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coaches");
+        Set<Coach> actualCoaches = (Set<Coach>) modelAndView.getModelMap().get("coaches");
 
-        assertThat(actualCoachList, is(expectedCoachList));
+        assertThat(actualCoaches, is(expectedCoaches));
     }
 
     @Test
-    public void shouldUpdatePlayerServiceAfterPlayerListFileIsUploaded() {
-        Set<Player> playerList = new HashSet<Player>();
-        playerList.add(new PlayerBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createPlayerList(mockedFile))
-                .thenReturn(playerList);
+    public void shouldUpdatePlayerServiceAfterPlayerFileIsUploaded() {
+        Set<Player> players = new HashSet<Player>();
+        players.add(new PlayerBuilder().withName("Bob").build());
+        when(stubbedFileUploadService.createPlayersFrom(mockedFile))
+                .thenReturn(players);
 
         fileUploadController.handlePlayerUpload(mockedFile, "player");
 
-        verify(mockedPlayerService).setPlayerList(playerList);
+        verify(mockedPlayerService).setPlayers(players);
     }
 
     @Test
-    public void shouldUpdateCoachServiceAfterCoachListFileIsUploaded() {
-        Set<Coach> coachList = new HashSet<Coach>();
-        coachList.add(new CoachBuilder().withName("Bob").build());
-        when(stubbedFileUploadService.createCoachList(mockedFile))
-                .thenReturn(coachList);
+    public void shouldUpdateCoachServiceAfterCoachFileIsUploaded() {
+        Set<Coach> coaches = new HashSet<Coach>();
+        coaches.add(new CoachBuilder().withName("Bob").build());
+        when(stubbedFileUploadService.createCoachesFrom(mockedFile))
+                .thenReturn(coaches);
 
         fileUploadController.handleCoachUpload(mockedFile, "coach");
 
-        verify(mockedCoachService).setCoachList(coachList);
+        verify(mockedCoachService).setCoaches(coaches);
     }
 
     @Test
-    public void shouldRedirectToHomeIfGoodPlayerListIsUploaded() {
-        when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
+    public void shouldRedirectToHomeIfGoodPlayerFileIsUploaded() {
+        when(stubbedFileUploadService.createPlayersFrom(any(MultipartFile.class)))
                 .thenReturn(new HashSet<Player>());
 
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
@@ -102,8 +102,8 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToHomeIfGoodCoachListIsUploaded() {
-        when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
+    public void shouldRedirectToHomeIfGoodCoachFileIsUploaded() {
+        when(stubbedFileUploadService.createCoachesFrom(any(MultipartFile.class)))
                 .thenReturn(new HashSet<Coach>());
 
         ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
@@ -113,8 +113,8 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToErrorPageIfBadPlayerListIsUploaded() {
-        when(stubbedFileUploadService.createPlayerList(any(MultipartFile.class)))
+    public void shouldRedirectToErrorPageIfBadPlayerFileIsUploaded() {
+        when(stubbedFileUploadService.createPlayersFrom(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
         ModelAndView modelAndView = fileUploadController.handlePlayerUpload(mockedFile, "player");
@@ -124,8 +124,8 @@ public class FileUploadControllerTest {
     }
 
     @Test
-    public void shouldRedirectToErrorPageIfBadCoachListIsUploaded() {
-        when(stubbedFileUploadService.createCoachList(any(MultipartFile.class)))
+    public void shouldRedirectToErrorPageIfBadCoachFileIsUploaded() {
+        when(stubbedFileUploadService.createCoachesFrom(any(MultipartFile.class)))
                 .thenThrow(new RuntimeException());
 
         ModelAndView modelAndView = fileUploadController.handleCoachUpload(mockedFile, "coach");
