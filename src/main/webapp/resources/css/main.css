@@ -1,9 +1,10 @@
 @import url("home-table.css");
 @import url("upload-field.css");
+@import url("record-game.css");
 
 .text-box {
     border: 1px dotted #000000;
-    outline:0;
+    outline: 0;
     width: 275px;
     font-family: "Courier New", Courier, monospace;
 }

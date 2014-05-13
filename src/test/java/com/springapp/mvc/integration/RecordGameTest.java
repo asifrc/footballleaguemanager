@@ -63,6 +63,7 @@ public class RecordGameTest {
         assertEquals(teamService.getTeams(), modelAndView.getModelMap().get("teams"));
     }
 
+
     private HashSet<Coach> createSomeCoaches() {
         HashSet<Coach> coaches = new HashSet<Coach>();
         coaches.add(new CoachBuilder().withName("A").withTeam("Team B").build());
