@@ -11,7 +11,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.springapp.mvc.functional.FileUploadHelper.PLAYER_FILE_1;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class TradeTest extends FunctionalBase {
@@ -61,7 +63,24 @@ public class TradeTest extends FunctionalBase {
         }
     }
 
+    @Test
+    public void shouldAllowUserToTradeAPlayer() throws Exception {
+        driver.get(BASE_URL);
+        helper.uploadFileFor("players", PLAYER_FILE_1);
 
+        List<WebElement> menuItems = driver.findElements(By.className("menuItem"));
+        WebElement link = menuItems.get(2);
+        link.click();
+
+        List<WebElement> dropDowns = driver.findElements(By.className("team-dropdown"));
+        Select dropDown = new Select(dropDowns.get(0));
+        dropDown.selectByVisibleText("Team2");
+
+        WebElement tradeButton = driver.findElement(By.id("player-trade-button"));
+        tradeButton.click();
+
+        assertThat(driver.getCurrentUrl(), is(BASE_URL));
+    }
 
     private List<String> getDropDownOptionsFrom(WebElement dropDown) {
         List<String> dropDownOptions = new ArrayList<String>();

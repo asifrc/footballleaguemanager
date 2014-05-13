@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anySetOf;
@@ -57,4 +60,16 @@ public class TradeControllerTest {
         tradeController.showTradePlayers(mockedModelMap);
         verify(mockedModelMap).addAttribute(eq("teams"), anySetOf(String.class));
     }
+
+    @Test
+    public void shouldRedirectToHomeAfterHandlingGoodTrade() throws Exception {
+        ModelAndView modelAndView = tradeController.handleTradeRequest(mockedModelMap,
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                new ArrayList<String>(),
+                new ArrayList<String>());
+        assertEquals("redirect:/", modelAndView.getViewName());
+    }
+
 }
