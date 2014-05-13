@@ -13,8 +13,6 @@ import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,9 +26,6 @@ public class HomeControllerTest {
     @Mock PlayerService stubbedPlayerService;
     @Mock CoachService stubbedCoachService;
     @Mock ModelMap mockedModelMap;
-    @Mock HttpServletRequest mockedRequest;
-    @Mock HttpSession mockedSession;
-
 
     private HomeController controller;
     private Set<Player> players;
@@ -51,7 +46,6 @@ public class HomeControllerTest {
 
         when(stubbedPlayerService.getPlayerList()).thenReturn(players);
         when(stubbedCoachService.getCoachList()).thenReturn(coaches);
-        when(mockedRequest.getSession()).thenReturn(mockedSession);
     }
 
     @Test
@@ -75,8 +69,7 @@ public class HomeControllerTest {
 
     @Test
     public void shouldRenderFilteredPlayerListAfterFilteringPlayers() {
-        when(mockedRequest.getParameter("minimum-age")).thenReturn("18");
-        ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, mockedRequest);
+        ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, "18");
 
         assertTrue(modelAndView.getViewName().equals("filteredPlayerList"));
     }
