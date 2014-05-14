@@ -1,5 +1,6 @@
 package com.springapp.mvc.functional;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -17,35 +18,24 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class TradeTest extends FunctionalBase {
-    @Test
-    public void shouldBeAbleToGoToTradePlayersPageFromHomePage() {
+    @Before
+    public void setUp() throws Exception {
         driver.get(BASE_URL);
         helper.uploadFileFor("players", PLAYER_FILE_1);
+    }
 
-        List<WebElement> menuItem = driver.findElements(By.className("menuItem"));
-        WebElement link = menuItem.get(2);
-
-        assertEquals("Trade Players", link.getText());
-
-        link.click();
+    @Test
+    public void shouldBeAbleToGoToTradePlayersPageFromHomePage() {
+        findTradePlayersLinkAndClickIt();
 
         WebElement h1 = driver.findElement(By.tagName("h1"));
         assertEquals("Trade Players", h1.getText());
-
         assertTrue(driver.findElement(By.id("player-table")).getText().contains("Sally"));
     }
 
     @Test
     public void shouldShowADropdownListWithCorrectTeamsNextToEachPlayerOnTradePage() throws Exception {
-        driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_FILE_1);
-
-        List<WebElement> menuItems = driver.findElements(By.className("menuItem"));
-        WebElement link = menuItems.get(2);
-
-        assertEquals("Trade Players", link.getText());
-
-        link.click();
+        findTradePlayersLinkAndClickIt();
 
         List<String> teams = Arrays.asList("Team1", "Team2", "-- Trade --");
 
@@ -55,6 +45,7 @@ public class TradeTest extends FunctionalBase {
         for (WebElement dropDown : dropDowns) {
             List<String> expectedDropDownOptions = new LinkedList(teams);
             expectedDropDownOptions.remove(i);
+
             List<String> actualDropDownOptions = getDropDownOptionsFrom(dropDown);
 
             assertEquals(expectedDropDownOptions.size(), actualDropDownOptions.size());
@@ -65,12 +56,12 @@ public class TradeTest extends FunctionalBase {
 
     @Test
     public void shouldAllowUserToTradeAPlayer() throws Exception {
-        driver.get(BASE_URL);
-        helper.uploadFileFor("players", PLAYER_FILE_1);
+        WebElement sallyRow;
 
-        List<WebElement> menuItems = driver.findElements(By.className("menuItem"));
-        WebElement link = menuItems.get(2);
-        link.click();
+        sallyRow = driver.findElement(By.id("player-1"));
+        assertTrue(sallyRow.getText().contains("Team1"));
+
+        findTradePlayersLinkAndClickIt();
 
         List<WebElement> dropDowns = driver.findElements(By.className("team-dropdown"));
         Select dropDown = new Select(dropDowns.get(0));
@@ -80,6 +71,18 @@ public class TradeTest extends FunctionalBase {
         tradeButton.click();
 
         assertThat(driver.getCurrentUrl(), is(BASE_URL));
+
+        sallyRow = driver.findElement(By.id("player-1"));
+        assertTrue(sallyRow.getText().contains("Team2"));
+    }
+
+    private void findTradePlayersLinkAndClickIt() {
+        List<WebElement> menuItem = driver.findElements(By.className("menuItem"));
+        WebElement link = menuItem.get(2);
+
+        assertEquals("Trade Players", link.getText());
+
+        link.click();
     }
 
     private List<String> getDropDownOptionsFrom(WebElement dropDown) {
