@@ -11,6 +11,7 @@
         <div class="score-team">
             <label for="team1-dropdown">Team 1</label>
             <select id="team1-dropdown" name="team0">
+                <option>-- Choose Team --</option>
                 <%@include file="partials/teamOptionList.jsp" %>
             </select>
 
@@ -20,6 +21,7 @@
         <div class="score-team">
             <label for="team2-dropdown">Team 2</label>
             <select id="team2-dropdown" name="team1">
+                <option>-- Choose Team --</option>
                 <%@include file="partials/teamOptionList.jsp" %>
             </select>
 
