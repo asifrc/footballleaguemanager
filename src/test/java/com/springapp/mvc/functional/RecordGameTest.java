@@ -56,7 +56,8 @@ public class RecordGameTest extends FunctionalBase {
             actualTeams.add(teamElement.getText());
         }
 
-        List<String> expectedTeams = Arrays.asList("Dallas Cowboys", "Canadian Argos", "Da Behrs", "Barcelona", "Rockets");
+        List<String> expectedTeams = Arrays.asList("-- Choose Team --", "Dallas Cowboys", "Canadian Argos", "Da Behrs",
+                "Barcelona", "Rockets");
         assertTrue(actualTeams.containsAll(expectedTeams));
         assertEquals(expectedTeams.size(), teamElements.size());
     }
