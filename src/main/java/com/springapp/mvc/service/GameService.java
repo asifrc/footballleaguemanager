@@ -12,17 +12,6 @@ public class GameService {
 
     public GameService() {
         this.games = new ArrayList<Game>();
-        String team0 = "Dallas Cowboys";
-        String team1 = "Loser";
-        int team0score = 50;
-        int team1score = 10;
-        games.add(new Game(team0, team0score, team1, team1score));
-        team0 = "Team0";
-        team1 = "Team1";
-        team0score = 0;
-        team1score = 12;
-        games.add(new Game(team0, team0score, team1, team1score));
-
     }
 
     public String getWinLossTieRecordFor(String team) {
@@ -42,5 +31,9 @@ public class GameService {
         }
 
         return winCount + "-" + loseCount + "-" + tieCount;
+    }
+
+    public void addGame(Game game) {
+        games.add(game);
     }
 }

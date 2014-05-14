@@ -1,6 +1,7 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Game;
+import com.springapp.mvc.service.GameService;
 import com.springapp.mvc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class GameController {
     private final TeamService teamService;
+    private final GameService gameService;
 
     @Autowired
-    public GameController(TeamService teamService) {
+    public GameController(TeamService teamService, GameService gameService) {
         this.teamService = teamService;
+        this.gameService = gameService;
     }
 
     @RequestMapping(value = "/record", method = RequestMethod.GET)
@@ -29,9 +32,13 @@ public class GameController {
 
     @RequestMapping(value = "/record", method = RequestMethod.POST)
     public ModelAndView handleRecordGameForm(@ModelAttribute Game game, final RedirectAttributes redirectAttributes) {
+        gameService.addGame(game);
+
         String result = game.getTeam(0) + ": " + game.resultFor(game.getTeam(0)) + ", ";
         result += game.getTeam(1) + ": " + game.resultFor(game.getTeam(1));
         redirectAttributes.addFlashAttribute("gameResult", result);
         return new ModelAndView("redirect:/record");
     }
+
+
 }

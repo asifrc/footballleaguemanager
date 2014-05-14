@@ -1,11 +1,9 @@
 package com.springapp.mvc.integration;
 
 import com.springapp.mvc.controller.GameController;
-import com.springapp.mvc.model.Coach;
-import com.springapp.mvc.model.CoachBuilder;
-import com.springapp.mvc.model.Player;
-import com.springapp.mvc.model.PlayerBuilder;
+import com.springapp.mvc.model.*;
 import com.springapp.mvc.service.CoachService;
+import com.springapp.mvc.service.GameService;
 import com.springapp.mvc.service.PlayerService;
 import com.springapp.mvc.service.TeamService;
 import org.junit.Before;
@@ -18,10 +16,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashSet;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -53,8 +53,9 @@ public class RecordGameTest {
     public void shouldPassTeamsToView() throws Exception {
         PlayerService playerService = new PlayerService();
         CoachService coachService = new CoachService();
+        GameService gameService = new GameService();
         TeamService teamService = new TeamService(playerService, coachService);
-        GameController gameController = new GameController(teamService);
+        GameController gameController = new GameController(teamService, gameService);
 
         playerService.setPlayers(createSomePlayers());
         coachService.setCoaches(createSomeCoaches());
@@ -63,6 +64,22 @@ public class RecordGameTest {
         assertEquals(teamService.getTeams(), modelAndView.getModelMap().get("teams"));
     }
 
+    @Test
+    public void shouldAddGameToGameServiceWhenResultsAreSubmitted() {
+        PlayerService playerService = new PlayerService();
+        CoachService coachService = new CoachService();
+        TeamService teamService = new TeamService(playerService, coachService);
+        GameService gameService = new GameService();
+        GameController gameController = new GameController(teamService, gameService);
+
+        Game game1 = new Game("Winner", 10, "Loser", 9);
+        Game game2 = new Game("Winner", 10, "Loser", 9);
+
+        gameController.handleRecordGameForm(game1, mock(RedirectAttributes.class));
+        gameController.handleRecordGameForm(game2, mock(RedirectAttributes.class));
+
+        assertEquals("2-0-0", gameService.getWinLossTieRecordFor("Winner"));
+    }
 
     private HashSet<Coach> createSomeCoaches() {
         HashSet<Coach> coaches = new HashSet<Coach>();
