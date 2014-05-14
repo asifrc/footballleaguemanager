@@ -5,6 +5,7 @@ import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.FileUploadService;
 import com.springapp.mvc.service.PlayerService;
+import com.springapp.mvc.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,17 +19,20 @@ import java.util.Set;
 
 @Controller
 public class FileUploadController {
-    FileUploadService fileUploadService;
-    PlayerService playerService;
-    CoachService coachService;
+    private FileUploadService fileUploadService;
+    private PlayerService playerService;
+    private CoachService coachService;
+    private TeamService teamService;
 
     @Autowired
     public FileUploadController(FileUploadService fileUploadService,
                                 PlayerService playerService,
-                                CoachService coachService) {
+                                CoachService coachService,
+                                TeamService teamService) {
         this.fileUploadService = fileUploadService;
         this.playerService = playerService;
         this.coachService = coachService;
+        this.teamService = teamService;
     }
 
     @RequestMapping(value = "/upload-players", method = RequestMethod.POST)
@@ -38,6 +42,7 @@ public class FileUploadController {
         try {
             players = fileUploadService.createPlayersFrom(file);
             playerService.setPlayers(players);
+            teamService.clearTeams();
             return redirectToHome(players, coaches);
         } catch (RuntimeException e) {
             e.printStackTrace();
@@ -52,6 +57,7 @@ public class FileUploadController {
         try {
             coaches = fileUploadService.createCoachesFrom(file);
             coachService.setCoaches(coaches);
+            teamService.clearTeams();
             return redirectToHome(players, coaches);
         } catch (RuntimeException e) {
             e.printStackTrace();

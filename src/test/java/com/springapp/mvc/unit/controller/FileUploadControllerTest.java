@@ -8,6 +8,7 @@ import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.FileUploadService;
 import com.springapp.mvc.service.PlayerService;
+import com.springapp.mvc.service.TeamService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,6 +31,7 @@ public class FileUploadControllerTest {
     @Mock CoachService mockedCoachService;
     @Mock MultipartFile mockedFile;
     @Mock FileUploadService stubbedFileUploadService;
+    @Mock TeamService mockedTeamService;
 
     private FileUploadController fileUploadController;
 
@@ -37,7 +39,7 @@ public class FileUploadControllerTest {
     public void setUp() {
         initMocks(this);
         fileUploadController = new FileUploadController(
-                stubbedFileUploadService, mockedPlayerService, mockedCoachService);
+                stubbedFileUploadService, mockedPlayerService, mockedCoachService, mockedTeamService);
     }
 
     @Test

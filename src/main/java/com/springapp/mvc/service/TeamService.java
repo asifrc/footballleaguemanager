@@ -12,23 +12,33 @@ import java.util.Set;
 public class TeamService {
     private final PlayerService playerService;
     private final CoachService coachService;
+    private Set<String> teams;
+
 
     @Autowired
     public TeamService(PlayerService playerService, CoachService coachService) {
         this.playerService = playerService;
         this.coachService = coachService;
+        this.teams = new HashSet<String>();
+    }
+
+    public void clearTeams() {
+        this.teams = new HashSet<String>();
     }
 
     public Set<String> getTeams() {
+        updateTeams();
+        return teams;
+    }
+
+    private void updateTeams() {
         Set<Player> players = playerService.getPlayers();
         Set<Coach> coaches = coachService.getCoaches();
-        Set<String> teams = new HashSet<String>();
         for (Player player : players) {
             teams.add(player.getTeam());
         }
         for (Coach coach : coaches) {
             teams.add(coach.getTeam());
         }
-        return teams;
     }
 }
