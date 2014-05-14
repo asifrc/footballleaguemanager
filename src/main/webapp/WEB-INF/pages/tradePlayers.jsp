@@ -4,10 +4,9 @@
 
 <h1>Trade Players</h1>
 
+<%@include file="partials/playerTable.jsp" %>
 
-    <%@include file="partials/playerTable.jsp" %>
-<form:form method="POST" id="trade-players-form" action="/trade" modelAttribute="playerListWrapper">
-
+<form:form method="POST" id="trade-players-form" action="/trade">
     <input type="submit" id="player-trade-button" value="Trade Players!">
 </form:form>
 

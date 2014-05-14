@@ -2,6 +2,7 @@ package com.springapp.mvc.controller;
 
 import com.springapp.mvc.service.PlayerService;
 import com.springapp.mvc.service.TeamService;
+import com.springapp.mvc.service.TradeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,11 +18,13 @@ public class TradeController {
 
     private final PlayerService playerService;
     private final TeamService teamService;
+    private final TradeService tradeService;
 
     @Autowired
-    public TradeController(PlayerService playerService, TeamService teamService) {
+    public TradeController(PlayerService playerService, TeamService teamService, TradeService tradeService) {
         this.playerService = playerService;
         this.teamService = teamService;
+        this.tradeService = tradeService;
     }
 
     @RequestMapping(value="/trade", method= RequestMethod.GET)
@@ -36,11 +39,11 @@ public class TradeController {
     public ModelAndView handleTradeRequest(ModelMap model,
                                            @RequestParam("name") List<String> names,
                                            @RequestParam("team") List<String> currentTeams,
-                                           @RequestParam("number") List<String> number,
-                                           @RequestParam("age") List<String> age,
+                                           @RequestParam("number") List<String> numbers,
+                                           @RequestParam("age") List<String> ages,
                                            @RequestParam("new-team") List<String> newTeams) {
 
-
+        tradeService.tradePlayers(names, currentTeams, numbers, ages, newTeams);
         return new ModelAndView("redirect:/");
     }
 }

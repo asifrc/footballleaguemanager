@@ -4,6 +4,7 @@ import com.springapp.mvc.controller.TradeController;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.PlayerService;
 import com.springapp.mvc.service.TeamService;
+import com.springapp.mvc.service.TradeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anySetOf;
@@ -23,13 +25,14 @@ public class TradeControllerTest {
     @Mock PlayerService mockedPlayerService;
     @Mock TeamService mockedTeamService;
     @Mock ModelMap mockedModelMap;
+    @Mock TradeService mockedTradeService;
 
     TradeController tradeController;
 
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        tradeController = new TradeController(mockedPlayerService, mockedTeamService);
+        tradeController = new TradeController(mockedPlayerService, mockedTeamService, mockedTradeService);
     }
 
     @Test
@@ -72,4 +75,17 @@ public class TradeControllerTest {
         assertEquals("redirect:/", modelAndView.getViewName());
     }
 
+    @Test
+    public void shouldInteractWithTradeServiceToTradePlayers() throws Exception {
+        List<String> names = new ArrayList<String>();
+        List<String> currentTeams = new ArrayList<String>();
+        List<String> numbers = new ArrayList<String>();
+        List<String> ages = new ArrayList<String>();
+        List<String> newTeams = new ArrayList<String>();
+
+        tradeController.handleTradeRequest(mockedModelMap,
+                names, currentTeams, numbers, ages, newTeams);
+
+        verify(mockedTradeService).tradePlayers(names, currentTeams, numbers, ages, newTeams);
+    }
 }
