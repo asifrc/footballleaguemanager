@@ -4,6 +4,10 @@
 
 <h1 id="team-name">${teamName}</h1>
 
+<div id="score-div">
+    Record: ${record}
+</div>
+
 <div id="players">
     <h1>Players</h1>
     <c:set var="hideteam" scope="request" value="true"/>

@@ -49,4 +49,5 @@ public class TeamTest extends FunctionalBase {
         assertTrue(coachDiv.getText().contains("Hakim"));
         assertFalse(coachDiv.getText().contains("Jack"));
     }
+
 }

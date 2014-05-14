@@ -30,6 +30,10 @@ public class RecordGameTest extends FunctionalBase {
 
         pageShouldDisplaySuccessMessage();
 
+        userGoesToTeamPage();
+
+        pageShouldShowOneWinZeroLossesZeroTies();
+
     }
 
     private void pageShouldHaveProperTitle() {
@@ -80,5 +84,16 @@ public class RecordGameTest extends FunctionalBase {
     private void pageShouldDisplaySuccessMessage() {
         WebElement flash = driver.findElement(By.id("flash"));
         assertEquals("Dallas Cowboys: W, Canadian Argos: L", flash.getText());
+    }
+
+    private void userGoesToTeamPage() {
+        driver.get(BASE_URL);
+        WebElement cowboysLink = driver.findElement(By.linkText("Dallas Cowboys"));
+        cowboysLink.click();
+    }
+
+    private void pageShouldShowOneWinZeroLossesZeroTies() {
+        WebElement scoreDiv = driver.findElement(By.id("score-div"));
+        assertTrue(scoreDiv.getText().contains("Record: 1-0-0"));
     }
 }

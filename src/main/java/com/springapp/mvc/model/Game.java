@@ -52,7 +52,13 @@ public class Game {
 
     public String resultFor(String team) {
         createResults();
-        return results.get(team);
+        String result = results.get(team);
+
+        if (result == null) {
+            return "N.A.";
+        } else {
+            return result;
+        }
     }
 
     public String getTeam0() {

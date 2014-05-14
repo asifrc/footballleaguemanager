@@ -1,7 +1,9 @@
-package com.springapp.mvc.service;
+package com.springapp.mvc.unit.service;
 
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
+import com.springapp.mvc.service.PlayerService;
+import com.springapp.mvc.service.TradeService;
 import org.junit.Before;
 import org.junit.Test;
 

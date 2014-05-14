@@ -4,6 +4,7 @@ import com.springapp.mvc.controller.TeamController;
 import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.service.CoachService;
+import com.springapp.mvc.service.GameService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,18 +20,16 @@ import static org.mockito.MockitoAnnotations.initMocks;
 
 public class TeamControllerTest {
 
-    @Mock
-    private ModelMap mockedModelMap;
-    @Mock
-    private PlayerService stubbedPlayerService;
-    @Mock
-    private CoachService stubbedCoachService;
+    @Mock private ModelMap mockedModelMap;
+    @Mock private PlayerService stubbedPlayerService;
+    @Mock private CoachService stubbedCoachService;
+    @Mock private GameService mockedGameService;
     private TeamController teamController;
 
     @Before
     public void setUp() {
         initMocks(this);
-        teamController = new TeamController(stubbedPlayerService, stubbedCoachService);
+        teamController = new TeamController(stubbedPlayerService, stubbedCoachService, mockedGameService);
     }
 
     @Test
@@ -40,10 +39,22 @@ public class TeamControllerTest {
 
     @Test
     public void shouldPassTeamNameToView() {
-        mockedModelMap = mock(ModelMap.class);
         teamController.showTeam(mockedModelMap, "Giants");
         verify(mockedModelMap).addAttribute("teamName", "Giants");
     }
+
+    @Test
+    public void shouldPassTeamRecordToView() {
+        teamController.showTeam(mockedModelMap, "Giants");
+        verify(mockedModelMap).addAttribute(eq("record"), anyString());
+    }
+
+    @Test
+    public void shouldGetTeamRecordFromGameService() {
+        teamController.showTeam(mockedModelMap, "Giants");
+        verify(mockedGameService).getWinLossTieRecordFor("Giants");
+    }
+
 
     @Test
     public void shouldGetFilteredPlayersFromPlayerService() {
@@ -81,6 +92,5 @@ public class TeamControllerTest {
         teamController.showTeam(mockedModelMap, "Team Name from Params");
 
         verify(mockedModelMap).addAttribute("coaches", coaches);
-
     }
 }

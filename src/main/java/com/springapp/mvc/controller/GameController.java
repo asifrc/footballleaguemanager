@@ -17,7 +17,6 @@ public class GameController {
 
     @Autowired
     public GameController(TeamService teamService) {
-
         this.teamService = teamService;
     }
 

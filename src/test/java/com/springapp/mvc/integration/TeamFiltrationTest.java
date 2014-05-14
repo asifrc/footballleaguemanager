@@ -6,6 +6,7 @@ import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
 import com.springapp.mvc.service.CoachService;
+import com.springapp.mvc.service.GameService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.verify;
 public class TeamFiltrationTest {
     private CoachService coachService;
     private PlayerService playerService;
+    private GameService gameService;
     private TeamController teamController;
     private ModelMap mockModelMap;
 
@@ -27,7 +29,8 @@ public class TeamFiltrationTest {
     public void setUp() {
         coachService = new CoachService();
         playerService = new PlayerService();
-        teamController = new TeamController(playerService, coachService);
+        gameService = new GameService();
+        teamController = new TeamController(playerService, coachService, gameService);
         mockModelMap = mock(ModelMap.class);
     }
 
