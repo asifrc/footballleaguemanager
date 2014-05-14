@@ -78,9 +78,9 @@ public class FileUploadController {
 
     private String exampleTextFor(String personType) {
         String exampleText = null;
-        if (personType.equals("player")) {
+        if (personType.equals("players")) {
             exampleText = "Name,Team,Number,Age";
-        } else if (personType.equals("coach")) {
+        } else if (personType.equals("coaches")) {
             exampleText = "Name,Team,Title";
         }
         return exampleText;
