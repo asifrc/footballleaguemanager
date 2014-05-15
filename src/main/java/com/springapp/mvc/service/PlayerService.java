@@ -15,10 +15,6 @@ public class PlayerService {
         this.players = new HashSet<Player>();
     }
 
-    public Set<Player> getPlayers() {
-        return players;
-    }
-
     public Set<Player> getPlayersWithMinimumAge(int age) {
         Set<Player> filteredPlayers = new HashSet<Player>();
         for (Player player : players) {
@@ -39,10 +35,6 @@ public class PlayerService {
         return result;
     }
 
-    public void setPlayers(Set<Player> players) {
-        this.players = players;
-    }
-
     public Set<Player> getPlayersFrom(String teamName) {
         Set<Player> filteredPlayers = new HashSet<Player>();
         for (Player player : players) {
@@ -51,5 +43,13 @@ public class PlayerService {
             }
         }
         return filteredPlayers;
+    }
+
+    public Set<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Player> players) {
+        this.players = players;
     }
 }

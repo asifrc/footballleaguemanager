@@ -28,7 +28,7 @@ public class TradeController {
     }
 
     @RequestMapping(value="/trade", method= RequestMethod.GET)
-    public ModelAndView showTradePlayers(ModelMap modelMap) {
+    public ModelAndView renderTradePlayersView(ModelMap modelMap) {
         modelMap.addAttribute("players", playerService.getPlayers());
         modelMap.addAttribute("teams", teamService.getTeams());
 

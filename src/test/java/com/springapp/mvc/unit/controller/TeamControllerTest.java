@@ -34,24 +34,24 @@ public class TeamControllerTest {
 
     @Test
     public void shouldDisplayTeamView() {
-        assertEquals("team", teamController.showTeam(mockedModelMap, "Giants").getViewName());
+        assertEquals("team", teamController.renderTeamView(mockedModelMap, "Giants").getViewName());
     }
 
     @Test
     public void shouldPassTeamNameToView() {
-        teamController.showTeam(mockedModelMap, "Giants");
+        teamController.renderTeamView(mockedModelMap, "Giants");
         verify(mockedModelMap).addAttribute("teamName", "Giants");
     }
 
     @Test
     public void shouldPassTeamRecordToView() {
-        teamController.showTeam(mockedModelMap, "Giants");
+        teamController.renderTeamView(mockedModelMap, "Giants");
         verify(mockedModelMap).addAttribute(eq("record"), anyString());
     }
 
     @Test
     public void shouldGetTeamRecordFromGameService() {
-        teamController.showTeam(mockedModelMap, "Giants");
+        teamController.renderTeamView(mockedModelMap, "Giants");
         verify(mockedGameService).getWinLossTieRecordFor("Giants");
     }
 
@@ -60,7 +60,7 @@ public class TeamControllerTest {
     public void shouldGetFilteredPlayersFromPlayerService() {
         PlayerService mockedPlayerService = stubbedPlayerService;
 
-        teamController.showTeam(mockedModelMap, "Rockets");
+        teamController.renderTeamView(mockedModelMap, "Rockets");
 
         verify(mockedPlayerService).getPlayersFrom("Rockets");
     }
@@ -69,7 +69,7 @@ public class TeamControllerTest {
     public void shouldGetFilteredCoachesFromCoachService() {
         CoachService mockedCoachService = stubbedCoachService;
 
-        teamController.showTeam(mockedModelMap, "Rockets");
+        teamController.renderTeamView(mockedModelMap, "Rockets");
 
         verify(mockedCoachService).getCoachesFrom("Rockets");
     }
@@ -79,7 +79,7 @@ public class TeamControllerTest {
         Set<Player> players = new HashSet<Player>();
         when(stubbedPlayerService.getPlayers()).thenReturn(players);
 
-        teamController.showTeam(mockedModelMap, "Giants");
+        teamController.renderTeamView(mockedModelMap, "Giants");
 
         verify(mockedModelMap).addAttribute("players", players);
     }
@@ -89,7 +89,7 @@ public class TeamControllerTest {
         Set<Coach> coaches = new HashSet<Coach>();
         when(stubbedCoachService.getCoaches()).thenReturn(coaches);
 
-        teamController.showTeam(mockedModelMap, "Team Name from Params");
+        teamController.renderTeamView(mockedModelMap, "Team Name from Params");
 
         verify(mockedModelMap).addAttribute("coaches", coaches);
     }

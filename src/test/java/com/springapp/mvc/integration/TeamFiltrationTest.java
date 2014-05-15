@@ -51,7 +51,7 @@ public class TeamFiltrationTest {
         HashSet<Player> filteredPlayers = new HashSet<Player>();
         filteredPlayers.add(playerAubrey);
 
-        teamController.showTeam(mockModelMap, "Rockets");
+        teamController.renderTeamView(mockModelMap, "Rockets");
 
         verify(mockModelMap).addAttribute("teamName", "Rockets");
         verify(mockModelMap).addAttribute("players", filteredPlayers);
@@ -71,7 +71,7 @@ public class TeamFiltrationTest {
         Set<Coach> filteredCoaches = new HashSet<Coach>();
         filteredCoaches.add(coachCubs);
 
-        teamController.showTeam(mockModelMap, "Cubs");
+        teamController.renderTeamView(mockModelMap, "Cubs");
 
         verify(mockModelMap).addAttribute("teamName", "Cubs");
         verify(mockModelMap).addAttribute("players", new HashSet<Player>());

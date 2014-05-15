@@ -43,7 +43,7 @@ public class TradePlayerTest {
 
         playerService.setPlayers(players);
 
-        ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
+        ModelAndView modelAndView = tradeController.renderTradePlayersView(new ModelMap());
 
         assertEquals(players, (Set<Player>) modelAndView.getModelMap().get("players"));
     }
@@ -55,7 +55,7 @@ public class TradePlayerTest {
 
         Set<String> expectedTeams = createSomeTeams();
 
-        ModelAndView modelAndView = tradeController.showTradePlayers(new ModelMap());
+        ModelAndView modelAndView = tradeController.renderTradePlayersView(new ModelMap());
 
         Collection<String> actualTeams = (Set<String>) modelAndView.getModelMap().get("teams");
         assertTrue(actualTeams.containsAll(expectedTeams));

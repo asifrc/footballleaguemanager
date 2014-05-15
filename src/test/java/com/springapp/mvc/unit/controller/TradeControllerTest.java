@@ -37,30 +37,30 @@ public class TradeControllerTest {
 
     @Test
     public void shouldDisplayTradePlayerView() throws Exception {
-        assertEquals("tradePlayers", tradeController.showTradePlayers(new ModelMap()).getViewName());
+        assertEquals("tradePlayers", tradeController.renderTradePlayersView(new ModelMap()).getViewName());
     }
 
     @Test
     public void shouldGetPlayersFromPlayerService() throws Exception {
-        tradeController.showTradePlayers(new ModelMap());
+        tradeController.renderTradePlayersView(new ModelMap());
         verify(mockedPlayerService).getPlayers();
     }
 
     @Test
     public void shouldPassPlayersToView() throws Exception {
-        tradeController.showTradePlayers(mockedModelMap);
+        tradeController.renderTradePlayersView(mockedModelMap);
         verify(mockedModelMap).addAttribute(eq("players"), anySetOf(Player.class));
     }
 
     @Test
     public void shouldGetTeamsFromTeamService() throws Exception {
-        tradeController.showTradePlayers(new ModelMap());
+        tradeController.renderTradePlayersView(new ModelMap());
         verify(mockedTeamService).getTeams();
     }
 
     @Test
     public void shouldPassTeamsToView() throws Exception {
-        tradeController.showTradePlayers(mockedModelMap);
+        tradeController.renderTradePlayersView(mockedModelMap);
         verify(mockedModelMap).addAttribute(eq("teams"), anySetOf(String.class));
     }
 
