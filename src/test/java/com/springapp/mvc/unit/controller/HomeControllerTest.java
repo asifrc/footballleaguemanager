@@ -16,16 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class HomeControllerTest {
-    @Mock PlayerService stubbedPlayerService;
-    @Mock CoachService stubbedCoachService;
-    @Mock ModelMap mockedModelMap;
+    @Mock
+    PlayerService stubbedPlayerService;
+    @Mock
+    CoachService stubbedCoachService;
+    @Mock
+    ModelMap mockedModelMap;
 
     private HomeController controller;
     private Set<Player> players;
@@ -74,25 +76,4 @@ public class HomeControllerTest {
         assertTrue(modelAndView.getViewName().equals("filteredPlayers"));
     }
 
-    @Test
-    public void shouldPassAPlayerToTheViewWhenFindingAPlayerWithMatchingParameters() {
-        Player player = new PlayerBuilder().withName("Ayanga").withNumber("70").build();
-        when(stubbedPlayerService.findPlayerByName("Ayanga")).thenReturn(player);
-
-        ModelAndView modelAndView = controller.findPlayer(player);
-        Player foundPlayer = (Player) modelAndView.getModelMap().get("player");
-
-        assertEquals(player, foundPlayer);
-        assertFalse(modelAndView.getModelMap().containsKey("error"));
-    }
-
-    @Test
-    public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() {
-        when(stubbedPlayerService.findPlayerByName(anyString())).thenReturn(null);
-
-        Player player = new PlayerBuilder().withName("NonMatchingPlayer").withNumber("91239").build();
-        ModelAndView modelAndView = controller.findPlayer(player);
-
-        assertTrue(modelAndView.getModelMap().containsKey("error"));
-    }
 }
