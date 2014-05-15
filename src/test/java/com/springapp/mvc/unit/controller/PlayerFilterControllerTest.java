@@ -35,7 +35,7 @@ public class PlayerFilterControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new PlayerFilterController(stubbedPlayerService, stubbedCoachService);
+        controller = new PlayerFilterController(stubbedPlayerService);
 
         players = new HashSet<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());

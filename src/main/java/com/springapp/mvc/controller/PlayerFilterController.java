@@ -1,7 +1,6 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Player;
-import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +16,10 @@ import java.util.Set;
 public class PlayerFilterController {
 
     private PlayerService playerService;
-    private CoachService coachService;
 
     @Autowired
-    public PlayerFilterController(PlayerService playerService, CoachService coachService) {
+    public PlayerFilterController(PlayerService playerService) {
         this.playerService = playerService;
-        this.coachService = coachService;
     }
 
     @RequestMapping(value = "/filterPlayers", method = RequestMethod.GET)
@@ -32,7 +29,6 @@ public class PlayerFilterController {
 
         model.addAttribute("minAge", minAge);
         model.addAttribute("players", filteredPlayers);
-        model.addAttribute("coaches", coachService.getCoaches());
 
         return new ModelAndView("filteredPlayers", model);
     }
