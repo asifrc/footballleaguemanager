@@ -46,39 +46,35 @@ public class Player {
         return result;
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public Player setNumber(String number) {
-        this.number = number;
-        return this;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public Player setName(String name) {
-        this.name = name;
-        return this;
     }
 
     public String getTeam() {
         return team;
     }
 
-    public Player setTeam(String team) {
-        this.team = team;
-        return this;
+    public String getNumber() {
+        return number;
     }
 
     public int getAge() {
         return age;
     }
 
-    public Player setAge(String age) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setAge(String age) {
         this.age = Integer.parseInt(age);
-        return this;
     }
 }

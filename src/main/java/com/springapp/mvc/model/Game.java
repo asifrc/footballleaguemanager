@@ -31,14 +31,14 @@ public class Game {
 
     private void createResults() {
         results.clear();
-        results.put(this.team0, wlt(this.team0score, this.team1score));
-        results.put(this.team1, wlt(this.team1score, this.team0score));
+        results.put(this.team0, determineWinLossTie(this.team0score, this.team1score));
+        results.put(this.team1, determineWinLossTie(this.team1score, this.team0score));
     }
 
-    private String wlt(int score0, int score1) {
+    private String determineWinLossTie(int score0, int score1) {
         if (score0 > score1) {
             return "W";
-        } else if (score1 > score0) {
+        } else if (score0 < score1) {
             return "L";
         } else {
             return "T";
