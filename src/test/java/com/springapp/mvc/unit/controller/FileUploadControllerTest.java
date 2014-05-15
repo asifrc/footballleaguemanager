@@ -27,11 +27,16 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class FileUploadControllerTest {
-    @Mock PlayerService mockedPlayerService;
-    @Mock CoachService mockedCoachService;
-    @Mock MultipartFile mockedFile;
-    @Mock FileUploadService stubbedFileUploadService;
-    @Mock TeamService mockedTeamService;
+    @Mock
+    private PlayerService mockedPlayerService;
+    @Mock
+    private CoachService mockedCoachService;
+    @Mock
+    private MultipartFile mockedFile;
+    @Mock
+    private FileUploadService stubbedFileUploadService;
+    @Mock
+    private TeamService mockedTeamService;
 
     private FileUploadController fileUploadController;
 

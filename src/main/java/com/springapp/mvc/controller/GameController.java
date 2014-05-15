@@ -33,12 +33,8 @@ public class GameController {
     @RequestMapping(value = "/record", method = RequestMethod.POST)
     public ModelAndView handleRecordGameForm(@ModelAttribute Game game, final RedirectAttributes redirectAttributes) {
         gameService.addGame(game);
-
-        String result = game.getTeam(0) + ": " + game.resultFor(game.getTeam(0)) + ", ";
-        result += game.getTeam(1) + ": " + game.resultFor(game.getTeam(1));
-        redirectAttributes.addFlashAttribute("gameResult", result);
+        redirectAttributes.addFlashAttribute("gameResult", game.displayResults());
         return new ModelAndView("redirect:/record");
     }
-
 
 }

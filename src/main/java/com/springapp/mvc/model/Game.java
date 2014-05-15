@@ -92,4 +92,10 @@ public class Game {
     public void setTeam1score(int team1score) {
         this.team1score = team1score;
     }
+
+    public String displayResults() {
+        String result = getTeam(0) + ": " + resultFor(getTeam(0)) + ", ";
+        result += getTeam(1) + ": " + resultFor(getTeam(1));
+        return result;
+    }
 }
