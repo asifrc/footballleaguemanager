@@ -16,11 +16,7 @@ public class PlayerBuilder {
         String number = playerFields[2];
         int age = Integer.parseInt(playerFields[3]);
 
-        return new PlayerBuilder().withName(name)
-                .withTeam(team)
-                .withNumber(number)
-                .withAge(age)
-                .build();
+        return new Player(name, team, number, age);
     }
 
     public PlayerBuilder withName(String name) {

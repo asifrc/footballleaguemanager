@@ -13,12 +13,9 @@ public class CoachBuilder {
 
         String name = coachFields[0];
         String team = coachFields[1];
-        String position = coachFields[2];
+        String title = coachFields[2];
 
-        return new CoachBuilder().withName(name)
-                .withTeam(team)
-                .withPosition(position)
-                .build();
+        return new Coach(name, team, title);
     }
 
     public CoachBuilder withName(String name) {
