@@ -71,7 +71,7 @@ public class TradePlayerTest {
         Player player = playerIterator.next();
         player.setTeam("Team D");
 
-        tradeController.handleTradeRequest(new ModelMap(),
+        tradeController.handleTradeRequest(
                 new ArrayList<String>(Arrays.asList("A", "B", "C")),
                 new ArrayList<String>(Arrays.asList("Team A", "Team B", "Team C")),
                 new ArrayList<String>(Arrays.asList("Default Number", "Default Number", "Default Number")),

@@ -36,8 +36,7 @@ public class TradeController {
     }
 
     @RequestMapping(value="/trade", method= RequestMethod.POST)
-    public ModelAndView handleTradeRequest(ModelMap model,
-                                           @RequestParam("name") List<String> names,
+    public ModelAndView handleTradeRequest(@RequestParam("name") List<String> names,
                                            @RequestParam("team") List<String> currentTeams,
                                            @RequestParam("number") List<String> numbers,
                                            @RequestParam("age") List<String> ages,
@@ -46,4 +45,5 @@ public class TradeController {
         tradeService.tradePlayers(names, currentTeams, numbers, ages, newTeams);
         return new ModelAndView("redirect:/");
     }
+
 }

@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/team")
 public class TeamController {
+
     private final GameService gameService;
     private final PlayerService playerService;
     private final CoachService coachService;
@@ -25,7 +26,6 @@ public class TeamController {
         this.gameService = gameService;
     }
 
-
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView renderTeamView(ModelMap model, @RequestParam("name") String teamName) {
         model.addAttribute("teamName", teamName);
@@ -34,4 +34,5 @@ public class TeamController {
         model.addAttribute("record", gameService.getWinLossTieRecordFor(teamName));
         return new ModelAndView("team", model);
     }
+
 }

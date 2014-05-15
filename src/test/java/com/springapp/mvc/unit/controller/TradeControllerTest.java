@@ -66,7 +66,7 @@ public class TradeControllerTest {
 
     @Test
     public void shouldRedirectToHomeAfterHandlingGoodTrade() throws Exception {
-        ModelAndView modelAndView = tradeController.handleTradeRequest(mockedModelMap,
+        ModelAndView modelAndView = tradeController.handleTradeRequest(
                 new ArrayList<String>(),
                 new ArrayList<String>(),
                 new ArrayList<String>(),
@@ -83,7 +83,7 @@ public class TradeControllerTest {
         List<String> ages = new ArrayList<String>();
         List<String> newTeams = new ArrayList<String>();
 
-        tradeController.handleTradeRequest(mockedModelMap,
+        tradeController.handleTradeRequest(
                 names, currentTeams, numbers, ages, newTeams);
 
         verify(mockedTradeService).tradePlayers(names, currentTeams, numbers, ages, newTeams);
