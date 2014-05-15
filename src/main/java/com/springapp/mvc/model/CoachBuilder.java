@@ -5,6 +5,22 @@ public class CoachBuilder {
     private String team = "Default Team";
     private String position = "Default Position";
 
+    public static Coach buildCoachFrom(String line) {
+        String[] coachFields = line.split(",");
+        if (coachFields.length > 3) {
+            throw new RuntimeException("Too many fields");
+        }
+
+        String name = coachFields[0];
+        String team = coachFields[1];
+        String position = coachFields[2];
+
+        return new CoachBuilder().withName(name)
+                .withTeam(team)
+                .withPosition(position)
+                .build();
+    }
+
     public CoachBuilder withName(String name) {
         this.name = name;
         return this;

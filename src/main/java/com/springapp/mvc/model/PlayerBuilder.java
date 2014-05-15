@@ -6,6 +6,23 @@ public class PlayerBuilder {
     private String number = "Default Number";
     private int age = 20;
 
+    public static Player buildPlayerFrom(String line) {
+        String[] playerFields = line.split(",");
+        if (playerFields.length > 4) {
+            throw new RuntimeException("Too many fields");
+        }
+        String name = playerFields[0];
+        String team = playerFields[1];
+        String number = playerFields[2];
+        int age = Integer.parseInt(playerFields[3]);
+
+        return new PlayerBuilder().withName(name)
+                .withTeam(team)
+                .withNumber(number)
+                .withAge(age)
+                .build();
+    }
+
     public PlayerBuilder withName(String name) {
         this.name = name;
         return this;

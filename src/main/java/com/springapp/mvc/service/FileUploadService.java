@@ -19,10 +19,10 @@ public class FileUploadService {
 
     public Set<Player> createPlayersFrom(MultipartFile file) {
         Set<Player> players = new HashSet<Player>();
-
         Set<String> fileLines = getFileLines(file);
+
         for (String line : fileLines) {
-            players.add(buildPlayerFrom(line));
+            players.add(PlayerBuilder.buildPlayerFrom(line));
         }
 
         return players;
@@ -30,10 +30,10 @@ public class FileUploadService {
 
     public Set<Coach> createCoachesFrom(MultipartFile file) {
         Set<Coach> coaches = new HashSet<Coach>();
-
         Set<String> fileLines = getFileLines(file);
+
         for (String line : fileLines) {
-            coaches.add(buildCoachFrom(line));
+            coaches.add(CoachBuilder.buildCoachFrom(line));
         }
 
         return coaches;
@@ -55,36 +55,4 @@ public class FileUploadService {
         return fileLines;
     }
 
-    private Player buildPlayerFrom(String line) {
-        String[] playerFields = line.split(",");
-        if (playerFields.length > 4) {
-            throw new RuntimeException("Too many fields");
-        }
-        String name = playerFields[0];
-        String team = playerFields[1];
-        String number = playerFields[2];
-        int age = Integer.parseInt(playerFields[3]);
-
-        return new PlayerBuilder().withName(name)
-                .withTeam(team)
-                .withNumber(number)
-                .withAge(age)
-                .build();
-    }
-
-    private Coach buildCoachFrom(String line) {
-        String[] coachFields = line.split(",");
-        if (coachFields.length > 3) {
-            throw new RuntimeException("Too many fields");
-        }
-
-        String name = coachFields[0];
-        String team = coachFields[1];
-        String position = coachFields[2];
-
-        return new CoachBuilder().withName(name)
-                .withTeam(team)
-                .withPosition(position)
-                .build();
-    }
 }
