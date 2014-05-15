@@ -1,7 +1,6 @@
 package com.springapp.mvc.controller;
 
 import com.springapp.mvc.model.Player;
-import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class PlayerFinderController {
     private final PlayerService playerService;
-    private final CoachService coachService;
 
     @Autowired
-    public PlayerFinderController(PlayerService playerService, CoachService coachService) {
+    public PlayerFinderController(PlayerService playerService) {
         this.playerService = playerService;
-        this.coachService = coachService;
     }
 
     @RequestMapping(value = "/find", method = RequestMethod.GET)

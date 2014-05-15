@@ -1,11 +1,8 @@
 package com.springapp.mvc.unit.controller;
 
 import com.springapp.mvc.controller.PlayerFinderController;
-import com.springapp.mvc.model.Coach;
-import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
 import com.springapp.mvc.model.PlayerBuilder;
-import com.springapp.mvc.service.CoachService;
 import com.springapp.mvc.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,29 +22,21 @@ public class PlayerFinderControllerTest {
     @Mock
     private PlayerService stubbedPlayerService;
     @Mock
-    private CoachService stubbedCoachService;
-    @Mock
     private ModelMap mockedModelMap;
 
     private PlayerFinderController controller;
     private Set<Player> players;
-    private Set<Coach> coaches;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new PlayerFinderController(stubbedPlayerService, stubbedCoachService);
+        controller = new PlayerFinderController(stubbedPlayerService);
 
         players = new HashSet<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
         players.add(new PlayerBuilder().withName("Sally").withNumber("1").build());
 
-        coaches = new HashSet<Coach>();
-        coaches.add(new CoachBuilder().withName("Jack").build());
-        coaches.add(new CoachBuilder().withName("Jill").build());
-
         when(stubbedPlayerService.getPlayers()).thenReturn(players);
-        when(stubbedCoachService.getCoaches()).thenReturn(coaches);
     }
 
     @Test
