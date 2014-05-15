@@ -1,5 +1,5 @@
 .score-form {
-    width: 343px;
+    width: 400px;
 }
 
 .score-team {
@@ -9,4 +9,9 @@
 
 .score-submit {
     float: right;
+}
+
+.score-submit #submit
+{
+    margin-right: 38px;
 }
