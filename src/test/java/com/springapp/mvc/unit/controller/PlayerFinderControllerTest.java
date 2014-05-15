@@ -1,6 +1,5 @@
 package com.springapp.mvc.unit.controller;
 
-
 import com.springapp.mvc.controller.PlayerFinderController;
 import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.CoachBuilder;
@@ -66,8 +65,8 @@ public class PlayerFinderControllerTest {
     @Test
     public void shouldPassAnErrorToTheViewWhenFindingAPlayerWithNoMatches() {
         when(stubbedPlayerService.findPlayerByName(anyString())).thenReturn(null);
-
         Player player = new PlayerBuilder().withName("NonMatchingPlayer").withNumber("91239").build();
+
         ModelAndView modelAndView = controller.findPlayer(player);
 
         assertTrue(modelAndView.getModelMap().containsKey("error"));

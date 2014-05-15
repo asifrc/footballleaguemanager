@@ -1,6 +1,6 @@
 package com.springapp.mvc.unit.controller;
 
-import com.springapp.mvc.controller.HomeController;
+import com.springapp.mvc.controller.PlayerFilterController;
 import com.springapp.mvc.model.Coach;
 import com.springapp.mvc.model.CoachBuilder;
 import com.springapp.mvc.model.Player;
@@ -11,15 +11,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-public class HomeControllerTest {
+public class PlayerFilterControllerTest {
     @Mock
     PlayerService stubbedPlayerService;
     @Mock
@@ -27,14 +28,14 @@ public class HomeControllerTest {
     @Mock
     ModelMap mockedModelMap;
 
-    private HomeController controller;
+    private PlayerFilterController controller;
     private Set<Player> players;
     private Set<Coach> coaches;
 
     @Before
     public void setUp() {
         initMocks(this);
-        controller = new HomeController(stubbedPlayerService, stubbedCoachService);
+        controller = new PlayerFilterController(stubbedPlayerService, stubbedCoachService);
 
         players = new HashSet<Player>();
         players.add(new PlayerBuilder().withName("Bob").withNumber("0").build());
@@ -49,21 +50,10 @@ public class HomeControllerTest {
     }
 
     @Test
-    public void shouldGetPlayersFromPlayerServiceWhenListingPlayers() {
-        controller.listPlayersAndCoaches(mockedModelMap);
-        verify(stubbedPlayerService).getPlayers();
-    }
+    public void shouldRenderFilteredPlayerListAfterFilteringPlayers() {
+        ModelAndView modelAndView = controller.filterPlayers(mockedModelMap, "18");
 
-    @Test
-    public void shouldGetCoachesFromCoachServiceWhenListingCoaches() {
-        controller.listPlayersAndCoaches(mockedModelMap);
-        verify(stubbedCoachService).getCoaches();
-    }
-
-    @Test
-    public void shouldAddAttributeToModelWhenListingPlayers() {
-        controller.listPlayersAndCoaches(mockedModelMap);
-        verify(mockedModelMap).addAttribute("players", players);
+        assertTrue(modelAndView.getViewName().equals("filteredPlayers"));
     }
 
 }
